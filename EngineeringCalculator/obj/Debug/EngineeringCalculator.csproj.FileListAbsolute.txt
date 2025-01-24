@@ -8,3 +8,13 @@ C:\Users\valer\source\repos\EngineeringCalculator\obj\Debug\EngineeringCalculato
 C:\Users\valer\source\repos\EngineeringCalculator\obj\Debug\EngineeringCalculator.exe
 C:\Users\valer\source\repos\EngineeringCalculator\obj\Debug\EngineeringCalculator.pdb
 C:\Users\valer\source\repos\EngineeringCalculator\obj\Debug\EngineeringCalculator.Form1.resources
+C:\Users\valer\OneDrive\Documents\GitHub\Engineering-calculator\EngineeringCalculator\bin\Debug\EngineeringCalculator.exe.config
+C:\Users\valer\OneDrive\Documents\GitHub\Engineering-calculator\EngineeringCalculator\bin\Debug\EngineeringCalculator.exe
+C:\Users\valer\OneDrive\Documents\GitHub\Engineering-calculator\EngineeringCalculator\bin\Debug\EngineeringCalculator.pdb
+C:\Users\valer\OneDrive\Documents\GitHub\Engineering-calculator\EngineeringCalculator\obj\Debug\EngineeringCalculator.csproj.AssemblyReference.cache
+C:\Users\valer\OneDrive\Documents\GitHub\Engineering-calculator\EngineeringCalculator\obj\Debug\EngineeringCalculator.Form1.resources
+C:\Users\valer\OneDrive\Documents\GitHub\Engineering-calculator\EngineeringCalculator\obj\Debug\EngineeringCalculator.Properties.Resources.resources
+C:\Users\valer\OneDrive\Documents\GitHub\Engineering-calculator\EngineeringCalculator\obj\Debug\EngineeringCalculator.csproj.GenerateResource.cache
+C:\Users\valer\OneDrive\Documents\GitHub\Engineering-calculator\EngineeringCalculator\obj\Debug\EngineeringCalculator.csproj.CoreCompileInputs.cache
+C:\Users\valer\OneDrive\Documents\GitHub\Engineering-calculator\EngineeringCalculator\obj\Debug\EngineeringCalculator.exe
+C:\Users\valer\OneDrive\Documents\GitHub\Engineering-calculator\EngineeringCalculator\obj\Debug\EngineeringCalculator.pdb

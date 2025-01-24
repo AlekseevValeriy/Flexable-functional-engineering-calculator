@@ -274,6 +274,7 @@
             this.buttonEqually.TabIndex = 37;
             this.buttonEqually.Text = "=";
             this.buttonEqually.UseVisualStyleBackColor = true;
+            this.buttonEqually.Click += new System.EventHandler(this.buttonEqually_Click);
             // 
             // buttonOne
             // 
@@ -693,6 +694,7 @@
             this.buttonClear.TabIndex = 6;
             this.buttonClear.Text = "C";
             this.buttonClear.UseVisualStyleBackColor = true;
+            this.buttonClear.Click += new System.EventHandler(this.buttonClear_Click);
             // 
             // buttonSecondFunctionalityTrigonometry
             // 
@@ -751,6 +753,7 @@
             this.buttonBackspace.TabIndex = 7;
             this.buttonBackspace.Text = "⌫";
             this.buttonBackspace.UseVisualStyleBackColor = true;
+            this.buttonBackspace.Click += new System.EventHandler(this.buttonBackspace_Click);
             // 
             // buttonеTan
             // 

@@ -1,107 +1,187 @@
 ﻿using System;
-using static System.Console;
-using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrackBar;
+using System.Diagnostics;
 
 namespace EngineeringCalculator
 {
     public partial class Form1 : Form
     {
         private ExpressionStack expStack = new ExpressionStack();
-        private static Dictionary<Operators, String> operatorsDictionary = new Dictionary<Operators, String>();
+        private static Dictionary<Operation, String> OperationDictionary = new Dictionary<Operation, String>();
 
-        private enum Operators
+        private enum Operation
         {
-            Add,
-            Subtrack,
-            Multiply,
-            Division
+            Add = 0,
+            Subtrack = 0,
+            Multiply = 1,
+            Division = 1
         }
 
         public Form1()
         {
             InitializeComponent();
-            expStack.Change += ExpressionViewChange;
+             expStack.Change += ExpressionViewChange;
+            //expStack.Change += DebugExpressionViewChange;
             FillDictionary();
         }
 
         private static void FillDictionary()
         {
-            operatorsDictionary.Add(Operators.Add, "+");
-            operatorsDictionary.Add(Operators.Subtrack, "-");
-            operatorsDictionary.Add(Operators.Multiply, "*");
-            operatorsDictionary.Add(Operators.Division, "/");
+            OperationDictionary.Add(Operation.Add, "+");
+            OperationDictionary.Add(Operation.Subtrack, "-");
+            OperationDictionary.Add(Operation.Multiply, "*");
+            OperationDictionary.Add(Operation.Division, "/");
         }
 
-        private void ExpressionViewChange(ref List<Object> expression)
+        private void ExpressionViewChange()
         {
             Result.Text = String.Join(" ", expStack.TextView());
         }
 
-	    private void Form1_Load(object sender, EventArgs e)
+        private void DebugExpressionViewChange()
+        {
+            List<String> expression = expStack.TextView().ToList<String>();
+            for (int i = 0; i < expression.Count; i++)
+            {
+                expression[i] = $"'{expression[i]}'";
+            }
+            Result.Text = String.Join(" ", expression);
+        }
+
+
+        private void Form1_Load(object sender, EventArgs e)
         {
 
         }
 
         private class ExpressionStack
         {
-            public delegate void ExpressionHandler(ref List<Object> expression);
+            public delegate void ExpressionHandler();
             public event ExpressionHandler Change;
-            private List<Object> expressionStack = new List<Object>(); // contains String and Operators
+            private List<Object> expressionStack = new List<Object>(); // contains String and Operation
+            private Object Last { get => expressionStack.Last(); set => expressionStack[expressionStack.Count - 1] = value; }
+            private Int32 Count { get => expressionStack.Count(); }
+
 
             public void Add(String value)
             {
-                if (expressionStack.Count() == 0) { expressionStack.Add(value); Change.Invoke(ref expressionStack); return; }
-                switch (expressionStack.Last())
+                if (Count == 0) { expressionStack.Add(value); Change.Invoke(); return; }
+                switch (Last)
                 {
                     case String number:
                         {
-                            expressionStack[expressionStack.Count - 1] = (Object)(number + value);
+                            if (number == "0")
+                            {
+                                if (value != "0") Last = (Object)value;
+                                else { }
+                            }
+                            else Last = (Object)(number + value);
                             goto default;
                         }
-                    case Operators _:
+                    case Operation _:
                         {
                             expressionStack.Add(value);
                             goto default;
                         }
                     default:
                         {
-                            Change.Invoke(ref expressionStack);
+                             Change.Invoke();
                             break;
                         }
                 }
             }
 
-            public void Add(Operators operation)
+            public void Set(String value)
             {
-                if (expressionStack.Count() == 0) { expressionStack.Add(operation); Change.Invoke(ref expressionStack); return; }
-                switch (expressionStack.Last())
+                if (Count == 0) { expressionStack.Add(value); Change.Invoke(); return; }
+                switch (Last)
+                {
+                    case String _:
+                        {
+                            Last = (Object)(value);
+                            goto default;
+                        }
+                    case Operation _:
+                        {
+                            expressionStack.Add(value);
+                            goto default;
+                        }
+                    default:
+                        {
+                            Change.Invoke();
+                            break;
+                        }
+                }
+            }
+
+            public void Add(Operation operation)
+            {
+                if (Count == 0) { expressionStack.Add(operation);  Change.Invoke(); return; }
+                switch (Last)
                 {
                     case String number:
                         {
                             expressionStack.Add(operation);
                             goto default;
                         }
-                    case Operators _:
+                    case Operation _:
                         {
-                            expressionStack[expressionStack.Count - 1] = (Object)(operation);
+                            Last = (Object)(operation);
                             goto default;
                         }
                     default:
                         {
-                            Change.Invoke(ref expressionStack);
+                             Change.Invoke();
                             break;
                         }
                 }
+            }
+
+            public void Delete()
+            {
+                if (Count == 0) { return; }
+                switch (Last)
+                {
+                    case String number:
+                        {
+                            if (number.Length == 1) { expressionStack.RemoveAt(Count - 1); }
+                            else { Last = number.Remove(number.Length - 1); }
+                            goto default;
+                        }
+                    case Operation _:
+                        {
+                            expressionStack.RemoveAt(Count - 1);
+                            goto default;
+                        }
+                    default:
+                        {
+                            Change.Invoke();
+                            break;
+                        }
+                }
+            }
+
+            public Int32 CountOf(Object obj) => expressionStack.Count(x => x == obj);
+
+            public void Calculate()
+            {
+                Dictionary<Int32, Operation> operations = new Dictionary<Int32, Operation>();
+                for (Int32 I = 0; I < Count; I++)
+                {
+                    if (expressionStack[I] is Operation) operations[I] = (Operation)expressionStack[I];
+                }
+                var order =
+                    from operation in operations
+                    orderby (Int32)operation.Value, operation.Key
+                    select new { Operation = operation.Value, Index = operation.Key };
+                foreach (var operation in order)
+                {
+                    //
+                }
+
             }
 
             public IEnumerable<String> TextView()
@@ -111,15 +191,17 @@ namespace EngineeringCalculator
                     switch (obj)
                     {
                         case String value: { yield return value; continue; }
-                        case Operators operation: { yield return operatorsDictionary[operation]; continue; }
+                        case Operation operation: { yield return OperationDictionary[operation]; continue; }
                     }
                 }
             }
+
+            public void Clear() { expressionStack.Clear(); Change.Invoke(); }
         }
 
         private void buttonZero_Click(object sender, EventArgs e)
         {
-            expStack.Add("1");
+            expStack.Add("0");
         }
 
         private void buttonOne_Click(object sender, EventArgs e)
@@ -169,22 +251,37 @@ namespace EngineeringCalculator
 
         private void buttonAdd_Click(object sender, EventArgs e)
         {
-            expStack.Add(Operators.Add);
+            expStack.Add(Operation.Add);
         }
 
         private void buttonSubtract_Click(object sender, EventArgs e)
         {
-            expStack.Add(Operators.Subtrack);
+            expStack.Add(Operation.Subtrack);
         }
 
         private void buttonMultiply_Click(object sender, EventArgs e)
         {
-            expStack.Add(Operators.Multiply);
+            expStack.Add(Operation.Multiply);
         }
 
         private void buttonDivision_Click(object sender, EventArgs e)
         {
-            expStack.Add(Operators.Division);
+            expStack.Add(Operation.Division);
+        }
+
+        private void buttonBackspace_Click(object sender, EventArgs e)
+        {
+            expStack.Delete();
+        }
+
+        private void buttonClear_Click(object sender, EventArgs e)
+        {
+            expStack.Clear();
+        }
+
+        private void buttonEqually_Click(object sender, EventArgs e)
+        {
+            expStack.Calculate();
         }
     }
 }
