@@ -98,9 +98,9 @@
             this.Result.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Result.Location = new System.Drawing.Point(3, 3);
             this.Result.Name = "Result";
-            this.Result.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.Result.ReadOnly = true;
             this.Result.Size = new System.Drawing.Size(349, 29);
-            this.Result.TabIndex = 0;
+            this.Result.TabIndex = 100;
             // 
             // tableLayoutPanel1
             // 
@@ -208,7 +208,6 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonSign.AutoSize = true;
-            this.buttonSign.Enabled = false;
             this.buttonSign.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonSign.Location = new System.Drawing.Point(74, 363);
             this.buttonSign.Name = "buttonSign";
@@ -216,6 +215,7 @@
             this.buttonSign.TabIndex = 34;
             this.buttonSign.Text = "±";
             this.buttonSign.UseVisualStyleBackColor = true;
+            this.buttonSign.Click += new System.EventHandler(this.buttonSign_Click);
             // 
             // buttonZero
             // 
@@ -227,7 +227,7 @@
             this.buttonZero.Location = new System.Drawing.Point(145, 363);
             this.buttonZero.Name = "buttonZero";
             this.buttonZero.Size = new System.Drawing.Size(65, 30);
-            this.buttonZero.TabIndex = 35;
+            this.buttonZero.TabIndex = 0;
             this.buttonZero.Text = "0";
             this.buttonZero.UseVisualStyleBackColor = true;
             this.buttonZero.Click += new System.EventHandler(this.buttonZero_Click);
@@ -238,7 +238,6 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonFloat.AutoSize = true;
-            this.buttonFloat.Enabled = false;
             this.buttonFloat.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonFloat.Location = new System.Drawing.Point(216, 363);
             this.buttonFloat.Name = "buttonFloat";
@@ -246,6 +245,7 @@
             this.buttonFloat.TabIndex = 36;
             this.buttonFloat.Text = ",";
             this.buttonFloat.UseVisualStyleBackColor = true;
+            this.buttonFloat.Click += new System.EventHandler(this.buttonFloat_Click);
             // 
             // buttonLog
             // 
@@ -483,7 +483,7 @@
             this.buttonSquareRoot.Name = "buttonSquareRoot";
             this.buttonSquareRoot.Size = new System.Drawing.Size(65, 30);
             this.buttonSquareRoot.TabIndex = 13;
-            this.buttonSquareRoot.Text = "√x";
+            this.buttonSquareRoot.Text = "²√x";
             this.buttonSquareRoot.UseVisualStyleBackColor = true;
             // 
             // buttonOpen
@@ -627,7 +627,6 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonSecondFunctionalityМathematics.AutoSize = true;
-            this.buttonSecondFunctionalityМathematics.Enabled = false;
             this.buttonSecondFunctionalityМathematics.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonSecondFunctionalityМathematics.Location = new System.Drawing.Point(3, 147);
             this.buttonSecondFunctionalityМathematics.Name = "buttonSecondFunctionalityМathematics";
@@ -635,6 +634,7 @@
             this.buttonSecondFunctionalityМathematics.TabIndex = 3;
             this.buttonSecondFunctionalityМathematics.Text = "2ⁿᵈ";
             this.buttonSecondFunctionalityМathematics.UseVisualStyleBackColor = true;
+            this.buttonSecondFunctionalityМathematics.Click += new System.EventHandler(this.buttonSecondFunctionalityМathematics_Click);
             // 
             // buttonPi
             // 
@@ -702,14 +702,15 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonSecondFunctionalityTrigonometry.AutoSize = true;
-            this.buttonSecondFunctionalityTrigonometry.Enabled = false;
+            this.buttonSecondFunctionalityTrigonometry.BackColor = System.Drawing.SystemColors.Control;
             this.buttonSecondFunctionalityTrigonometry.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonSecondFunctionalityTrigonometry.Location = new System.Drawing.Point(3, 111);
             this.buttonSecondFunctionalityTrigonometry.Name = "buttonSecondFunctionalityTrigonometry";
             this.buttonSecondFunctionalityTrigonometry.Size = new System.Drawing.Size(65, 30);
             this.buttonSecondFunctionalityTrigonometry.TabIndex = 0;
             this.buttonSecondFunctionalityTrigonometry.Text = "hyp";
-            this.buttonSecondFunctionalityTrigonometry.UseVisualStyleBackColor = true;
+            this.buttonSecondFunctionalityTrigonometry.UseVisualStyleBackColor = false;
+            this.buttonSecondFunctionalityTrigonometry.Click += new System.EventHandler(this.buttonSecondFunctionalityTrigonometry_Click);
             // 
             // buttonSin
             // 
@@ -737,8 +738,9 @@
             this.buttonCos.Name = "buttonCos";
             this.buttonCos.Size = new System.Drawing.Size(65, 30);
             this.buttonCos.TabIndex = 0;
-            this.buttonCos.Text = "con";
+            this.buttonCos.Text = "cos";
             this.buttonCos.UseVisualStyleBackColor = true;
+            this.buttonCos.Click += new System.EventHandler(this.buttonCos_Click);
             // 
             // buttonBackspace
             // 
