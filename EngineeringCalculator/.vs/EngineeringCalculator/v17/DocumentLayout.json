@@ -9,10 +9,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{7CF2E3DD-A2B7-4E55-AE43-40B6B6A61995}|EngineeringCalculator.csproj|C:\\Users\\valer\\OneDrive\\Documents\\GitHub\\Engineering-calculator\\EngineeringCalculator\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{7CF2E3DD-A2B7-4E55-AE43-40B6B6A61995}|EngineeringCalculator.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7CF2E3DD-A2B7-4E55-AE43-40B6B6A61995}|EngineeringCalculator.csproj|C:\\Users\\valer\\OneDrive\\Documents\\GitHub\\Engineering-calculator\\EngineeringCalculator\\form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7CF2E3DD-A2B7-4E55-AE43-40B6B6A61995}|EngineeringCalculator.csproj|solutionrelative:form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,21 +18,8 @@
       "DocumentGroups": [
         {
           "DockedHeight": 294,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 5,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Form1.cs",
-              "DocumentMoniker": "C:\\Users\\valer\\OneDrive\\Documents\\GitHub\\Engineering-calculator\\EngineeringCalculator\\Form1.cs",
-              "RelativeDocumentMoniker": "Form1.cs",
-              "ToolTip": "C:\\Users\\valer\\OneDrive\\Documents\\GitHub\\Engineering-calculator\\EngineeringCalculator\\Form1.cs",
-              "RelativeToolTip": "Form1.cs",
-              "ViewState": "AgIAAHIDAAAASN+YNgH9v4ADAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-24T19:13:03.852Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
@@ -50,6 +33,10 @@
               "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
             },
             {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "Form1.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
@@ -58,20 +45,20 @@
               "ToolTip": "C:\\Users\\valer\\OneDrive\\Documents\\GitHub\\Engineering-calculator\\EngineeringCalculator\\Form1.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
               "RelativeToolTip": "Form1.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-24T19:23:03.503Z",
+              "WhenOpened": "2025-01-27T20:07:06.406Z",
               "EditorCaption": " [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Form1.Designer.cs",
-              "DocumentMoniker": "C:\\Users\\valer\\OneDrive\\Documents\\GitHub\\Engineering-calculator\\EngineeringCalculator\\Form1.Designer.cs",
-              "RelativeDocumentMoniker": "Form1.Designer.cs",
-              "ToolTip": "C:\\Users\\valer\\OneDrive\\Documents\\GitHub\\Engineering-calculator\\EngineeringCalculator\\Form1.Designer.cs",
-              "RelativeToolTip": "Form1.Designer.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAJAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "Form1.cs",
+              "DocumentMoniker": "C:\\Users\\valer\\OneDrive\\Documents\\GitHub\\Engineering-calculator\\EngineeringCalculator\\Form1.cs",
+              "RelativeDocumentMoniker": "Form1.cs",
+              "ToolTip": "C:\\Users\\valer\\OneDrive\\Documents\\GitHub\\Engineering-calculator\\EngineeringCalculator\\Form1.cs",
+              "RelativeToolTip": "Form1.cs",
+              "ViewState": "AgIAAGMCAAAAAAAAAAAswJsCAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-24T19:17:53.324Z",
+              "WhenOpened": "2025-01-24T19:13:03.852Z",
               "EditorCaption": ""
             }
           ]

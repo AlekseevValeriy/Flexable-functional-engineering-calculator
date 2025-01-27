@@ -3,23 +3,19 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
-using System.Diagnostics;
-using static System.Windows.Forms.LinkLabel;
-using System.Dynamic;
 using System.Threading;
 using static System.Math;
 using System.Collections;
-using System.Diagnostics.Eventing.Reader;
 
 namespace EngineeringCalculator
 {
     public partial class Form1 : Form
     {
-        private ExpressionStack expStack = new ExpressionStack();
-        private static Dictionary<Operation, String> OperationDictionary = new Dictionary<Operation, String>();
-        private static Dictionary<Modifier, String> ModifierDictionary = new Dictionary<Modifier, String>();
-        private static Dictionary<Constant, String> ConstantDictionary = new Dictionary<Constant, String>();
-        private static Dictionary<Special, String> SpecialDictionary = new Dictionary<Special, String>();
+        private readonly ExpressionStack expStack = new ExpressionStack();
+        private static readonly Dictionary<Operation, String> OperationDictionary = new Dictionary<Operation, String>();
+        private static readonly Dictionary<Modifier, String> ModifierDictionary = new Dictionary<Modifier, String>();
+        private static readonly Dictionary<Constant, String> ConstantDictionary = new Dictionary<Constant, String>();
+        private static readonly Dictionary<Special, String> SpecialDictionary = new Dictionary<Special, String>();
 
         private Boolean IsStandardМathematics = true;
         private Boolean IsStandardTrigonometry = true;
@@ -131,14 +127,14 @@ namespace EngineeringCalculator
                 buttonDecimalLog.Text = "logᵧx";
                 buttonTenPowerOfX.Text = "2ᵡ";
                 buttonXPowerOfY.Text = "ʸ√x";
-                button.Text = "³√x";
+                buttonSquareRoot.Text = "³√x";
                 buttonXSquared.Text = "x³";
-                buttonSin.Text = buttonSin.Text + "¯¹";
-                buttonCos.Text = buttonCos.Text + "¯¹";
-                buttonTan.Text = buttonTan.Text + "¯¹";
-                buttonSec.Text = buttonSec.Text + "¯¹";
-                buttonCsc.Text = buttonCsc.Text + "¯¹";
-                buttonCot.Text = buttonCot.Text + "¯¹";
+                buttonSin.Text = buttonSin.Text + "⁻¹";
+                buttonCos.Text = buttonCos.Text + "⁻¹";
+                buttonTan.Text = buttonTan.Text + "⁻¹";
+                buttonSec.Text = buttonSec.Text + "⁻¹";
+                buttonCsc.Text = buttonCsc.Text + "⁻¹";
+                buttonCot.Text = buttonCot.Text + "⁻¹";
             }
             else 
             {
@@ -146,14 +142,14 @@ namespace EngineeringCalculator
                 buttonDecimalLog.Text = "log";
                 buttonTenPowerOfX.Text = "10ᵡ";
                 buttonXPowerOfY.Text = "xʸ";
-                button.Text = "²√x";
+                buttonSquareRoot.Text = "²√x";
                 buttonXSquared.Text = "x²";
-                buttonSin.Text = buttonSin.Text.Replace("¯¹", String.Empty);
-                buttonCos.Text = buttonCos.Text.Replace("¯¹", String.Empty);
-                buttonTan.Text = buttonTan.Text.Replace("¯¹", String.Empty);
-                buttonSec.Text = buttonSec.Text.Replace("¯¹", String.Empty);
-                buttonCsc.Text = buttonCsc.Text.Replace("¯¹", String.Empty);
-                buttonCot.Text = buttonCot.Text.Replace("¯¹", String.Empty);
+                buttonSin.Text = buttonSin.Text.Replace("⁻¹", String.Empty);
+                buttonCos.Text = buttonCos.Text.Replace("⁻¹", String.Empty);
+                buttonTan.Text = buttonTan.Text.Replace("⁻¹", String.Empty);
+                buttonSec.Text = buttonSec.Text.Replace("⁻¹", String.Empty);
+                buttonCsc.Text = buttonCsc.Text.Replace("⁻¹", String.Empty);
+                buttonCot.Text = buttonCot.Text.Replace("⁻¹", String.Empty);
 
             }
             IsStandardМathematics = !IsStandardМathematics;
@@ -187,7 +183,7 @@ namespace EngineeringCalculator
             public delegate void ExpressionHandler();
             public event ExpressionHandler Change;
             private List<Object> expressionStack = new List<Object>(); // contains String and Operation
-            private ModifierStack modStack = new ModifierStack();
+            private readonly ModifierStack modStack = new ModifierStack();
             private Object Last { get => expressionStack.Last(); set => expressionStack[expressionStack.Count - 1] = value; }
             private Int32 Count { get => expressionStack.Count(); }
 
@@ -321,7 +317,7 @@ namespace EngineeringCalculator
 
             public void Add(Modifier modifier)
             {
-                if (Count == 0) { expressionStack.Add(modifier); return; }
+                if (Count == 0) { expressionStack.Add(modifier); Change.Invoke(); return; }
                 switch (Last)
                 {
                     case String _:
@@ -361,6 +357,7 @@ namespace EngineeringCalculator
                 if (Count == 0) 
                 {
                     if (special is Special.Start) expressionStack.Add(special);
+                    Change.Invoke();
                     return; 
                 }
                 switch (Last)
@@ -427,7 +424,7 @@ namespace EngineeringCalculator
                     Sign
                 }
 
-                private ArrayList modifierStack = new ArrayList();
+                private readonly ArrayList modifierStack = new ArrayList();
 
                 private void BuildStack(ref List<Object> expStack)
                 {
@@ -448,55 +445,66 @@ namespace EngineeringCalculator
                             case Special special:
                                 {
                                     if (special is Special.Next) SetNext();
-                                    else if (special is Special.Next) SetEnd();
+                                    else if (special is Special.End) SetEnd();
                                     break;
                                 }
                         }
                     }
                 }
-
-                public Boolean CanSetNext(ref List<Object> expStack)
-                {
-                    BuildStack(ref expStack);
-                    ModifierWithParameters result = FirstNeedNext();
-                    modifierStack.Clear();
-                    return result.GetNeed() > 0;
-                }
-
-                public Boolean CanSetEnd(ref List<Object> expStack)
-                {
-                    BuildStack(ref expStack);
-                    ModifierWithParameters result = FirstNeedEnd();
-                    modifierStack.Clear();
-                    return result.GetNeed() > 0;
-                }
-
                 public void SetModifier(Operand operand)
                 {
                     if (operand is Operand.Sign) modifierStack.Add(new ModifierOneParameter());
                     else if (operand is Operand.Binary) modifierStack.Add(new ModifierTwoParameters());
                 }
-
                 private void SetNext()
                 {
-                    FirstNeedNext().Set();
+                    GetFirstNeedNext().Set();
                 }
 
-                private ModifierWithParameters FirstNeedNext()
+                public Boolean CanSetNext(ref List<Object> expStack)
+                {
+                    BuildStack(ref expStack);
+                    Boolean result = FindFirstNeedNext();
+                    modifierStack.Clear();
+                    return result;
+                }
+                private ModifierWithParameters GetFirstNeedNext()
                 {
                     foreach (ModifierWithParameters modifier in modifierStack)
                     {
-                        if (modifier.GetNeed() > 0) return modifier;
+                        if (
+                            (modifier is ModifierOneParameter & modifier.GetNeed() > 0) |
+                            (modifier is ModifierTwoParameters & modifier.GetNeed() == 2)
+                            ) return modifier;
                     }
                     return (ModifierWithParameters)modifierStack[modifierStack.Count - 1];
                 }
 
-                private void SetEnd()
+                private Boolean FindFirstNeedNext()
                 {
-                    FirstNeedEnd().Set();
+                    foreach (ModifierWithParameters modifier in modifierStack)
+                    {
+                        if (
+                            (modifier is ModifierTwoParameters & modifier.GetNeed() == 2)
+                            ) return true;
+                    }
+                    return false;
                 }
 
-                private ModifierWithParameters FirstNeedEnd()
+                private void SetEnd()
+                {
+                    GetFirstNeedEnd().Set();
+                }
+
+                public Boolean CanSetEnd(ref List<Object> expStack)
+                {
+                    BuildStack(ref expStack);
+                    Boolean result = FindFirstNeedEnd();
+                    modifierStack.Clear();
+                    return result;
+                }
+
+                private ModifierWithParameters GetFirstNeedEnd()
                 {
                     foreach (ModifierWithParameters modifier in modifierStack)
                     {
@@ -508,9 +516,21 @@ namespace EngineeringCalculator
                     return (ModifierWithParameters)modifierStack[modifierStack.Count - 1];
                 }
 
+                private Boolean FindFirstNeedEnd()
+                {
+                    foreach (ModifierWithParameters modifier in modifierStack)
+                    {
+                        {
+                            if (modifier.GetNeed() == 1) return true;
+                        }
+                    }
+                    return false;
+                }
+
                 private abstract class ModifierWithParameters
                 {
                     public abstract void Set();
+
                     public abstract Int16 GetNeed();
                 }
 
@@ -538,7 +558,7 @@ namespace EngineeringCalculator
                         if (next == true & end == true) return 0;
                         else if (next == true & end == false) return 1;
                         else if (next == false & end == false) return 2;
-                        else return 0;
+                        return 0;
                     }
                 }
             }
@@ -554,9 +574,25 @@ namespace EngineeringCalculator
                             else Last = number.Remove(number.Length - 1);
                             goto default;
                         }
+                    case Constant constant:
+                        {
+                            Last = GetConstant(constant).ToString();
+                            Last = ((String)Last).Remove(((String)Last).Length - 1);
+                            goto default;
+                        }
                     case Operation _:
                         {
-                            expressionStack.RemoveAt(Count - 1);
+                            expressionStack.RemoveAt(expressionStack.Count - 1);
+                            goto default;
+                        }
+                    case Modifier _:
+                        {
+                            expressionStack.RemoveAt(expressionStack.Count - 1);
+                            goto default;
+                        }
+                    case Special _:
+                        {
+                            expressionStack.RemoveAt(expressionStack.Count - 1);
                             goto default;
                         }
                     default:
@@ -569,7 +605,16 @@ namespace EngineeringCalculator
 
             public static void Calculate(ExpressionStack expStack)
             {
-                if (expStack.Count == 0 || expStack.Last is Operation) { return; }
+                if (expStack.Count == 0 || expStack.Last is Operation | expStack.Last is Modifier) { return; }
+
+                //modifier calculate--------------------------------------------//
+
+                if (!(expStack.expressionStack.Count(x => x is Modifier) == expStack.expressionStack.Count(x => x is Special.End))) return;
+
+
+                //--------------------------------------------------------------//
+
+                //operation calculate-------------------------------------------//
                 var operationsLINQ =
                     from obj in expStack.expressionStack
                     where obj is Operation
@@ -601,6 +646,7 @@ namespace EngineeringCalculator
 
                     expStack.expressionStack[expStack.expressionStack.IndexOf(operation)] = result;
                 }
+                //--------------------------------------------------------------//
 
                 expStack.Change.Invoke();
 
@@ -615,6 +661,11 @@ namespace EngineeringCalculator
                     expStack.expressionStack.RemoveAt(index1);
 
                     return (value1, value2); 
+                }
+
+                String ModifierCapture(Int32 index)
+                {
+
                 }
 
                 String OperationPerforming(String value1, String value2, Expression<Double> expressionDouble, Expression<Int64> expressionInt)
@@ -655,7 +706,7 @@ namespace EngineeringCalculator
 
             public void ToFloat()
             {
-                if (Count == 0 || Last is Operation || ((String)Last).Contains(",")) { return; }
+                if (Count == 0 || !(Last is String) || ((String)Last).Contains(",")) { return; }
 
                 Last = ((String)Last) + ",";
 
@@ -665,7 +716,9 @@ namespace EngineeringCalculator
 
             public void ChangeSign()
             {
-                if (Count == 0 || Last is Operation) { return; }
+                if (Count == 0 || Last is Operation | Last is Modifier | Last is Special) { return; }
+
+                if (Last is Constant) Last = GetConstant((Constant)Last).ToString();
 
                 if (((String)Last).First() == '-') Last = ((String)Last).Remove(0, 1);
                 else Last = "-" + ((String)Last);
@@ -852,12 +905,6 @@ namespace EngineeringCalculator
             else expStack.Add(Modifier.YRootOfX);
         }
 
-        private void button_Click(object sender, EventArgs e)
-        {
-            if (IsStandardМathematics) expStack.Add(Modifier.SquareRootOfX);
-            else expStack.Add(Modifier.CubicRootOfX);
-        }
-
         private void buttonXSquared_Click(object sender, EventArgs e)
         {
             if (IsStandardМathematics) expStack.Add(Modifier.XPowerOfTwo);
@@ -892,6 +939,12 @@ namespace EngineeringCalculator
         private void buttonE_Click(object sender, EventArgs e)
         {
             expStack.Add(Constant.E);
+        }
+
+        private void buttonSquareRoot_Click(object sender, EventArgs e)
+        {
+            if (IsStandardМathematics) expStack.Add(Modifier.SquareRootOfX);
+            else expStack.Add(Modifier.YRootOfX);
         }
     }
 }
