@@ -12,9 +12,9 @@ C:\Users\valer\OneDrive\Documents\GitHub\Engineering-calculator\EngineeringCalcu
 C:\Users\valer\OneDrive\Documents\GitHub\Engineering-calculator\EngineeringCalculator\bin\Debug\EngineeringCalculator.exe
 C:\Users\valer\OneDrive\Documents\GitHub\Engineering-calculator\EngineeringCalculator\bin\Debug\EngineeringCalculator.pdb
 C:\Users\valer\OneDrive\Documents\GitHub\Engineering-calculator\EngineeringCalculator\obj\Debug\EngineeringCalculator.csproj.AssemblyReference.cache
-C:\Users\valer\OneDrive\Documents\GitHub\Engineering-calculator\EngineeringCalculator\obj\Debug\EngineeringCalculator.Form1.resources
 C:\Users\valer\OneDrive\Documents\GitHub\Engineering-calculator\EngineeringCalculator\obj\Debug\EngineeringCalculator.Properties.Resources.resources
 C:\Users\valer\OneDrive\Documents\GitHub\Engineering-calculator\EngineeringCalculator\obj\Debug\EngineeringCalculator.csproj.GenerateResource.cache
 C:\Users\valer\OneDrive\Documents\GitHub\Engineering-calculator\EngineeringCalculator\obj\Debug\EngineeringCalculator.csproj.CoreCompileInputs.cache
 C:\Users\valer\OneDrive\Documents\GitHub\Engineering-calculator\EngineeringCalculator\obj\Debug\EngineeringCalculator.exe
 C:\Users\valer\OneDrive\Documents\GitHub\Engineering-calculator\EngineeringCalculator\obj\Debug\EngineeringCalculator.pdb
+C:\Users\valer\OneDrive\Documents\GitHub\Engineering-calculator\EngineeringCalculator\obj\Debug\EngineeringCalculator.Form.resources

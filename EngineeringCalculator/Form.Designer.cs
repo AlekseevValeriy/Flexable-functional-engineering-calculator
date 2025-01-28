@@ -1,6 +1,6 @@
 ﻿namespace EngineeringCalculator
 {
-    partial class Form1
+    partial class Form
     {
         /// <summary>
         /// Обязательная переменная конструктора.

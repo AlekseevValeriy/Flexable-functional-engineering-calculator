@@ -3,22 +3,34 @@
   "WorkspaceRootPath": "C:\\Users\\valer\\OneDrive\\Documents\\GitHub\\Engineering-calculator\\EngineeringCalculator\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{7CF2E3DD-A2B7-4E55-AE43-40B6B6A61995}|EngineeringCalculator.csproj|C:\\Users\\valer\\OneDrive\\Documents\\GitHub\\Engineering-calculator\\EngineeringCalculator\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{7CF2E3DD-A2B7-4E55-AE43-40B6B6A61995}|EngineeringCalculator.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{7CF2E3DD-A2B7-4E55-AE43-40B6B6A61995}|EngineeringCalculator.csproj|c:\\users\\valer\\onedrive\\documents\\github\\engineering-calculator\\engineeringcalculator\\form.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7CF2E3DD-A2B7-4E55-AE43-40B6B6A61995}|EngineeringCalculator.csproj|solutionrelative:form.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7CF2E3DD-A2B7-4E55-AE43-40B6B6A61995}|EngineeringCalculator.csproj|c:\\users\\valer\\onedrive\\documents\\github\\engineering-calculator\\engineeringcalculator\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7CF2E3DD-A2B7-4E55-AE43-40B6B6A61995}|EngineeringCalculator.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{7CF2E3DD-A2B7-4E55-AE43-40B6B6A61995}|EngineeringCalculator.csproj|C:\\Users\\valer\\OneDrive\\Documents\\GitHub\\Engineering-calculator\\EngineeringCalculator\\globalusings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7CF2E3DD-A2B7-4E55-AE43-40B6B6A61995}|EngineeringCalculator.csproj|solutionrelative:globalusings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7CF2E3DD-A2B7-4E55-AE43-40B6B6A61995}|EngineeringCalculator.csproj|C:\\Users\\valer\\OneDrive\\Documents\\GitHub\\Engineering-calculator\\EngineeringCalculator\\structure.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7CF2E3DD-A2B7-4E55-AE43-40B6B6A61995}|EngineeringCalculator.csproj|solutionrelative:structure.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7CF2E3DD-A2B7-4E55-AE43-40B6B6A61995}|EngineeringCalculator.csproj|C:\\Users\\valer\\OneDrive\\Documents\\GitHub\\Engineering-calculator\\EngineeringCalculator\\visual.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7CF2E3DD-A2B7-4E55-AE43-40B6B6A61995}|EngineeringCalculator.csproj|solutionrelative:visual.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7CF2E3DD-A2B7-4E55-AE43-40B6B6A61995}|EngineeringCalculator.csproj|C:\\Users\\valer\\OneDrive\\Documents\\GitHub\\Engineering-calculator\\EngineeringCalculator\\expressionstack.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7CF2E3DD-A2B7-4E55-AE43-40B6B6A61995}|EngineeringCalculator.csproj|solutionrelative:expressionstack.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
     {
-      "Orientation": 1,
+      "Orientation": 0,
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedHeight": 294,
-          "SelectedChildIndex": 4,
+          "DockedWidth": 136,
+          "SelectedChildIndex": -1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -35,30 +47,76 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            }
+          ]
+        },
+        {
+          "DockedWidth": 264,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "GlobalUsings.cs",
+              "DocumentMoniker": "C:\\Users\\valer\\OneDrive\\Documents\\GitHub\\Engineering-calculator\\EngineeringCalculator\\GlobalUsings.cs",
+              "RelativeDocumentMoniker": "GlobalUsings.cs",
+              "ToolTip": "C:\\Users\\valer\\OneDrive\\Documents\\GitHub\\Engineering-calculator\\EngineeringCalculator\\GlobalUsings.cs*",
+              "RelativeToolTip": "GlobalUsings.cs*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-28T21:14:59.671Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Form1.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
-              "DocumentMoniker": "C:\\Users\\valer\\OneDrive\\Documents\\GitHub\\Engineering-calculator\\EngineeringCalculator\\Form1.cs",
-              "RelativeDocumentMoniker": "Form1.cs",
-              "ToolTip": "C:\\Users\\valer\\OneDrive\\Documents\\GitHub\\Engineering-calculator\\EngineeringCalculator\\Form1.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]*",
-              "RelativeToolTip": "Form1.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]*",
+              "Title": "Form.cs",
+              "DocumentMoniker": "C:\\Users\\valer\\OneDrive\\Documents\\GitHub\\Engineering-calculator\\EngineeringCalculator\\Form.cs",
+              "RelativeDocumentMoniker": "Form.cs",
+              "ToolTip": "C:\\Users\\valer\\OneDrive\\Documents\\GitHub\\Engineering-calculator\\EngineeringCalculator\\Form.cs*",
+              "RelativeToolTip": "Form.cs*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-27T20:07:06.406Z",
-              "EditorCaption": " [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]"
+              "WhenOpened": "2025-01-24T19:13:03.852Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Form1.cs",
-              "DocumentMoniker": "C:\\Users\\valer\\OneDrive\\Documents\\GitHub\\Engineering-calculator\\EngineeringCalculator\\Form1.cs",
-              "RelativeDocumentMoniker": "Form1.cs",
-              "ToolTip": "C:\\Users\\valer\\OneDrive\\Documents\\GitHub\\Engineering-calculator\\EngineeringCalculator\\Form1.cs*",
-              "RelativeToolTip": "Form1.cs*",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAZAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "Structure.cs",
+              "DocumentMoniker": "C:\\Users\\valer\\OneDrive\\Documents\\GitHub\\Engineering-calculator\\EngineeringCalculator\\Structure.cs",
+              "RelativeDocumentMoniker": "Structure.cs",
+              "ToolTip": "C:\\Users\\valer\\OneDrive\\Documents\\GitHub\\Engineering-calculator\\EngineeringCalculator\\Structure.cs",
+              "RelativeToolTip": "Structure.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-24T19:13:03.852Z",
+              "WhenOpened": "2025-01-28T20:13:56.797Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Visual.cs",
+              "DocumentMoniker": "C:\\Users\\valer\\OneDrive\\Documents\\GitHub\\Engineering-calculator\\EngineeringCalculator\\Visual.cs",
+              "RelativeDocumentMoniker": "Visual.cs",
+              "ToolTip": "C:\\Users\\valer\\OneDrive\\Documents\\GitHub\\Engineering-calculator\\EngineeringCalculator\\Visual.cs*",
+              "RelativeToolTip": "Visual.cs*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-28T20:19:06.357Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ExpressionStack.cs",
+              "DocumentMoniker": "C:\\Users\\valer\\OneDrive\\Documents\\GitHub\\Engineering-calculator\\EngineeringCalculator\\ExpressionStack.cs",
+              "RelativeDocumentMoniker": "ExpressionStack.cs",
+              "ToolTip": "C:\\Users\\valer\\OneDrive\\Documents\\GitHub\\Engineering-calculator\\EngineeringCalculator\\ExpressionStack.cs*",
+              "RelativeToolTip": "ExpressionStack.cs*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-28T20:24:15.89Z",
               "EditorCaption": ""
             }
           ]
