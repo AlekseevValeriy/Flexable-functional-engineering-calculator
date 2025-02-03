@@ -64,10 +64,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Calculate.cs" />
+    <Compile Include="Expression.cs" />
     <Compile Include="GlobalUsings.cs" />
     <Compile Include="ExpressionStack.cs" />
-    <Compile Include="Visual.cs" />
-    <Compile Include="Structure.cs" />
+    <Compile Include="Input.cs" />
+    <Compile Include="Output.cs" />
     <Compile Include="Form.cs">
       <SubType>Form</SubType>
     </Compile>
