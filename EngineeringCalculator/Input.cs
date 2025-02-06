@@ -1,4 +1,6 @@
-﻿namespace EngineeringCalculator
+﻿using EngineeringCalculator;
+
+namespace EngineeringCalculator
 {
     internal class InputController
     {
@@ -7,41 +9,47 @@
 
         public void Add(ref List<Composite> expression, Term number)
         {
-            if (expression.Count == 0) expression.Add(number);
+            List<Composite> actualExpression = GetActualExpression(ref expression);
+
+            if (actualExpression.Count == 0) actualExpression.Add(number);
             else 
             { 
-                switch (expression.Last())
+                switch (actualExpression.Last())
                 {
                     case Term lnumber:
                         {
-                            if (lnumber.Record == "0") expression[expression.Count - 1] = number;
-                            else expression[expression.Count - 1].Set = lnumber.Record + number.Record;
+                            if (lnumber.Record == "0") actualExpression[actualExpression.Count - 1] = number;
+                            else actualExpression[actualExpression.Count - 1].Set = lnumber.Record + number.Record;
                             break;
                         }
-                    case Function or Operator or Next or Open: { expression.Add(number); break; }
+                    case Operator or Function or Staples: { expression.Add(number); break; }
                 }
             }
             Update.Invoke();
         }
 
         public void Add(ref List<Composite> expression, Comma comma)
-        { 
-            if (expression.Count != 0 && (expression.Last() is Term & !((Term)expression.Last()).HasDouble))
+        {
+            List<Composite> actualExpression = GetActualExpression(ref expression);
+
+            if (actualExpression.Count != 0 && actualExpression.Last() is Term term && !term.HasDouble)
             {
-                ((Term)expression.Last()).ToDouble();
+                term.ToDouble();
                 Update.Invoke();
             }
         }
 
         public void Add(ref List<Composite> expression, Constanta constanta)
         {
-            if (expression.Count == 0) expression.Add(constanta);
+            List<Composite> actualExpression = GetActualExpression(ref expression);
+
+            if (actualExpression.Count == 0) actualExpression.Add(constanta);
             else
             {
-                switch (expression.Last())
+                switch (actualExpression.Last())
                 {
-                    case Term: { expression[expression.Count - 1] = constanta; break; }
-                    case Function or Operator or Next or Open: { expression.Add(constanta); break; }
+                    case Term: { actualExpression[actualExpression.Count - 1] = constanta; break; }
+                    case Operator or Function or Staples: { actualExpression.Add(constanta); break; }
                 }
             }
             Update.Invoke();
@@ -49,61 +57,38 @@
 
         public void Add(ref List<Composite> expression, Operator operation)
         {
-            if (expression.Count != 0)
+            List<Composite> actualExpression = GetActualExpression(ref expression);
+
+            if (actualExpression.Count != 0)
             {
-                switch (expression.Last())
+                switch (actualExpression.Last())
                 {
-                    case Operator: { expression[expression.Count - 1] = operation; break; }
-                    case Term or End or Close: { expression.Add(operation); break; } 
+                    case Operator: { actualExpression[actualExpression.Count - 1] = operation; break; }
+                    case Term or Function or Staples: { actualExpression.Add(operation); break; } 
                 }
                 Update.Invoke();
             }
         }
 
-        public void Add(ref List<Composite> expression, FunctionName function)
+        public void Add(ref List<Composite> expression, Function function)
         {
-            if (expression.Count == 0 || (
-                expression.Last() is Operator |
-                expression.Last() is Next |
-                expression.Last() is Open
-                ) ) { expression.Add(function); Update.Invoke(); }
+            List<Composite> actualExpression = GetActualExpression(ref expression);
+
+            if (actualExpression.Count == 0 || actualExpression.Last() is Operator) { actualExpression.Add(function); Update.Invoke(); }
         }
 
-        public void Add(ref List<Composite> expression, Next next)
-        { // true -> conflictInspector
-            if (expression.Count != 0 && (
-                (expression.Last() is Term & true) |
-                (expression.Last() is Close & true) |
-                (expression.Last() is End & true)
-                ) ) { expression.Add(next); Update.Invoke(); }
+        public void Add(ref List<Composite> expression, Staples staples)
+        {
+            List<Composite> actualExpression = GetActualExpression(ref expression);
+
+            if (actualExpression.Count == 0 || actualExpression.Last() is Operator) { actualExpression.Add(staples); Update.Invoke(); }
         }
 
-        public void Add(ref List<Composite> expression, End end)
-        { // true -> conflictInspector
-            if (expression.Count != 0 && (
-                (expression.Last() is Term & true) |
-                (expression.Last() is Close & true) |
-                (expression.Last() is End & true)
-                )) { expression.Add(end); Update.Invoke(); }
-        }
-
-        public void Add(ref List<Composite> expression, Open open)
-        { // true -> conflictInspector
-            if (expression.Count == 0 || (
-                (expression.Last() is Operator & true) |
-                (expression.Last() is FunctionName & true) |
-                (expression.Last() is Open & true) |
-                (expression.Last() is Next & true)
-                )) { expression.Add(open); Update.Invoke(); }
-        }
-
-        public void Add(ref List<Composite> expression, Close close)
-        { // true -> conflictInspector
-            if (expression.Count != 0 && (
-                (expression.Last() is Term & true) |
-                (expression.Last() is Close & true) |
-                (expression.Last() is End & true)
-                )) { expression.Add(close); Update.Invoke(); }
+        private List<Composite> GetActualExpression(ref List<Composite> expression)
+        {
+            return expression.Count != 0 && expression.Last() is IExpressionStoreable expressionStoreable ?
+                expressionStoreable.GetActual(ref expression) :
+                expression;
         }
 
         public void DeleteLast(ref List<Composite> expression)
@@ -142,59 +127,3 @@
         }
     }
 }
-
-
-/* variant 1
- 
-public bool IsValid(string s)
-{
-    var count = 0;
-    foreach (var c in s)
-    {
-        if (c == '(')
-            count++;
-
-        if (c == ')')
-        {
-            if (count == 0) return false;
-            count--;
-        }       
-    }
-    return count == 0;
-}
- 
------------------------------
-
-variant 2
-
-public bool IsValid2(string s)
-{
-    var stack = new Stack<char>();  
-    foreach (var c in s)
-    {
-        switch (c)
-        {
-            case '{':
-            case '(':
-            case '[':
-                stack.Push(c);
-                break;
-
-            case '}':
-                if (stack.Count == 0) return false;
-                if (stack.Pop() != '{') return false;
-                break;
-            case ']':
-                if (stack.Count == 0) return false;
-                if (stack.Pop() != '[') return false;
-                break;
-            case ')':
-                if (stack.Count == 0) return false;
-                if (stack.Pop() != '(') return false;
-                break;
-        }
-    }   
-    return stack.Count == 0;
-}
-
- */

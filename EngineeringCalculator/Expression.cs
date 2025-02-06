@@ -1,4 +1,7 @@
-﻿namespace EngineeringCalculator
+﻿using System.Collections;
+using System.Linq.Expressions;
+
+namespace EngineeringCalculator
 {
     internal class Composite
     {
@@ -35,11 +38,11 @@
 
     internal class Operator : Composite
     {
-        EnumOperator mark;
-        public Operator(String meaning, EnumOperator mark) : base(meaning) { this.mark = mark; }
+        OperatorName mark;
+        public Operator(String meaning, OperatorName mark) : base(meaning) { this.mark = mark; }
     }
 
-    public enum EnumOperator
+    public enum OperatorName
     {
         Add = 0,
         Subtrack = 0,
@@ -50,27 +53,79 @@
 
     internal class Function : Composite
     {
-        public Function(String meaning) : base(meaning) { }
+        FunctionName mark;
+        public Function(String meaning, FunctionName mark) : base(meaning) { this.mark = mark; }
     }
 
-    internal class FunctionName : Function
+    internal class BinaryFunction: Function, IExpressionStoreable
     {
-        EnumFunctionName mark;
-        public FunctionName(String meaning, EnumFunctionName mark) : base(meaning) { this.mark = mark; }
+        private List<Composite> firstExpression = new List<Composite>();
+        private List<Composite> secondExpression = new List<Composite>();
+
+        public ref List<Composite> GetFirstExpression() => ref firstExpression;
+        public ref List<Composite> GetSecondExpression() => ref secondExpression;
+
+        public List<Composite> GetActual(ref List<Composite> expression)
+        {
+            if (firstWrite | secondWrite)
+            {
+                List<Composite> actualParameter = firstWrite ? firstExpression : secondExpression;
+                if (actualParameter.Last() is IExpressionStoreable expressionStoreable) return expressionStoreable.GetActual(ref actualParameter);
+                else return actualParameter;
+            }
+            return expression;
+        }
+
+        private Boolean firstWrite = true;
+        private Boolean secondWrite = true;
+
+        public void CloseWrite()
+        {
+            if (firstWrite) firstWrite = false;
+            else if (secondWrite) secondWrite = false;
+        }
+        
+        public BinaryFunction(String meaning, FunctionName mark) : base($"{meaning}{Output.SEPARATOR}(", mark) { }
     }
 
-    public enum EnumFunctionName
+    internal class SingularFunction : Function, IExpressionStoreable
     {
+        public List<Composite> expression = new List<Composite>();
+
+        public ref List<Composite> GetExpression() => ref expression;
+
+        public List<Composite> GetActual(ref List<Composite> expression)
+        {
+            if (write)
+            {
+                if (this.expression.Last() is IExpressionStoreable expressionStoreable) return expressionStoreable.GetActual(ref this.expression);
+                else return this.expression;
+            }
+            return expression;
+        }
+
+        private Boolean write = true;
+        
+        public void CloseWrite()
+        {
+            if (write) write = false;
+        }
+
+        public SingularFunction(String meaning, FunctionName mark) : base($"{meaning}{Output.SEPARATOR}(", mark) { }
+    }
+
+    public enum FunctionName
+    {
+        XPowerOfY, //
+        LogarithmOfXBasedOnY, //
+        YRootOfX, //
         NaturalLogarithm,
         DecimalLogarithm,
         TenPowerOfX,
-        XPowerOfY,
         SquareRootOfX,
         XPowerOfTwo,
         EPowerOfX,
-        LogarithmOfXBasedOnY,
         TwoPowerOfX,
-        YRootOfX,
         CubicRootOfX,
         XPowerOfThree,
         XReverse,
@@ -79,28 +134,34 @@
         NFactorial
     }
 
-    internal class Next : Function
+    internal class Staples : Composite, IExpressionStoreable
     {
-        public Next(String meaning = ",") : base(meaning) { }
+        public List<Composite> expression = new List<Composite>();
+
+        public ref List<Composite> GetExpression() => ref expression;
+
+        public List<Composite> GetActual(ref List<Composite> expression)
+        {
+            if (write)
+            {
+                if (this.expression.Last() is IExpressionStoreable expressionStoreable) return expressionStoreable.GetActual(ref this.expression);
+                else return this.expression;
+            }
+            return expression;
+        }
+
+        private Boolean write = true;
+
+        public void CloseWrite()
+        {
+            if (write) write = false;
+        }
+        public Staples(String meaning = "(") : base(meaning) { }
     }
 
-    internal class End : Function
+    internal interface IExpressionStoreable
     {
-        public End(String meaning = ".") : base(meaning) { }
-    }
-
-    internal class Sign : Composite
-    {
-        public Sign(String meaning = "") : base(meaning) { }
-    }
-
-    internal class Open : Sign
-    {
-        public Open(String meaning = "(") : base(meaning) { }
-    }
-
-    internal class Close : Sign
-    {
-        public Close(String meaning = ")") : base(meaning) { }
+        public List<Composite> GetActual(ref List<Composite> expression);
+        public void CloseWrite();
     }
 }

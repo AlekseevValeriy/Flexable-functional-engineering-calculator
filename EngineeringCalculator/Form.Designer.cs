@@ -31,6 +31,7 @@
             this.Result = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.buttonLn = new System.Windows.Forms.Button();
+            this.buttonNext = new System.Windows.Forms.Button();
             this.buttonSign = new System.Windows.Forms.Button();
             this.buttonZero = new System.Windows.Forms.Button();
             this.buttonFloat = new System.Windows.Forms.Button();
@@ -60,11 +61,7 @@
             this.buttonAbs = new System.Windows.Forms.Button();
             this.buttonExp = new System.Windows.Forms.Button();
             this.buttonSecondFunctionalityМathematics = new System.Windows.Forms.Button();
-            this.buttonPi = new System.Windows.Forms.Button();
-            this.buttonE = new System.Windows.Forms.Button();
             this.buttonModular = new System.Windows.Forms.Button();
-            this.buttonNext = new System.Windows.Forms.Button();
-            this.buttonSecondFunctionalityTrigonometry = new System.Windows.Forms.Button();
             this.buttonSin = new System.Windows.Forms.Button();
             this.buttonCos = new System.Windows.Forms.Button();
             this.buttonBackspace = new System.Windows.Forms.Button();
@@ -85,6 +82,9 @@
             this.buttonMemoryView = new System.Windows.Forms.Button();
             this.buttonToDegrees = new System.Windows.Forms.Button();
             this.buttonChangeView = new System.Windows.Forms.Button();
+            this.buttonE = new System.Windows.Forms.Button();
+            this.buttonPi = new System.Windows.Forms.Button();
+            this.buttonSecondFunctionalityTrigonometry = new System.Windows.Forms.Button();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -95,12 +95,15 @@
             this.Result.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.Result.CausesValidation = false;
             this.Result.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Result.Location = new System.Drawing.Point(3, 3);
             this.Result.Name = "Result";
             this.Result.ReadOnly = true;
+            this.Result.ShortcutsEnabled = false;
             this.Result.Size = new System.Drawing.Size(349, 29);
             this.Result.TabIndex = 100;
+            this.Result.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // tableLayoutPanel1
             // 
@@ -201,6 +204,21 @@
             this.buttonLn.Text = "ln";
             this.buttonLn.UseVisualStyleBackColor = true;
             this.buttonLn.Click += new System.EventHandler(this.buttonLn_Click);
+            // 
+            // buttonNext
+            // 
+            this.buttonNext.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonNext.AutoSize = true;
+            this.buttonNext.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonNext.Location = new System.Drawing.Point(3, 111);
+            this.buttonNext.Name = "buttonNext";
+            this.buttonNext.Size = new System.Drawing.Size(65, 30);
+            this.buttonNext.TabIndex = 6;
+            this.buttonNext.Text = "➞";
+            this.buttonNext.UseVisualStyleBackColor = true;
+            this.buttonNext.Click += new System.EventHandler(this.buttonNext_Click);
             // 
             // buttonSign
             // 
@@ -492,7 +510,6 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOpen.AutoSize = true;
-            this.buttonOpen.Enabled = false;
             this.buttonOpen.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonOpen.Location = new System.Drawing.Point(74, 219);
             this.buttonOpen.Name = "buttonOpen";
@@ -500,6 +517,7 @@
             this.buttonOpen.TabIndex = 14;
             this.buttonOpen.Text = "(";
             this.buttonOpen.UseVisualStyleBackColor = true;
+            this.buttonOpen.Click += new System.EventHandler(this.buttonOpen_Click);
             // 
             // buttonClose
             // 
@@ -507,7 +525,6 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonClose.AutoSize = true;
-            this.buttonClose.Enabled = false;
             this.buttonClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonClose.Location = new System.Drawing.Point(145, 219);
             this.buttonClose.Name = "buttonClose";
@@ -515,6 +532,7 @@
             this.buttonClose.TabIndex = 15;
             this.buttonClose.Text = ")";
             this.buttonClose.UseVisualStyleBackColor = true;
+            this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
             // 
             // buttonMultiply
             // 
@@ -636,36 +654,6 @@
             this.buttonSecondFunctionalityМathematics.UseVisualStyleBackColor = true;
             this.buttonSecondFunctionalityМathematics.Click += new System.EventHandler(this.buttonSecondFunctionalityМathematics_Click);
             // 
-            // buttonPi
-            // 
-            this.buttonPi.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonPi.AutoSize = true;
-            this.buttonPi.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonPi.Location = new System.Drawing.Point(145, 147);
-            this.buttonPi.Name = "buttonPi";
-            this.buttonPi.Size = new System.Drawing.Size(65, 30);
-            this.buttonPi.TabIndex = 4;
-            this.buttonPi.Text = "π";
-            this.buttonPi.UseVisualStyleBackColor = true;
-            this.buttonPi.Click += new System.EventHandler(this.buttonPi_Click);
-            // 
-            // buttonE
-            // 
-            this.buttonE.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonE.AutoSize = true;
-            this.buttonE.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonE.Location = new System.Drawing.Point(216, 147);
-            this.buttonE.Name = "buttonE";
-            this.buttonE.Size = new System.Drawing.Size(65, 30);
-            this.buttonE.TabIndex = 5;
-            this.buttonE.Text = "e";
-            this.buttonE.UseVisualStyleBackColor = true;
-            this.buttonE.Click += new System.EventHandler(this.buttonE_Click);
-            // 
             // buttonModular
             // 
             this.buttonModular.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -680,37 +668,6 @@
             this.buttonModular.Text = "mod";
             this.buttonModular.UseVisualStyleBackColor = true;
             this.buttonModular.Click += new System.EventHandler(this.buttonModular_Click);
-            // 
-            // buttonNext
-            // 
-            this.buttonNext.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonNext.AutoSize = true;
-            this.buttonNext.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonNext.Location = new System.Drawing.Point(3, 111);
-            this.buttonNext.Name = "buttonNext";
-            this.buttonNext.Size = new System.Drawing.Size(65, 30);
-            this.buttonNext.TabIndex = 6;
-            this.buttonNext.Text = "➞";
-            this.buttonNext.UseVisualStyleBackColor = true;
-            this.buttonNext.Click += new System.EventHandler(this.buttonNext_Click);
-            // 
-            // buttonSecondFunctionalityTrigonometry
-            // 
-            this.buttonSecondFunctionalityTrigonometry.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSecondFunctionalityTrigonometry.AutoSize = true;
-            this.buttonSecondFunctionalityTrigonometry.BackColor = System.Drawing.SystemColors.Control;
-            this.buttonSecondFunctionalityTrigonometry.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonSecondFunctionalityTrigonometry.Location = new System.Drawing.Point(74, 147);
-            this.buttonSecondFunctionalityTrigonometry.Name = "buttonSecondFunctionalityTrigonometry";
-            this.buttonSecondFunctionalityTrigonometry.Size = new System.Drawing.Size(65, 30);
-            this.buttonSecondFunctionalityTrigonometry.TabIndex = 0;
-            this.buttonSecondFunctionalityTrigonometry.Text = "hyp";
-            this.buttonSecondFunctionalityTrigonometry.UseVisualStyleBackColor = true;
-            this.buttonSecondFunctionalityTrigonometry.Click += new System.EventHandler(this.buttonSecondFunctionalityTrigonometry_Click);
             // 
             // buttonSin
             // 
@@ -1009,6 +966,52 @@
             this.buttonChangeView.Text = "F-E";
             this.buttonChangeView.UseVisualStyleBackColor = true;
             // 
+            // buttonE
+            // 
+            this.buttonE.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonE.AutoSize = true;
+            this.buttonE.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonE.Location = new System.Drawing.Point(216, 147);
+            this.buttonE.Name = "buttonE";
+            this.buttonE.Size = new System.Drawing.Size(65, 30);
+            this.buttonE.TabIndex = 5;
+            this.buttonE.Text = "e";
+            this.buttonE.UseVisualStyleBackColor = true;
+            this.buttonE.Click += new System.EventHandler(this.buttonE_Click);
+            // 
+            // buttonPi
+            // 
+            this.buttonPi.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonPi.AutoSize = true;
+            this.buttonPi.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonPi.Location = new System.Drawing.Point(145, 147);
+            this.buttonPi.Name = "buttonPi";
+            this.buttonPi.Size = new System.Drawing.Size(65, 30);
+            this.buttonPi.TabIndex = 4;
+            this.buttonPi.Text = "π";
+            this.buttonPi.UseVisualStyleBackColor = true;
+            this.buttonPi.Click += new System.EventHandler(this.buttonPi_Click);
+            // 
+            // buttonSecondFunctionalityTrigonometry
+            // 
+            this.buttonSecondFunctionalityTrigonometry.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonSecondFunctionalityTrigonometry.AutoSize = true;
+            this.buttonSecondFunctionalityTrigonometry.BackColor = System.Drawing.SystemColors.Control;
+            this.buttonSecondFunctionalityTrigonometry.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonSecondFunctionalityTrigonometry.Location = new System.Drawing.Point(74, 147);
+            this.buttonSecondFunctionalityTrigonometry.Name = "buttonSecondFunctionalityTrigonometry";
+            this.buttonSecondFunctionalityTrigonometry.Size = new System.Drawing.Size(65, 30);
+            this.buttonSecondFunctionalityTrigonometry.TabIndex = 0;
+            this.buttonSecondFunctionalityTrigonometry.Text = "hyp";
+            this.buttonSecondFunctionalityTrigonometry.UseVisualStyleBackColor = true;
+            this.buttonSecondFunctionalityTrigonometry.Click += new System.EventHandler(this.buttonSecondFunctionalityTrigonometry_Click);
+            // 
             // tableLayoutPanel2
             // 
             this.tableLayoutPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -1027,7 +1030,7 @@
             this.tableLayoutPanel2.Size = new System.Drawing.Size(355, 429);
             this.tableLayoutPanel2.TabIndex = 2;
             // 
-            // Form1
+            // Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -1035,7 +1038,7 @@
             this.Controls.Add(this.tableLayoutPanel2);
             this.MaximumSize = new System.Drawing.Size(405, 483);
             this.MinimumSize = new System.Drawing.Size(405, 483);
-            this.Name = "Form1";
+            this.Name = "Form";
             this.Text = "Engineering calculator";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tableLayoutPanel1.ResumeLayout(false);

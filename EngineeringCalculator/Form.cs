@@ -14,7 +14,7 @@
             input.Update += UpdateRecord;
         }
 
-        private void UpdateRecord() => Result.Text = Output.ExprassionToRecord(ref expression, debug : true);
+        private void UpdateRecord() => Result.Text = Output.ExprassionToRecord(ref expression, debug : false);
 
         private void Form1_Load(object sender, EventArgs e) { }
         private void buttonZero_Click(object sender, EventArgs e) => input.Add(ref expression, new Term("0"));
@@ -30,40 +30,42 @@
         private void buttonPi_Click(object sender, EventArgs e) => input.Add(ref expression, new Constanta(Math.PI.ToString()));
         private void buttonE_Click(object sender, EventArgs e) => input.Add(ref expression, new Constanta(Math.E.ToString()));
         private void buttonFloat_Click(object sender, EventArgs e) => input.Add(ref expression, new Comma());
-        private void buttonAdd_Click(object sender, EventArgs e) => input.Add(ref expression, new Operator("+", EnumOperator.Add));
-        private void buttonSubtract_Click(object sender, EventArgs e) => input.Add(ref expression, new Operator("-", EnumOperator.Subtrack));
-        private void buttonMultiply_Click(object sender, EventArgs e) => input.Add(ref expression, new Operator("×", EnumOperator.Multiply));
-        private void buttonDivision_Click(object sender, EventArgs e) => input.Add(ref expression, new Operator("÷", EnumOperator.Division));
-        private void buttonModular_Click(object sender, EventArgs e) => input.Add(ref expression, new Operator("mod", EnumOperator.Modular));
-        private void buttonEqually_Click(object sender, EventArgs e) => Result.Text = Calculate.SolutionEquation(ref expression);
+        private void buttonAdd_Click(object sender, EventArgs e) => input.Add(ref expression, new Operator("+", OperatorName.Add));
+        private void buttonSubtract_Click(object sender, EventArgs e) => input.Add(ref expression, new Operator("-", OperatorName.Subtrack));
+        private void buttonMultiply_Click(object sender, EventArgs e) => input.Add(ref expression, new Operator("×", OperatorName.Multiply));
+        private void buttonDivision_Click(object sender, EventArgs e) => input.Add(ref expression, new Operator("÷", OperatorName.Division));
+        private void buttonModular_Click(object sender, EventArgs e) => input.Add(ref expression, new Operator("mod", OperatorName.Modular));
+        private void buttonEqually_Click(object sender, EventArgs e) { }
         private void buttonBackspace_Click(object sender, EventArgs e) => input.DeleteLast(ref expression);
         private void buttonClear_Click(object sender, EventArgs e) => input.ClearAll(ref expression);
         private void buttonClearElement_Click(object sender, EventArgs e) => input.ClearOne(ref expression);
         private void buttonSign_Click(object sender, EventArgs e) => input.ChangeSign(ref expression);
-        private void buttonReverse_Click(object sender, EventArgs e) => input.Add(ref expression, new FunctionName("reverse", EnumFunctionName.XReverse));
-        private void buttonAbs_Click(object sender, EventArgs e) => input.Add(ref expression, new FunctionName("abs", EnumFunctionName.XAbsolute));
-        private void buttonExp_Click(object sender, EventArgs e) => input.Add(ref expression, new FunctionName("exp", EnumFunctionName.Exponential));
-        private void buttonFactorial_Click(object sender, EventArgs e) => input.Add(ref expression, new FunctionName("factorial", EnumFunctionName.NFactorial));
+        private void buttonReverse_Click(object sender, EventArgs e) => input.Add(ref expression, new Function("reverse", FunctionName.XReverse));
+        private void buttonAbs_Click(object sender, EventArgs e) => input.Add(ref expression, new Function("abs", FunctionName.XAbsolute));
+        private void buttonExp_Click(object sender, EventArgs e) => input.Add(ref expression, new Function("exp", FunctionName.Exponential));
+        private void buttonFactorial_Click(object sender, EventArgs e) => input.Add(ref expression, new Function("factorial", FunctionName.NFactorial));
         private void buttonLn_Click(object sender, EventArgs e) => input.Add(ref expression, IsStandardМathematics ? 
-            new FunctionName("ln", EnumFunctionName.NaturalLogarithm) :
-            new FunctionName("ePower", EnumFunctionName.EPowerOfX) );
+            new Function("ln", FunctionName.NaturalLogarithm) :
+            new Function("ePower", FunctionName.EPowerOfX) );
         private void buttonDecimalLog_Click(object sender, EventArgs e) => input.Add(ref expression, IsStandardМathematics ?
-            new FunctionName("lg", EnumFunctionName.DecimalLogarithm) :
-            new FunctionName("log", EnumFunctionName.LogarithmOfXBasedOnY) );
+            new Function("lg", FunctionName.DecimalLogarithm) :
+            new Function("log", FunctionName.LogarithmOfXBasedOnY) );
         private void buttonTenPowerOfX_Click(object sender, EventArgs e) => input.Add(ref expression, IsStandardМathematics ?
-            new FunctionName("tenPower", EnumFunctionName.TenPowerOfX) :
-            new FunctionName("twoPower", EnumFunctionName.TwoPowerOfX) );
+            new Function("tenPower", FunctionName.TenPowerOfX) :
+            new Function("twoPower", FunctionName.TwoPowerOfX) );
         private void buttonXPowerOfY_Click(object sender, EventArgs e) => input.Add(ref expression, IsStandardМathematics ?
-            new FunctionName("power", EnumFunctionName.XPowerOfY) :
-            new FunctionName("root", EnumFunctionName.YRootOfX) );
+            new Function("power", FunctionName.XPowerOfY) :
+            new Function("root", FunctionName.YRootOfX) );
         private void buttonXSquared_Click(object sender, EventArgs e) => input.Add(ref expression, IsStandardМathematics ?
-            new FunctionName("powerOfTwo", EnumFunctionName.XPowerOfTwo) :
-            new FunctionName("powerOfThree", EnumFunctionName.XPowerOfThree) );
+            new Function("powerOfTwo", FunctionName.XPowerOfTwo) :
+            new Function("powerOfThree", FunctionName.XPowerOfThree) );
         private void buttonSquareRoot_Click(object sender, EventArgs e) => input.Add(ref expression, IsStandardМathematics ?
-            new FunctionName("squareRoot", EnumFunctionName.SquareRootOfX) :
-            new FunctionName("cubicRoot", EnumFunctionName.CubicRootOfX) );
-        private void buttonNext_Click(object sender, EventArgs e) => input.Add(ref expression, new Next());
-        private void buttonEnd_Click(object sender, EventArgs e) => input.Add(ref expression, new End());
+            new Function("squareRoot", FunctionName.SquareRootOfX) :
+            new Function("cubicRoot", FunctionName.CubicRootOfX) );
+        private void buttonNext_Click(object sender, EventArgs e) { }
+        private void buttonEnd_Click(object sender, EventArgs e) { }
+        private void buttonOpen_Click(object sender, EventArgs e) { }
+        private void buttonClose_Click(object sender, EventArgs e) { }
         private void buttonSecondFunctionalityМathematics_Click(object sender, EventArgs e)
         {
             new Thread(ChangeFunctionМathematics).Start();
@@ -131,5 +133,6 @@
                 IsStandardTrigonometry = !IsStandardTrigonometry;
             }
         }
+
     }
 }
