@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Linq.Expressions;
-
-namespace EngineeringCalculator
+﻿namespace EngineeringCalculator
 {
     internal class Composite
     {
@@ -65,15 +62,29 @@ namespace EngineeringCalculator
         public ref List<Composite> GetFirstExpression() => ref firstExpression;
         public ref List<Composite> GetSecondExpression() => ref secondExpression;
 
-        public List<Composite> GetActual(ref List<Composite> expression)
+        public List<Composite> GetActualExpression(ref List<Composite> expression)
         {
             if (firstWrite | secondWrite)
             {
                 List<Composite> actualParameter = firstWrite ? firstExpression : secondExpression;
-                if (actualParameter.Last() is IExpressionStoreable expressionStoreable) return expressionStoreable.GetActual(ref actualParameter);
+                if (actualParameter.Count != 0 && actualParameter.Last() is IExpressionStoreable expressionStoreable) return expressionStoreable.GetActualExpression(ref actualParameter);
                 else return actualParameter;
             }
             return expression;
+        }
+
+        public List<Composite>? GetCurrentExpression() => (firstWrite | secondWrite) ? firstWrite ? firstExpression : secondExpression : null;
+
+        public IExpressionStoreable GetActualComposite()
+        {
+            if (firstWrite | secondWrite)
+            {
+                List<Composite> actualParameter = GetCurrentExpression();
+                if (actualParameter.Count != 0 && actualParameter.Last() is IExpressionStoreable storeable) return storeable
+                    .GetActualComposite();
+                
+            }
+            return this;
         }
 
         private Boolean firstWrite = true;
@@ -85,7 +96,7 @@ namespace EngineeringCalculator
             else if (secondWrite) secondWrite = false;
         }
         
-        public BinaryFunction(String meaning, FunctionName mark) : base($"{meaning}{Output.SEPARATOR}(", mark) { }
+        public BinaryFunction(String meaning, FunctionName mark) : base(meaning, mark) { }
     }
 
     internal class SingularFunction : Function, IExpressionStoreable
@@ -94,14 +105,23 @@ namespace EngineeringCalculator
 
         public ref List<Composite> GetExpression() => ref expression;
 
-        public List<Composite> GetActual(ref List<Composite> expression)
+        public List<Composite> GetActualExpression(ref List<Composite> expression)
         {
             if (write)
             {
-                if (this.expression.Last() is IExpressionStoreable expressionStoreable) return expressionStoreable.GetActual(ref this.expression);
+                if (this.expression.Count != 0 && this.expression.Last() is IExpressionStoreable expressionStoreable) return expressionStoreable.GetActualExpression(ref this.expression);
                 else return this.expression;
             }
             return expression;
+        }
+
+        public List<Composite>? GetCurrentExpression() => write ? this.expression : null;
+
+        public IExpressionStoreable GetActualComposite()
+        {
+            if (write && this.expression.Count != 0 && this.expression.Last() is IExpressionStoreable storeable) return storeable
+                    .GetActualComposite();
+            return this;
         }
 
         private Boolean write = true;
@@ -111,7 +131,7 @@ namespace EngineeringCalculator
             if (write) write = false;
         }
 
-        public SingularFunction(String meaning, FunctionName mark) : base($"{meaning}{Output.SEPARATOR}(", mark) { }
+        public SingularFunction(String meaning, FunctionName mark) : base(meaning, mark) { }
     }
 
     public enum FunctionName
@@ -140,14 +160,24 @@ namespace EngineeringCalculator
 
         public ref List<Composite> GetExpression() => ref expression;
 
-        public List<Composite> GetActual(ref List<Composite> expression)
+        public List<Composite> GetActualExpression(ref List<Composite> expression)
         {
             if (write)
             {
-                if (this.expression.Last() is IExpressionStoreable expressionStoreable) return expressionStoreable.GetActual(ref this.expression);
+                if (this.expression.Count != 0 && this.expression.Last() is IExpressionStoreable storeable) return storeable
+                        .GetActualExpression(ref this.expression);
                 else return this.expression;
             }
             return expression;
+        }
+
+        public List<Composite>? GetCurrentExpression() => write ? this.expression : null;
+
+        public IExpressionStoreable GetActualComposite()
+        {
+            if (write && this.expression.Count != 0 &&  this.expression.Last() is IExpressionStoreable storeable) return storeable
+                    .GetActualComposite();
+            return this;
         }
 
         private Boolean write = true;
@@ -156,12 +186,19 @@ namespace EngineeringCalculator
         {
             if (write) write = false;
         }
-        public Staples(String meaning = "(") : base(meaning) { }
+        public Staples(String meaning = "") : base(meaning) { }
+    }
+
+    internal class VisualStaple: Composite
+    {
+        public VisualStaple(String meaning = "") : base(meaning) { }
     }
 
     internal interface IExpressionStoreable
     {
-        public List<Composite> GetActual(ref List<Composite> expression);
+        public List<Composite> GetActualExpression(ref List<Composite> expression);
+        public List<Composite>? GetCurrentExpression();
+        public IExpressionStoreable GetActualComposite();
         public void CloseWrite();
     }
 }

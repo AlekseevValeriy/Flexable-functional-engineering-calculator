@@ -96,8 +96,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Result.CausesValidation = false;
-            this.Result.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Result.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.Result.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Result.Location = new System.Drawing.Point(3, 3);
+            this.Result.MinimumSize = new System.Drawing.Size(0, 29);
             this.Result.Name = "Result";
             this.Result.ReadOnly = true;
             this.Result.ShortcutsEnabled = false;
@@ -211,6 +213,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonNext.AutoSize = true;
+            this.buttonNext.Enabled = false;
             this.buttonNext.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonNext.Location = new System.Drawing.Point(3, 111);
             this.buttonNext.Name = "buttonNext";
@@ -525,6 +528,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonClose.AutoSize = true;
+            this.buttonClose.Enabled = false;
             this.buttonClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonClose.Location = new System.Drawing.Point(145, 219);
             this.buttonClose.Name = "buttonClose";
@@ -741,7 +745,7 @@
             this.buttonEnd.TabIndex = 38;
             this.buttonEnd.Text = "•";
             this.buttonEnd.UseVisualStyleBackColor = true;
-            this.buttonEnd.Click += new System.EventHandler(this.buttonEnd_Click);
+            this.buttonEnd.Click += new System.EventHandler(this.buttonCloseWrite_Click);
             // 
             // buttonClearElement
             // 

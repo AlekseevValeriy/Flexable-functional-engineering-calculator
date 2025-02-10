@@ -8,6 +8,7 @@
 
         public static String ExprassionToRecord(ref List<Composite> expression, Boolean debug)
         {
+            
 
             fullExpression.Clear();
 
@@ -25,25 +26,34 @@
 
         public static void ReadExpression(ref List<Composite> expression)
         {
+            if (expression.Count == 0) return;
             foreach (Composite composite in expression)
             {
                 switch (composite)
                 {
-                    case BinaryFunction binaryFunction: 
+                    case BinaryFunction binaryFunction:
                         {
+                            fullExpression.Add(binaryFunction);
+                            fullExpression.Add(new VisualStaple("("));
                             Output.ReadExpression(ref binaryFunction.GetFirstExpression());
-                            expression.Add(new Comma());
+                            fullExpression.Add(new Comma());
                             Output.ReadExpression(ref binaryFunction.GetSecondExpression());
+                            fullExpression.Add(new VisualStaple(")"));
                             break;
                         }
                     case SingularFunction singularFunction:
                         {
+                            fullExpression.Add(singularFunction);
+                            fullExpression.Add(new VisualStaple("("));
                             Output.ReadExpression(ref singularFunction.GetExpression());
+                            fullExpression.Add(new VisualStaple(")"));
                             break;
                         }
                     case Staples staples:
                         {
+                            fullExpression.Add(new VisualStaple("("));
                             Output.ReadExpression(ref staples.GetExpression());
+                            fullExpression.Add(new VisualStaple(")"));
                             break;
                         }
                     default:
@@ -54,5 +64,10 @@
                 }
             }
         }
+        public static String GetActualExpression(ref List<Composite> expression)
+        {
+            return $"{expression.GetType()}";
+        }
     }
+
 }

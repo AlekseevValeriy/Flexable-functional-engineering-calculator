@@ -1,6 +1,4 @@
-﻿using EngineeringCalculator;
-
-namespace EngineeringCalculator
+﻿namespace EngineeringCalculator
 {
     internal class InputController
     {
@@ -22,7 +20,7 @@ namespace EngineeringCalculator
                             else actualExpression[actualExpression.Count - 1].Set = lnumber.Record + number.Record;
                             break;
                         }
-                    case Operator or Function or Staples: { expression.Add(number); break; }
+                    case Operator: { actualExpression.Add(number); break; }
                 }
             }
             Update.Invoke();
@@ -49,7 +47,7 @@ namespace EngineeringCalculator
                 switch (actualExpression.Last())
                 {
                     case Term: { actualExpression[actualExpression.Count - 1] = constanta; break; }
-                    case Operator or Function or Staples: { actualExpression.Add(constanta); break; }
+                    case Operator: { actualExpression.Add(constanta); break; }
                 }
             }
             Update.Invoke();
@@ -87,8 +85,18 @@ namespace EngineeringCalculator
         private List<Composite> GetActualExpression(ref List<Composite> expression)
         {
             return expression.Count != 0 && expression.Last() is IExpressionStoreable expressionStoreable ?
-                expressionStoreable.GetActual(ref expression) :
+                expressionStoreable.GetActualExpression(ref expression) :
                 expression;
+        }
+
+        public void CloseExpressionWrite(ref List<Composite> expression)
+        {
+            if (expression.Count == 0) return;
+
+            if (expression.Last() is IExpressionStoreable compositeStoreable) compositeStoreable
+                    .GetActualComposite()
+                    .CloseWrite();
+
         }
 
         public void DeleteLast(ref List<Composite> expression)

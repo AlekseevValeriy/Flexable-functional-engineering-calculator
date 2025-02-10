@@ -40,31 +40,32 @@
         private void buttonClear_Click(object sender, EventArgs e) => input.ClearAll(ref expression);
         private void buttonClearElement_Click(object sender, EventArgs e) => input.ClearOne(ref expression);
         private void buttonSign_Click(object sender, EventArgs e) => input.ChangeSign(ref expression);
-        private void buttonReverse_Click(object sender, EventArgs e) => input.Add(ref expression, new Function("reverse", FunctionName.XReverse));
-        private void buttonAbs_Click(object sender, EventArgs e) => input.Add(ref expression, new Function("abs", FunctionName.XAbsolute));
-        private void buttonExp_Click(object sender, EventArgs e) => input.Add(ref expression, new Function("exp", FunctionName.Exponential));
-        private void buttonFactorial_Click(object sender, EventArgs e) => input.Add(ref expression, new Function("factorial", FunctionName.NFactorial));
+        private void buttonReverse_Click(object sender, EventArgs e) => input.Add(ref expression, new SingularFunction("reverse", FunctionName.XReverse));
+        private void buttonAbs_Click(object sender, EventArgs e) => input.Add(ref expression, new SingularFunction("abs", FunctionName.XAbsolute));
+        private void buttonExp_Click(object sender, EventArgs e) => input.Add(ref expression, new SingularFunction("exp", FunctionName.Exponential));
+        private void buttonFactorial_Click(object sender, EventArgs e) => input.Add(ref expression, new SingularFunction("factorial", FunctionName.NFactorial));
         private void buttonLn_Click(object sender, EventArgs e) => input.Add(ref expression, IsStandardМathematics ? 
-            new Function("ln", FunctionName.NaturalLogarithm) :
-            new Function("ePower", FunctionName.EPowerOfX) );
+            new SingularFunction("ln", FunctionName.NaturalLogarithm) :
+            new SingularFunction("ePower", FunctionName.EPowerOfX) );
         private void buttonDecimalLog_Click(object sender, EventArgs e) => input.Add(ref expression, IsStandardМathematics ?
-            new Function("lg", FunctionName.DecimalLogarithm) :
-            new Function("log", FunctionName.LogarithmOfXBasedOnY) );
+            new SingularFunction("lg", FunctionName.DecimalLogarithm) :
+            new BinaryFunction("log", FunctionName.LogarithmOfXBasedOnY) );
         private void buttonTenPowerOfX_Click(object sender, EventArgs e) => input.Add(ref expression, IsStandardМathematics ?
-            new Function("tenPower", FunctionName.TenPowerOfX) :
-            new Function("twoPower", FunctionName.TwoPowerOfX) );
+            new SingularFunction("tenPower", FunctionName.TenPowerOfX) :
+            new SingularFunction("twoPower", FunctionName.TwoPowerOfX) );
         private void buttonXPowerOfY_Click(object sender, EventArgs e) => input.Add(ref expression, IsStandardМathematics ?
-            new Function("power", FunctionName.XPowerOfY) :
-            new Function("root", FunctionName.YRootOfX) );
+            new BinaryFunction("power", FunctionName.XPowerOfY) :
+            new BinaryFunction("root", FunctionName.YRootOfX) );
         private void buttonXSquared_Click(object sender, EventArgs e) => input.Add(ref expression, IsStandardМathematics ?
-            new Function("powerOfTwo", FunctionName.XPowerOfTwo) :
-            new Function("powerOfThree", FunctionName.XPowerOfThree) );
+            new SingularFunction("powerOfTwo", FunctionName.XPowerOfTwo) :
+            new SingularFunction("powerOfThree", FunctionName.XPowerOfThree) );
         private void buttonSquareRoot_Click(object sender, EventArgs e) => input.Add(ref expression, IsStandardМathematics ?
-            new Function("squareRoot", FunctionName.SquareRootOfX) :
-            new Function("cubicRoot", FunctionName.CubicRootOfX) );
+            new SingularFunction("squareRoot", FunctionName.SquareRootOfX) :
+            new SingularFunction("cubicRoot", FunctionName.CubicRootOfX) );
+        private void buttonCloseWrite_Click(object sender, EventArgs e) => input.CloseExpressionWrite(ref expression);
         private void buttonNext_Click(object sender, EventArgs e) { }
         private void buttonEnd_Click(object sender, EventArgs e) { }
-        private void buttonOpen_Click(object sender, EventArgs e) { }
+        private void buttonOpen_Click(object sender, EventArgs e) => input.Add(ref expression, new Staples());
         private void buttonClose_Click(object sender, EventArgs e) { }
         private void buttonSecondFunctionalityМathematics_Click(object sender, EventArgs e)
         {
@@ -133,6 +134,5 @@
                 IsStandardTrigonometry = !IsStandardTrigonometry;
             }
         }
-
     }
 }
