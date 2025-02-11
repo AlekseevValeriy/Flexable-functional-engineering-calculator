@@ -65,11 +65,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Calculate.cs" />
-    <Compile Include="Expression.cs" />
+    <Compile Include="Expression\Components.cs" />
     <Compile Include="GlobalUsings.cs" />
     <Compile Include="ExpressionStack.cs" />
-    <Compile Include="Input.cs" />
-    <Compile Include="Output.cs" />
+    <Compile Include="Expression\Interaction.cs" />
+    <Compile Include="Expression\Display.cs" />
     <Compile Include="Form.cs">
       <SubType>Form</SubType>
     </Compile>

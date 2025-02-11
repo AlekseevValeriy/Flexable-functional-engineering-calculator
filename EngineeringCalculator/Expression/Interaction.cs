@@ -68,18 +68,11 @@
             }
         }
 
-        public void Add(ref List<Composite> expression, Function function)
+        public void Add(ref List<Composite> expression, IExpressionStoreable storable)
         {
             List<Composite> actualExpression = GetActualExpression(ref expression);
 
-            if (actualExpression.Count == 0 || actualExpression.Last() is Operator) { actualExpression.Add(function); Update.Invoke(); }
-        }
-
-        public void Add(ref List<Composite> expression, Staples staples)
-        {
-            List<Composite> actualExpression = GetActualExpression(ref expression);
-
-            if (actualExpression.Count == 0 || actualExpression.Last() is Operator) { actualExpression.Add(staples); Update.Invoke(); }
+            if (actualExpression.Count == 0 || actualExpression.Last() is Operator) { actualExpression.Add((Composite)storable); Update.Invoke(); }
         }
 
         private List<Composite> GetActualExpression(ref List<Composite> expression)
@@ -96,10 +89,9 @@
             if (expression.Last() is IExpressionStoreable compositeStoreable) compositeStoreable
                     .GetActualComposite()
                     .CloseWrite();
-
         }
 
-        public void DeleteLast(ref List<Composite> expression)
+        public void DeleteLast(ref List<Composite> expression) // TODO надо переделать под рекурсию для storable
         { 
             if (expression.Count != 0)
             {
@@ -125,7 +117,7 @@
         {
             if (expression.Count != 0) { expression.Clear(); Update.Invoke(); }
         }
-        public void ClearOne(ref List<Composite> expression)
+        public void ClearOne(ref List<Composite> expression) // TODO надо переделать под рекурсию для storable
         {
             if (expression.Count != 0) { expression.RemoveAt(expression.Count - 1); Update.Invoke(); }
         }

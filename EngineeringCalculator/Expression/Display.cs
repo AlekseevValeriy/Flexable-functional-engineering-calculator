@@ -1,23 +1,20 @@
 ﻿namespace EngineeringCalculator
 {
-    internal static class Output
+    internal static class Display
     {
         public const String SEPARATOR = " ";
 
         private static List<Composite> fullExpression = new List<Composite>();
 
-        public static String ExprassionToRecord(ref List<Composite> expression, Boolean debug)
+        public static String ExpressionToRecord(ref List<Composite> expression, Boolean debug)
         {
-            
-
             fullExpression.Clear();
 
-            Output.ReadExpression(ref expression);
+            Display.ReadExpression(ref expression);
 
             List<String> record = new List<String>();
 
             foreach (Composite composite in fullExpression) record.Add(composite.Record);
-
 
             String separator = debug ? " | " : SEPARATOR;
 
@@ -35,9 +32,9 @@
                         {
                             fullExpression.Add(binaryFunction);
                             fullExpression.Add(new VisualStaple("("));
-                            Output.ReadExpression(ref binaryFunction.GetFirstExpression());
+                            Display.ReadExpression(ref binaryFunction.GetFirstExpression());
                             fullExpression.Add(new Comma());
-                            Output.ReadExpression(ref binaryFunction.GetSecondExpression());
+                            Display.ReadExpression(ref binaryFunction.GetSecondExpression());
                             fullExpression.Add(new VisualStaple(")"));
                             break;
                         }
@@ -45,14 +42,14 @@
                         {
                             fullExpression.Add(singularFunction);
                             fullExpression.Add(new VisualStaple("("));
-                            Output.ReadExpression(ref singularFunction.GetExpression());
+                            Display.ReadExpression(ref singularFunction.GetExpression());
                             fullExpression.Add(new VisualStaple(")"));
                             break;
                         }
                     case Staples staples:
                         {
                             fullExpression.Add(new VisualStaple("("));
-                            Output.ReadExpression(ref staples.GetExpression());
+                            Display.ReadExpression(ref staples.GetExpression());
                             fullExpression.Add(new VisualStaple(")"));
                             break;
                         }
@@ -63,10 +60,6 @@
                         }
                 }
             }
-        }
-        public static String GetActualExpression(ref List<Composite> expression)
-        {
-            return $"{expression.GetType()}";
         }
     }
 
