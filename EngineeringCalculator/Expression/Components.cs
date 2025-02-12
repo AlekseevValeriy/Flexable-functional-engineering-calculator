@@ -1,4 +1,6 @@
-﻿namespace EngineeringCalculator
+﻿using System.Linq.Expressions;
+
+namespace EngineeringCalculator
 {
     internal class Composite
     {
@@ -76,13 +78,23 @@
         NFactorial
     }
 
+    
+
     internal class BinaryFunction: Function, IExpressionStoreable
     {
+        public BinaryFunctionMark markStorage;
         private Boolean firstWrite = true;
         private Boolean secondWrite = true;
         private List<Composite> firstExpression = new List<Composite>();
         private List<Composite> secondExpression = new List<Composite>();
-        public BinaryFunction(String meaning, FunctionMark mark) : base(meaning, mark) { }
+        public BinaryFunction(String meaning, FunctionMark mark) : base(meaning, mark) { markStorage.Field = this.GetMark; }
+        public void Deconstruct(out Composite result)
+        {
+            Composite firstResult = Calculate.SolutionEquation(ref firstExpression);
+            Composite secondResult = Calculate.SolutionEquation(ref secondExpression);
+            result = new Composite();
+            result.Set = Calculate.GetPerformAction(markStorage)(((Term)firstResult).ValueDouble, ((Term)secondResult).ValueDouble).ToString();
+        }
 
         public ref List<Composite> GetFirstExpression() => ref firstExpression;
         public ref List<Composite> GetSecondExpression() => ref secondExpression;
@@ -116,12 +128,23 @@
             else if (secondWrite) secondWrite = false;
         }
     }
+    public struct BinaryFunctionMark
+    {
+        private FunctionMark mark;
+        public FunctionMark Field { get => mark; set => mark = value; }
+    }
 
     internal class SingularFunction : Function, IExpressionStoreable
     {
+        public SingularFunctionMark markStorage;
         private Boolean write = true;
         public List<Composite> expression = new List<Composite>();
-        public SingularFunction(String meaning, FunctionMark mark) : base(meaning, mark) { }
+        public SingularFunction(String meaning, FunctionMark mark) : base(meaning, mark) { markStorage.Field = this.GetMark; }
+        public void Deconstruct(out Composite result)
+        {
+            result = Calculate.SolutionEquation(ref expression);
+            result.Set = Calculate.GetPerformAction(markStorage)(((Term)result).ValueDouble).ToString();
+        }
 
         public ref List<Composite> GetExpression() => ref expression;
 
@@ -148,12 +171,21 @@
             if (write) write = false;
         }
     }
+    public struct SingularFunctionMark
+    {
+        private FunctionMark mark;
+        public FunctionMark Field { get => mark; set => mark = value; }
+    }
 
     internal class Staples : Composite, IExpressionStoreable
     {
         private Boolean write = true;
         public List<Composite> expression = new List<Composite>();
         public Staples(String meaning = "") : base(meaning) { }
+        public void Deconstruct(out Composite result)
+        {
+            result = Calculate.SolutionEquation(ref expression);
+        }
 
         public ref List<Composite> GetExpression() => ref expression;
 
@@ -190,7 +222,7 @@
         public List<Composite> GetActualExpression(ref List<Composite> expression);
         public List<Composite>? GetCurrentExpression();
         public IExpressionStoreable GetActualComposite();
-        public void Perform();
+        public void Deconstruct(out Composite result);
         public void CloseWrite();
     }
 }

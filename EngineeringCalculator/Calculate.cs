@@ -6,7 +6,7 @@ namespace EngineeringCalculator
     // actions of the second stage -> operators
     internal static class Calculate
     {
-        public static Operation GetPerformAction(Operator composite) => operatorActions[composite.GetMark];
+        public static Operation GetPerformAction(OperatorMark mark) => operatorActions[mark];
         private static Dictionary<OperatorMark, Operation> operatorActions = new Dictionary<OperatorMark, Operation>
         {
             { OperatorMark.Add, (x, y) => x + y},
@@ -17,7 +17,7 @@ namespace EngineeringCalculator
         };
         public delegate Double Operation(Double x, Double y);
 
-        public static PerformBinary GetPerformAction(BinaryFunction composite) => binaryFunctionActions[composite.GetMark];
+        public static PerformBinary GetPerformAction(BinaryFunctionMark mark) => binaryFunctionActions[mark.Field];
         private static Dictionary<FunctionMark, PerformBinary> binaryFunctionActions = new Dictionary<FunctionMark, PerformBinary>
         {
             { FunctionMark.XPowerOfY, (x, y) => Pow(x, y)},
@@ -26,7 +26,7 @@ namespace EngineeringCalculator
         };
         public delegate Double PerformBinary(Double x, Double y);
 
-        public static PerformSingular GetPerformAction(SingularFunction composite) => singularFunctionActions[composite.GetMark];
+        public static PerformSingular GetPerformAction(SingularFunctionMark mark) => singularFunctionActions[mark.Field];
         private static Dictionary<FunctionMark, PerformSingular> singularFunctionActions = new Dictionary<FunctionMark, PerformSingular>
         {
             { FunctionMark.NaturalLogarithm, (x) => Log(x)},
@@ -47,6 +47,7 @@ namespace EngineeringCalculator
 
         public static Composite SolutionEquation(ref List<Composite> expression)
         {
+            // TODO
             return new Composite();
         }
     }
