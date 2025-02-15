@@ -35,7 +35,7 @@
         private void buttonMultiply_Click(object sender, EventArgs e) => input.Add(ref expression, new Operator("×", OperatorMark.Multiply));
         private void buttonDivision_Click(object sender, EventArgs e) => input.Add(ref expression, new Operator("÷", OperatorMark.Division));
         private void buttonModular_Click(object sender, EventArgs e) => input.Add(ref expression, new Operator("mod", OperatorMark.Modular));
-        private void buttonEqually_Click(object sender, EventArgs e) { }
+        private void buttonEqually_Click(object sender, EventArgs e) { try { input.Equally(ref expression); } catch (DivideByZeroException) { ZeroDivisionException(); } }
         private void buttonBackspace_Click(object sender, EventArgs e) => input.DeleteLast(ref expression);
         private void buttonClear_Click(object sender, EventArgs e) => input.ClearAll(ref expression);
         private void buttonClearElement_Click(object sender, EventArgs e) => input.ClearOne(ref expression);
@@ -134,5 +134,22 @@
                 IsStandardTrigonometry = !IsStandardTrigonometry;
             }
         }
+
+        private void ZeroDivisionException()
+        {
+            RaiseExceptionMessage(
+                "Преступление: Ты поделил на 0",
+                "Вы попытались поделить число на 0.\nАй-я-яй! Это плохо! \nИди в угол и подумай над этим."
+                );
+        }
+
+        private void RaiseExceptionMessage(String header = "", String text = "")
+        {
+            var result = MessageBox.Show(text, header,
+                                         MessageBoxButtons.OK,
+                                         MessageBoxIcon.Error);
+            if (result == DialogResult.No) { }
+        }
+
     }
 }

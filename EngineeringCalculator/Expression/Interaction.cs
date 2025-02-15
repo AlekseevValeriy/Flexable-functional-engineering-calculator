@@ -1,4 +1,6 @@
-﻿namespace EngineeringCalculator
+﻿using System.Linq.Expressions;
+
+namespace EngineeringCalculator
 {
     internal class InputController
     {
@@ -17,7 +19,7 @@
                     case Term lnumber:
                         {
                             if (lnumber.Record == "0") actualExpression[actualExpression.Count - 1] = number;
-                            else actualExpression[actualExpression.Count - 1].Set = lnumber.Record + number.Record;
+                            else actualExpression[actualExpression.Count - 1].Set(lnumber.Record + number.Record);
                             break;
                         }
                     case Operator: { actualExpression.Add(number); break; }
@@ -86,9 +88,11 @@
         {
             if (expression.Count == 0) return;
 
-            if (expression.Last() is IExpressionStoreable compositeStoreable) compositeStoreable
-                    .GetActualComposite()
-                    .CloseWrite();
+            if (expression.Last() is IExpressionStoreable compositeStoreable)
+            {
+                IExpressionStoreable actualComposite = compositeStoreable.GetActualComposite();
+                if (actualComposite.GetCurrentExpression().Last() is not Operator) actualComposite.CloseWrite();
+            }
         }
 
         public void DeleteLast(ref List<Composite> expression) // TODO надо переделать под рекурсию для storable
@@ -100,7 +104,7 @@
                     case Term number:
                         {
                             if (expression[expression.Count - 1].Record.Length == 1) expression.RemoveAt(expression.Count - 1);
-                            else expression[expression.Count - 1].Set = number.Record.Remove(number.Record.Length - 1);
+                            else expression[expression.Count - 1].Set(number.Record.Remove(number.Record.Length - 1));
                             break;
                         }
                     default:
@@ -113,6 +117,15 @@
             }
         }
 
+        public void Equally(ref List<Composite> expression)
+        {
+            expression = new List<Composite>()
+            {
+                Calculate.SolutionEquation(ref expression)
+            };
+            Update.Invoke();
+        }
+
         public void ClearAll(ref List<Composite> expression)
         {
             if (expression.Count != 0) { expression.Clear(); Update.Invoke(); }
@@ -123,7 +136,9 @@
         }
         public void ChangeSign(ref List<Composite> expression)
         {
-            if (expression.Count != 0 && expression.Last() is Term term) { term.ChangeSign(); Update.Invoke(); }
+            List<Composite> actualExpression = GetActualExpression(ref expression);
+
+            if (actualExpression.Count != 0 && actualExpression.Last() is Term term) { term.ChangeSign(); Update.Invoke(); }
         }
     }
 }

@@ -31,7 +31,6 @@
             this.Result = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.buttonLn = new System.Windows.Forms.Button();
-            this.buttonNext = new System.Windows.Forms.Button();
             this.buttonSign = new System.Windows.Forms.Button();
             this.buttonZero = new System.Windows.Forms.Button();
             this.buttonFloat = new System.Windows.Forms.Button();
@@ -52,7 +51,6 @@
             this.buttonNine = new System.Windows.Forms.Button();
             this.buttonSquareRoot = new System.Windows.Forms.Button();
             this.buttonOpen = new System.Windows.Forms.Button();
-            this.buttonClose = new System.Windows.Forms.Button();
             this.buttonMultiply = new System.Windows.Forms.Button();
             this.buttonFactorial = new System.Windows.Forms.Button();
             this.buttonXSquared = new System.Windows.Forms.Button();
@@ -99,11 +97,11 @@
             this.Result.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.Result.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Result.Location = new System.Drawing.Point(3, 3);
-            this.Result.MinimumSize = new System.Drawing.Size(0, 29);
+            this.Result.MinimumSize = new System.Drawing.Size(4, 29);
             this.Result.Name = "Result";
             this.Result.ReadOnly = true;
             this.Result.ShortcutsEnabled = false;
-            this.Result.Size = new System.Drawing.Size(349, 29);
+            this.Result.Size = new System.Drawing.Size(349, 21);
             this.Result.TabIndex = 100;
             this.Result.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -119,7 +117,6 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 71F));
             this.tableLayoutPanel1.Controls.Add(this.buttonLn, 0, 10);
-            this.tableLayoutPanel1.Controls.Add(this.buttonNext, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.buttonSign, 1, 10);
             this.tableLayoutPanel1.Controls.Add(this.buttonZero, 2, 10);
             this.tableLayoutPanel1.Controls.Add(this.buttonFloat, 3, 10);
@@ -140,7 +137,6 @@
             this.tableLayoutPanel1.Controls.Add(this.buttonNine, 3, 7);
             this.tableLayoutPanel1.Controls.Add(this.buttonSquareRoot, 0, 6);
             this.tableLayoutPanel1.Controls.Add(this.buttonOpen, 1, 6);
-            this.tableLayoutPanel1.Controls.Add(this.buttonClose, 2, 6);
             this.tableLayoutPanel1.Controls.Add(this.buttonMultiply, 4, 7);
             this.tableLayoutPanel1.Controls.Add(this.buttonFactorial, 3, 6);
             this.tableLayoutPanel1.Controls.Add(this.buttonXSquared, 0, 5);
@@ -154,7 +150,6 @@
             this.tableLayoutPanel1.Controls.Add(this.buttonCos, 2, 3);
             this.tableLayoutPanel1.Controls.Add(this.buttonBackspace, 4, 4);
             this.tableLayoutPanel1.Controls.Add(this.buttonTan, 3, 3);
-            this.tableLayoutPanel1.Controls.Add(this.buttonEnd, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.buttonClearElement, 4, 3);
             this.tableLayoutPanel1.Controls.Add(this.buttonSec, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.buttonCsc, 2, 2);
@@ -173,8 +168,9 @@
             this.tableLayoutPanel1.Controls.Add(this.buttonE, 3, 4);
             this.tableLayoutPanel1.Controls.Add(this.buttonPi, 2, 4);
             this.tableLayoutPanel1.Controls.Add(this.buttonSecondFunctionalityTrigonometry, 1, 4);
+            this.tableLayoutPanel1.Controls.Add(this.buttonEnd, 0, 2);
             this.tableLayoutPanel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 35);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 27);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 11;
@@ -189,7 +185,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(355, 394);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(355, 402);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
             // buttonLn
@@ -201,27 +197,11 @@
             this.buttonLn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonLn.Location = new System.Drawing.Point(3, 363);
             this.buttonLn.Name = "buttonLn";
-            this.buttonLn.Size = new System.Drawing.Size(65, 30);
+            this.buttonLn.Size = new System.Drawing.Size(65, 36);
             this.buttonLn.TabIndex = 33;
             this.buttonLn.Text = "ln";
             this.buttonLn.UseVisualStyleBackColor = true;
             this.buttonLn.Click += new System.EventHandler(this.buttonLn_Click);
-            // 
-            // buttonNext
-            // 
-            this.buttonNext.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonNext.AutoSize = true;
-            this.buttonNext.Enabled = false;
-            this.buttonNext.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonNext.Location = new System.Drawing.Point(3, 111);
-            this.buttonNext.Name = "buttonNext";
-            this.buttonNext.Size = new System.Drawing.Size(65, 30);
-            this.buttonNext.TabIndex = 6;
-            this.buttonNext.Text = "➞";
-            this.buttonNext.UseVisualStyleBackColor = true;
-            this.buttonNext.Click += new System.EventHandler(this.buttonNext_Click);
             // 
             // buttonSign
             // 
@@ -232,7 +212,7 @@
             this.buttonSign.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonSign.Location = new System.Drawing.Point(74, 363);
             this.buttonSign.Name = "buttonSign";
-            this.buttonSign.Size = new System.Drawing.Size(65, 30);
+            this.buttonSign.Size = new System.Drawing.Size(65, 36);
             this.buttonSign.TabIndex = 34;
             this.buttonSign.Text = "±";
             this.buttonSign.UseVisualStyleBackColor = true;
@@ -247,7 +227,7 @@
             this.buttonZero.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonZero.Location = new System.Drawing.Point(145, 363);
             this.buttonZero.Name = "buttonZero";
-            this.buttonZero.Size = new System.Drawing.Size(65, 30);
+            this.buttonZero.Size = new System.Drawing.Size(65, 36);
             this.buttonZero.TabIndex = 0;
             this.buttonZero.Text = "0";
             this.buttonZero.UseVisualStyleBackColor = true;
@@ -262,7 +242,7 @@
             this.buttonFloat.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonFloat.Location = new System.Drawing.Point(216, 363);
             this.buttonFloat.Name = "buttonFloat";
-            this.buttonFloat.Size = new System.Drawing.Size(65, 30);
+            this.buttonFloat.Size = new System.Drawing.Size(65, 36);
             this.buttonFloat.TabIndex = 36;
             this.buttonFloat.Text = ",";
             this.buttonFloat.UseVisualStyleBackColor = true;
@@ -291,7 +271,7 @@
             this.buttonEqually.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonEqually.Location = new System.Drawing.Point(287, 363);
             this.buttonEqually.Name = "buttonEqually";
-            this.buttonEqually.Size = new System.Drawing.Size(65, 30);
+            this.buttonEqually.Size = new System.Drawing.Size(65, 36);
             this.buttonEqually.TabIndex = 37;
             this.buttonEqually.Text = "=";
             this.buttonEqually.UseVisualStyleBackColor = true;
@@ -522,22 +502,6 @@
             this.buttonOpen.UseVisualStyleBackColor = true;
             this.buttonOpen.Click += new System.EventHandler(this.buttonOpen_Click);
             // 
-            // buttonClose
-            // 
-            this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonClose.AutoSize = true;
-            this.buttonClose.Enabled = false;
-            this.buttonClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonClose.Location = new System.Drawing.Point(145, 219);
-            this.buttonClose.Name = "buttonClose";
-            this.buttonClose.Size = new System.Drawing.Size(65, 30);
-            this.buttonClose.TabIndex = 15;
-            this.buttonClose.Text = ")";
-            this.buttonClose.UseVisualStyleBackColor = true;
-            this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
-            // 
             // buttonMultiply
             // 
             this.buttonMultiply.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -743,7 +707,7 @@
             this.buttonEnd.Name = "buttonEnd";
             this.buttonEnd.Size = new System.Drawing.Size(65, 30);
             this.buttonEnd.TabIndex = 38;
-            this.buttonEnd.Text = "•";
+            this.buttonEnd.Text = "• ➞ •";
             this.buttonEnd.UseVisualStyleBackColor = true;
             this.buttonEnd.Click += new System.EventHandler(this.buttonCloseWrite_Click);
             // 
@@ -1065,7 +1029,6 @@
         private System.Windows.Forms.Button buttonSecondFunctionalityМathematics;
         private System.Windows.Forms.Button buttonPi;
         private System.Windows.Forms.Button buttonE;
-        private System.Windows.Forms.Button buttonNext;
         private System.Windows.Forms.Button buttonBackspace;
         private System.Windows.Forms.Button buttonXSquared;
         private System.Windows.Forms.Button buttonReverse;
@@ -1074,7 +1037,6 @@
         private System.Windows.Forms.Button buttonModular;
         private System.Windows.Forms.Button buttonSquareRoot;
         private System.Windows.Forms.Button buttonOpen;
-        private System.Windows.Forms.Button buttonClose;
         private System.Windows.Forms.Button buttonFactorial;
         private System.Windows.Forms.Button buttonDivision;
         private System.Windows.Forms.Button buttonXPowerOfY;

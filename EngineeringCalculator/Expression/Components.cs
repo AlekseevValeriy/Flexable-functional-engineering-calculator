@@ -9,7 +9,8 @@ namespace EngineeringCalculator
         public Composite(String meaning = "") => this.meaning = meaning;
 
         public String Record { get => meaning; }
-        public String Set { set => meaning = value; }
+        public void Set(String value) { meaning = value; }
+        public void Set(Composite composite) { meaning = composite.Record; }
     }
 
     internal class Term : Composite
@@ -44,11 +45,11 @@ namespace EngineeringCalculator
 
     public enum OperatorMark
     {
-        Add = 0,
-        Subtrack = 0,
-        Multiply = 1,
-        Division = 1,
-        Modular = 1
+        Add,
+        Subtrack,
+        Multiply,
+        Division,
+        Modular
     }
 
     internal class Function : Composite
@@ -93,7 +94,7 @@ namespace EngineeringCalculator
             Composite firstResult = Calculate.SolutionEquation(ref firstExpression);
             Composite secondResult = Calculate.SolutionEquation(ref secondExpression);
             result = new Composite();
-            result.Set = Calculate.GetPerformAction(markStorage)(((Term)firstResult).ValueDouble, ((Term)secondResult).ValueDouble).ToString();
+            result.Set(ArithmeticOperations.GetPerformAction(markStorage)(((Term)firstResult).ValueDouble, ((Term)secondResult).ValueDouble).ToString());
         }
 
         public ref List<Composite> GetFirstExpression() => ref firstExpression;
@@ -143,7 +144,9 @@ namespace EngineeringCalculator
         public void Deconstruct(out Composite result)
         {
             result = Calculate.SolutionEquation(ref expression);
-            result.Set = Calculate.GetPerformAction(markStorage)(((Term)result).ValueDouble).ToString();
+            Double n = ((Term)result).ValueDouble;
+            Double mm = ArithmeticOperations.GetPerformAction(markStorage)(n);
+            result.Set(mm.ToString());
         }
 
         public ref List<Composite> GetExpression() => ref expression;
