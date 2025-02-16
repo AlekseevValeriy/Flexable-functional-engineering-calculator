@@ -2,8 +2,6 @@
 
 namespace EngineeringCalculator
 {
-    // actions of the first stage -> functions and staples
-    // actions of the second stage -> operators
     internal static class Calculate
     {
         public static Composite SolutionEquation(ref List<Composite> expression)
@@ -26,44 +24,15 @@ namespace EngineeringCalculator
             UInt16 operatorsCount = (UInt16)expression.Count(s => s is Operator);
             if (operatorsCount != 0)
             {
-                //Stack<Composite> Sexpression = new Stack<Composite>(((IEnumerable<Composite>)expression).Reverse());
-                //for (UInt16 I = 0; I < operatorsCount; I++)
-                //{
-                //    Term firstOperand = (Term)Sexpression.Pop();
-                //    Operator operato = (Operator)Sexpression.Pop();
-                //    Term secondOperand = (Term)Sexpression.Pop();
-                //    Term result = new Term(String.Empty);
-
-                //    switch (operato.GetMark)
-                //    {
-                //        case OperatorMark.Division:
-                //            {
-                //                if (secondOperand.Value is 0) throw new DivideByZeroException();
-                //                goto default;
-                //            }
-                //        case OperatorMark.Modular:
-                //            {
-                //                if (secondOperand.Value is 0) result.Set(firstOperand);
-                //                break;
-                //            }
-                //        default:
-                //            {
-                //                result.Set(ArithmeticOperations.GetPerformAction(operato.GetMark)(
-                //                    firstOperand.Value,
-                //                    secondOperand.Value).ToString());
-                //                break;
-                //            }
-                //    }
-
-                //    Sexpression.Push(result);
-                //}
-                //expression = new List<Composite> { Sexpression.Pop() };
                 List<Composite> Cexpression = new List<Composite>(expression);
-                foreach(UInt16 I in GetExecutionQueue(ref Cexpression))
+                List<Operator> operators = new List<Operator>(Cexpression.Where(o => o is Operator).Cast<Operator>().OrderBy(o => o.GetMark).Reverse());
+
+                foreach (Operator op in operators)
                 {
-                    Term firstOperand = (Term)Cexpression[I - 1];
-                    Operator operato = (Operator)Cexpression[I];
-                    Term secondOperand = (Term)Cexpression[I + 1];
+                    UInt16 firstMaxIndex = (UInt16)Cexpression.IndexOf((Composite)op);
+                    Term firstOperand = (Term)Cexpression[firstMaxIndex - 1];
+                    Operator operato = (Operator)Cexpression[firstMaxIndex];
+                    Term secondOperand = (Term)Cexpression[firstMaxIndex + 1];
                     Term result = new Term(String.Empty);
 
                     switch (operato.GetMark)
@@ -86,10 +55,11 @@ namespace EngineeringCalculator
                                 break;
                             }
                     }
-                    Cexpression.RemoveRange(I - 1, 3);
-                    Cexpression.Insert(I - 1, result);
-                    expression = new List<Composite> { Cexpression[0] };
+                    Cexpression.RemoveRange(firstMaxIndex - 1, 3);
+                    Cexpression.Insert(firstMaxIndex - 1, result);
                 }
+
+                expression = new List<Composite> { Cexpression[0] };
             }
             return expression.Last();
         }
@@ -99,20 +69,22 @@ namespace EngineeringCalculator
             Queue<UInt16> primaryImportance = new Queue<UInt16>();
             Queue<UInt16> secondaryImportance = new Queue<UInt16>();
 
-            for (UInt16 I = 0; I < expression.Count; I++)
+            UInt16 operatorCounter = 0;
+
+            foreach (Composite composite in expression)
             {
-                if (expression[I] is Operator operato)
+                if (composite is Operator operato)
                 {
                     switch (operato.GetMark)
                     {
                         case OperatorMark.Multiply or OperatorMark.Division or OperatorMark.Modular:
-                            { primaryImportance.Enqueue(I); break; }
+                            { primaryImportance.Enqueue(operatorCounter); break; }
                         case OperatorMark.Add or OperatorMark.Subtrack:
-                            { secondaryImportance.Enqueue(I); break; }
+                            { secondaryImportance.Enqueue(operatorCounter); break; }
                     }
+                    operatorCounter++;
                 }
             }
-
             return new Queue<UInt16>(primaryImportance.Concat(secondaryImportance));
         }
     }

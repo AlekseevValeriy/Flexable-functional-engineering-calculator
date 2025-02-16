@@ -110,6 +110,26 @@ namespace EngineeringCalculator
             }
             return expression;
         }
+        public List<Composite> GetActualNotEmptyExpression(ref List<Composite> expression)
+        {
+            List<Composite>? actualExpression = null;
+            if (secondExpression.Count != 0) actualExpression = secondExpression;
+            else if (firstExpression.Count != 0) actualExpression = firstExpression;
+
+            if (actualExpression is not null)
+            {
+                if (actualExpression.Last() is IExpressionStoreable storeable) return storeable
+                    .GetActualNotEmptyExpression(ref actualExpression);
+                else
+                {
+                    if (!secondWrite) secondWrite = true;
+                    else if (!firstWrite) firstWrite = true;
+                    return actualExpression;
+                }
+            }
+            return expression;
+        }
+
 
         public List<Composite>? GetCurrentExpression() => (firstWrite | secondWrite) ? firstWrite ? firstExpression : secondExpression : null;
 
@@ -161,6 +181,21 @@ namespace EngineeringCalculator
             return expression;
         }
 
+        public List<Composite> GetActualNotEmptyExpression(ref List<Composite> expression)
+        {
+            if (this.expression.Count != 0)
+            {
+                if (this.expression.Last() is IExpressionStoreable storeable) return storeable
+                        .GetActualNotEmptyExpression(ref this.expression);
+                else
+                {
+                    if (!write) write = true;
+                    return this.expression;
+                }
+            }
+            return expression;
+        }
+
         public List<Composite>? GetCurrentExpression() => write ? this.expression : null;
 
         public IExpressionStoreable GetActualComposite()
@@ -203,6 +238,21 @@ namespace EngineeringCalculator
             return expression;
         }
 
+        public List<Composite> GetActualNotEmptyExpression(ref List<Composite> expression)
+        {
+            if (this.expression.Count != 0)
+            {
+                if (this.expression.Last() is IExpressionStoreable storeable) return storeable
+                        .GetActualNotEmptyExpression(ref this.expression);
+                else
+                {
+                    if (!write) write = true;
+                    return this.expression;
+                }
+            }
+            return expression;
+        }
+
         public List<Composite>? GetCurrentExpression() => write ? this.expression : null;
 
         public IExpressionStoreable GetActualComposite()
@@ -223,6 +273,7 @@ namespace EngineeringCalculator
     internal interface IExpressionStoreable
     {
         public List<Composite> GetActualExpression(ref List<Composite> expression);
+        public List<Composite> GetActualNotEmptyExpression(ref List<Composite> expression);
         public List<Composite>? GetCurrentExpression();
         public IExpressionStoreable GetActualComposite();
         public void Deconstruct(out Composite result);
