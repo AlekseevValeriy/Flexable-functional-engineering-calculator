@@ -1,4 +1,6 @@
-﻿using System.Linq.Expressions;
+﻿using System.Drawing.Text;
+using System.Linq.Expressions;
+using System.Windows.Forms;
 using FFEC;
 
 namespace FFEC
@@ -181,17 +183,37 @@ namespace FFEC
         private static void RaiseColorDialog(Object parent, Object sender, EventArgs e)
         {
             Control control = (Control)parent;
-            ColorDialog dialog = new ColorDialog() { Color = control.BackColor };
+            control.BackColor = GetColorByDialog(control.BackColor);
+        }
 
-            if (dialog.ShowDialog() is DialogResult.OK) control.BackColor = dialog.Color;
+        private static Color GetColorByDialog(Color defaultColor)
+        {
+            ColorDialog dialog = new ColorDialog() { Color = defaultColor };
+            return (dialog.ShowDialog() is DialogResult.OK) ? dialog.Color : defaultColor;
+        }
+
+        private static Color? GetColorByDialog()
+        {
+            ColorDialog dialog = new ColorDialog();
+            return (dialog.ShowDialog() is DialogResult.OK) ? dialog.Color : null;
         }
 
         private static void RaiseFontDialog(Object parent, Object sender, EventArgs e)
         {
             Control control = (Control)parent;
-            FontDialog dialog = new FontDialog() { Font = control.Font };
+            control.Font = GetFontByDialog(control.Font);
+        }
 
-            if (dialog.ShowDialog() is DialogResult.OK) control.Font = dialog.Font;
+        private static Font GetFontByDialog(Font defaultFont)
+        {
+            FontDialog dialog = new FontDialog() { Font = defaultFont };
+            return (dialog.ShowDialog() is DialogResult.OK) ? dialog.Font : defaultFont;
+        }
+
+        private static Font? GetFontByDialog()
+        {
+            FontDialog dialog = new FontDialog();
+            return (dialog.ShowDialog() is DialogResult.OK) ? dialog.Font : null;
         }
 
         private static void RaiseChangeSizeForm(Object parent, Object sender, EventArgs e)
@@ -329,7 +351,7 @@ namespace FFEC
                 {
                     if (panel.Parent.Name != "displayTableLayoutPanel")
                     { 
-                        SButton button = new SButton() { Data = new String[] { data[0], data[1] }, Text = Storage.GetButtonText(data[0], data[1]), Dock = Global.placement };
+                        SButton button = new SButton() { Data = new String[] { data[0], data[1] }, Text = Storage.GetButtonText(data[0], data[1]), Dock = Global.placement, FlatStyle = FlatStyle.Flat };
                         panel.Controls.Add(Wrap.DragDrop(Wrap.ChangeProperty(Wrap.ActionPerform(button)), modifierConside: true));
                     }
                     else 
@@ -507,5 +529,52 @@ namespace FFEC
                 }
             }
         }
+
+        public static void UpdateControlColor(Control control)
+        {
+            Color? color = GetColorByDialog();
+            if (color is null) return;
+            control.BackColor = (Color)color;
+        }
+
+        public static void UpdateControlsColor(Char type, params TableLayoutPanel[] tablePanels)
+        {
+            Color? color = GetColorByDialog();
+            if (color is null) return;
+
+            SetColor setter;
+            if (type == 'b') setter = SetBackColor;
+            else if (type == 'f') setter = SetForeColor;
+            else return;
+
+            foreach (TableLayoutPanel tablePanel in tablePanels)
+            {
+                foreach (Panel panel in tablePanel.Controls)
+                {
+                    foreach (Control control in panel.Controls) if (((IRemoveable)control).Locked == false) setter(control, (Color)color); 
+                }
+            }
+        }
+
+        public static void UpdateControlsFont(params TableLayoutPanel[] tablePanels)
+        {
+            Font? font = GetFontByDialog();
+            if (font is null) return;
+
+            foreach (TableLayoutPanel tablePanel in tablePanels)
+            {
+                foreach (Panel panel in tablePanel.Controls)
+                {
+                    foreach (Control control in panel.Controls) if (((IRemoveable)control).Locked == false) control.Font = (Font)font;
+                }
+            }
+        }
+
+        private static void SetBackColor(Control control, System.Drawing.Color color) => control.BackColor = color;
+        private static void SetForeColor(Control control, System.Drawing.Color color) => control.ForeColor = color;
+
+        private delegate void SetColor(Control control, System.Drawing.Color color);
+
+        
     }
 }

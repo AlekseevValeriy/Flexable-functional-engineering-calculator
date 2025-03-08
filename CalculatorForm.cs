@@ -77,5 +77,30 @@ namespace FFEC
         {
             new AboutBox().ShowDialog();
         }
+
+        private void FontToolClick(object sender, EventArgs e)
+        {
+            Handler.UpdateControlsFont(controlTableLayoutPanel, displayTableLayoutPanel);
+        }
+
+        private void FontColorToolClick(object sender, EventArgs e)
+        {
+            Handler.UpdateControlsColor('f', controlTableLayoutPanel, displayTableLayoutPanel);
+        }
+
+        private void BackgroundColorToolClick(object sender, EventArgs e)
+        {
+            Handler.UpdateControlColor(this);
+        }
+
+        private void ControlsColorToolClick(object sender, EventArgs e)
+        {
+            Handler.UpdateControlsColor('b', controlTableLayoutPanel, displayTableLayoutPanel);
+        }
+
+        private void MenuStripColorToolClick(object sender, EventArgs e)
+        {
+            Handler.UpdateControlColor(menuStrip);
+        }
     }
 }
