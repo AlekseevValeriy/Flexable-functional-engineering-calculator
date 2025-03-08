@@ -1,0 +1,88 @@
+﻿{
+	"Display": 
+	{
+		"Base": ""
+	},
+	"Numbers": 
+	{
+		"Zero": "0",
+		"One": "1",
+		"Two": "2",
+		"Three": "3",
+		"Four": "4",
+		"Five": "5",
+		"Six": "6",
+		"Seven": "7",
+		"Eight": "8",
+		"Nine": "9",
+		"Pi": "π",
+		"E": "e"
+	},
+	"Actions": 
+	{
+		"ToDouble": ",",
+		"Backspace": "←",
+		"Equally": "=",
+		"Clear": "C",
+		"ClearElement": "CE",
+		"ChangeSign": "±",
+		"Parenthesis": "( )",
+		"CloseFunctionWrite": "⟴",
+	},
+	"Operators": 
+	{
+		"Append": "+",
+		"Subtract": "-",
+		"Multiply": "×",
+		"Division": "÷",
+		"Modular": "mod"
+	},
+	"Function": 
+	{
+		"NaturalLogarithm": "ln",
+		"EPowerOfX": "eᵡ",
+		"DecimalLogarithm": "log",
+		"LogarithmOfXBasedOnY": "logᵧx",
+		"TenPowerOfX": "10ᵡ",
+		"TwoPowerOfX": "2ᵡ",
+		"XPowerOfY": "xʸ",
+		"YRootOfX": "ʸ√x",
+		"XPowerOfTwo": "x²",
+		"XPowerOfThree": "x³",
+		"SquareRootOfX": "²√x",
+		"CubicRootOfX": "³√x",
+		"XReverse": "⅟ᵪ",
+		"XAbsolute": "| x |",
+		"Exponential": "exp",
+		"NFactorial": "n!"
+	},
+	"Trigonometry": 
+	{
+		"Sine": "sin",
+		"Cosine": "cos",
+		"Tangent": "tan",
+		"Cosecant": "csc",
+		"Secant": "sec",
+		"Cotangent": "cot",
+		"Arcsine": "arcsin",
+		"Arccosine": "arccos",
+		"Arctangent": "arctan",
+		"Arccosecant": "arccsc",
+		"Arcsecant": "arcsec",
+		"Arccotangent": "arccot",
+		"DegreesTypeChange": "DEG",
+		"ToDegreesMinutesSeconds": "➞dms",
+		"ToDegrees": "➞deg",
+
+	},
+	"Memory": 
+	{
+		"MemoryClear": "MC",
+		"MemoryRead": "MR",
+		"MemorySave": "MS",
+		"MemoryView": "M↓",
+		"ChangeView": "F-E",
+		"MemoryNumberAddNumber": "M+",
+		"MemoryNumberSubtractNumber": "M-"
+	}
+}

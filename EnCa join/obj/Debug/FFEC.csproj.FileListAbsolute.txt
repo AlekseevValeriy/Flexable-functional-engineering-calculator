@@ -1,0 +1,36 @@
+C:\Users\valer\source\repos\EnCa join\bin\Debug\EnCa join.exe.config
+C:\Users\valer\source\repos\EnCa join\bin\Debug\EnCa join.exe
+C:\Users\valer\source\repos\EnCa join\bin\Debug\EnCa join.pdb
+C:\Users\valer\source\repos\EnCa join\bin\Debug\Json.Net.dll
+C:\Users\valer\source\repos\EnCa join\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\valer\source\repos\EnCa join\bin\Debug\Newtonsoft.Json.dll
+C:\Users\valer\source\repos\EnCa join\bin\Debug\System.Buffers.dll
+C:\Users\valer\source\repos\EnCa join\bin\Debug\System.IO.Pipelines.dll
+C:\Users\valer\source\repos\EnCa join\bin\Debug\System.Memory.dll
+C:\Users\valer\source\repos\EnCa join\bin\Debug\System.Numerics.Vectors.dll
+C:\Users\valer\source\repos\EnCa join\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\valer\source\repos\EnCa join\bin\Debug\System.Text.Encodings.Web.dll
+C:\Users\valer\source\repos\EnCa join\bin\Debug\System.Text.Json.dll
+C:\Users\valer\source\repos\EnCa join\bin\Debug\System.Threading.Tasks.Extensions.dll
+C:\Users\valer\source\repos\EnCa join\bin\Debug\System.ValueTuple.dll
+C:\Users\valer\source\repos\EnCa join\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+C:\Users\valer\source\repos\EnCa join\bin\Debug\Newtonsoft.Json.xml
+C:\Users\valer\source\repos\EnCa join\bin\Debug\System.Buffers.xml
+C:\Users\valer\source\repos\EnCa join\bin\Debug\System.IO.Pipelines.xml
+C:\Users\valer\source\repos\EnCa join\bin\Debug\System.Memory.xml
+C:\Users\valer\source\repos\EnCa join\bin\Debug\System.Numerics.Vectors.xml
+C:\Users\valer\source\repos\EnCa join\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\valer\source\repos\EnCa join\bin\Debug\System.Text.Encodings.Web.xml
+C:\Users\valer\source\repos\EnCa join\bin\Debug\System.Text.Json.xml
+C:\Users\valer\source\repos\EnCa join\bin\Debug\System.Threading.Tasks.Extensions.xml
+C:\Users\valer\source\repos\EnCa join\bin\Debug\System.ValueTuple.xml
+C:\Users\valer\source\repos\EnCa join\obj\Debug\FFEC.csproj.AssemblyReference.cache
+C:\Users\valer\source\repos\EnCa join\obj\Debug\FFEC.AboutBox.resources
+C:\Users\valer\source\repos\EnCa join\obj\Debug\FFEC.CalculatorForm.resources
+C:\Users\valer\source\repos\EnCa join\obj\Debug\FFEC.ControlsForm.resources
+C:\Users\valer\source\repos\EnCa join\obj\Debug\EnCa_join.Properties.Resources.resources
+C:\Users\valer\source\repos\EnCa join\obj\Debug\FFEC.csproj.GenerateResource.cache
+C:\Users\valer\source\repos\EnCa join\obj\Debug\FFEC.csproj.CoreCompileInputs.cache
+C:\Users\valer\source\repos\EnCa join\obj\Debug\FFEC.csproj.Up2Date
+C:\Users\valer\source\repos\EnCa join\obj\Debug\EnCa join.exe
+C:\Users\valer\source\repos\EnCa join\obj\Debug\EnCa join.pdb
