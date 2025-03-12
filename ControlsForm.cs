@@ -9,11 +9,11 @@ namespace FFEC
         {
             InitializeComponent();
 
-            foreach (KeyValuePair<String, Dictionary<String, String>> sector in Storage.GetControlsData())
+            foreach (KeyValuePair<String, Dictionary<String, String>> sector in Storage.Controls)
             {
                 TabPage tab = new TabPage(sector.Key);
 
-                IRemovableGenerator generator = sector.Key != "Display" ? NewButton : NewTextBox;
+                IRemovableGenerator generator = sector.Key != "Отображение" ? NewButton : NewTextBox;
 
                 FlowLayoutPanel flowPanel = new FlowLayoutPanel() { Dock = DockStyle.Fill, AutoScroll = true };
                 foreach (KeyValuePair<String, String> controlPair in sector.Value)

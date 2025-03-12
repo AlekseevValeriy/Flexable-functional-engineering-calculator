@@ -1,0 +1,97 @@
+{
+	"Base": {
+		"WindowSize": [0, 0],
+		"Placement": "",
+		"BorderView": true,
+		"SplitContainerSplitterDistance": 0,
+		"TableCapacity": {
+			"Display": [0, 0], // r / c
+			"Controls": [0, 0] // r / c
+		},
+		"Form": {
+			"BackColor": [0, 0, 0, 0]
+		},
+		"MenuStrip":{
+			"Font": {
+				"Name": "",
+				"Size": 0.0,
+				"Unit": "",
+				"Bold": false,
+				"GdiCharSet": 0,
+				"GdiVerticalFont": false,
+				"Italic": false,
+				"Strikeout": false,
+				"Underline": false
+			},
+			"ForeColor": [0, 0, 0, 0],
+			"BackColor": [0, 0, 0, 0]
+		},
+		"Controls": {
+			"Font": {
+				"Name": "",
+				"Size": 0.0,
+				"Unit": "",
+				"Bold": false,
+				"GdiCharSet": 0,
+				"GdiVerticalFont": false,
+				"Italic": false,
+				"Strikeout": false,
+				"Underline": false
+			},
+			"ForeColor": [0, 0, 0, 0],
+			"BackColor": [0, 0, 0, 0],
+			"FlatBorderColor": [0, 0, 0, 0],
+			"FlatMouseDownBackColor": [0, 0, 0, 0],
+			"FlatMouseOverBackColor": [0, 0, 0, 0],
+		},
+		"ControlsLayout": [
+			{
+				"SectorName": "", // $"{Sector};{Name}"
+				"PositionByCell": [0, 0],
+				"Size": [0, 0],
+				"Lock": false
+			},
+			{
+				"SectorName": "Отображение;Базовое",
+				"PositionByCell": [0, 0],
+				"Size": [0, 0],
+				"Lock": true,
+				"Font": {
+					"Name": "",
+					"Size": 0.0,
+					"Unit": "",
+					"Bold": false,
+					"GdiCharSet": 0,
+					"GdiVerticalFont": false,
+					"Italic": false,
+					"Strikeout": false,
+					"Underline": false
+				},
+				"ForeColor": [0, 0, 0, 0],
+				"BackColor": [0, 0, 0, 0]
+			},
+			{
+				"SectorName": "Число;Нуль",
+				"PositionByCell": [0, 0],
+				"Size": [0, 0],
+				"Lock": true,
+				"Font": {
+					"Name": "",
+					"Size": 0.0,
+					"Unit": "",
+					"Bold": false,
+					"GdiCharSet": 0,
+					"GdiVerticalFont": false,
+					"Italic": false,
+					"Strikeout": false,
+					"Underline": false
+				},
+				"ForeColor": [0, 0, 0, 0],
+				"BackColor": [0, 0, 0, 0],
+				"FlatBorderColor": [0, 0, 0, 0],
+				"FlatMouseDownBackColor": [0, 0, 0, 0],
+				"FlatMouseOverBackColor": [0, 0, 0, 0]
+			}
+		]
+	}
+}

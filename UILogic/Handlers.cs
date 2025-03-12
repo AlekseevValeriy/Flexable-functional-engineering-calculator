@@ -1,9 +1,4 @@
-﻿using System.Drawing.Text;
-using System.Linq.Expressions;
-using System.Windows.Forms;
-using FFEC;
-
-namespace FFEC
+﻿namespace FFEC
 {
     internal static class Handler
     {
@@ -21,9 +16,9 @@ namespace FFEC
             }
         }
 
-        public static Boolean DisplayValidate(DragEventArgs e) => DragEventArgsToDrop(e)[0] == "Display";
+        public static Boolean DisplayValidate(DragEventArgs e) => DragEventArgsToDrop(e)[0] == "Отображение";
 
-        public static Boolean ControlValidate(DragEventArgs e) => DragEventArgsToDrop(e)[0] != "Display";
+        public static Boolean ControlValidate(DragEventArgs e) => DragEventArgsToDrop(e)[0] != "Отображение";
 
         public static ConverterToStringByRule GetRuleByData(String[] data)
         {
@@ -351,7 +346,7 @@ namespace FFEC
                 {
                     if (panel.Parent.Name != "displayTableLayoutPanel")
                     { 
-                        SButton button = new SButton() { Data = new String[] { data[0], data[1] }, Text = Storage.GetButtonText(data[0], data[1]), Dock = Global.placement, FlatStyle = FlatStyle.Flat };
+                        SButton button = new SButton() { Data = new String[] { data[0], data[1] }, Text = Storage.GetControlText(data[0], data[1]), Dock = Global.placement, FlatStyle = FlatStyle.Flat };
                         panel.Controls.Add(Wrap.DragDrop(Wrap.ChangeProperty(Wrap.ActionPerform(button)), modifierConside: true));
                     }
                     else 
@@ -405,24 +400,24 @@ namespace FFEC
             panel.ContextMenu = contextMenu;
         }
 
-        private static void PanelAddRow(Object parent, Object sender, EventArgs e)
+        public static void PanelAddRow(Object parent, Object sender, EventArgs e)
         {
-            TableLayoutPanel tablePanel = (TableLayoutPanel)((Panel)parent).Parent;
+            TableLayoutPanel tablePanel = (((Panel)parent).Parent is TableLayoutPanel) ? (TableLayoutPanel)((Panel)parent).Parent : (TableLayoutPanel)parent;
             tablePanel.RowCount += 1;
             tablePanel.RowStyles.Add(new RowStyle());
-            TablePanelCorrectRowsCellSize(ref tablePanel);
-            TablePanelFillCells(ref tablePanel, GetWrapperByTablePanel(ref tablePanel));
+            TablePanelCorrectRowsCellSize(tablePanel);
+            TablePanelFillCells(tablePanel, GetWrapperByTablePanel(tablePanel));
         }
-        private static void PanelAddColumn(Object parent, Object sender, EventArgs e)
+        public static void PanelAddColumn(Object parent, Object sender, EventArgs e)
         {
-            TableLayoutPanel tablePanel = (TableLayoutPanel)((Panel)parent).Parent;
+            TableLayoutPanel tablePanel = (((Panel)parent).Parent is TableLayoutPanel) ? (TableLayoutPanel)((Panel)parent).Parent : (TableLayoutPanel)parent;
             tablePanel.ColumnCount += 1;
             tablePanel.ColumnStyles.Add(new ColumnStyle());
-            TablePanelCorrectColumnsCellSize(ref tablePanel);
-            TablePanelFillCells(ref tablePanel, GetWrapperByTablePanel(ref tablePanel));
+            TablePanelCorrectColumnsCellSize(tablePanel);
+            TablePanelFillCells(tablePanel, GetWrapperByTablePanel(tablePanel));
         }
 
-        private static Wrapper GetWrapperByTablePanel(ref TableLayoutPanel tablePanel)
+        private static Wrapper GetWrapperByTablePanel(TableLayoutPanel tablePanel)
         {
             return tablePanel.Name switch
             {
@@ -431,9 +426,9 @@ namespace FFEC
                 _ => throw new Exception("new panel not handled")
             };
         }
-        private static void PanelRemoveRow(Object parent, Object sender, EventArgs e)
+        public static void PanelRemoveRow(Object parent, Object sender, EventArgs e)
         {
-            TableLayoutPanel tablePanel = (TableLayoutPanel)((Panel)parent).Parent;
+            TableLayoutPanel tablePanel = (((Panel)parent).Parent is TableLayoutPanel) ? (TableLayoutPanel)((Panel)parent).Parent : (TableLayoutPanel)parent;
             if (tablePanel.RowCount == 1) return;
             for (Byte C = 0; C < tablePanel.RowCount; C++)
             {
@@ -442,12 +437,12 @@ namespace FFEC
             }
             tablePanel.RowStyles.RemoveAt(tablePanel.RowCount - 1);
             tablePanel.RowCount -= 1;
-            if (tablePanel.RowCount != 0) TablePanelCorrectRowsCellSize(ref tablePanel);
+            if (tablePanel.RowCount != 0) TablePanelCorrectRowsCellSize(tablePanel);
 
         }
-        private static void PanelRemoveColumn(Object parent, Object sender, EventArgs e)
+        public static void PanelRemoveColumn(Object parent, Object sender, EventArgs e)
         {
-            TableLayoutPanel tablePanel = (TableLayoutPanel)((Panel)parent).Parent;
+            TableLayoutPanel tablePanel = (((Panel)parent).Parent is TableLayoutPanel) ? (TableLayoutPanel)((Panel)parent).Parent : (TableLayoutPanel)parent;
             if (tablePanel.ColumnCount == 1) return;
             for (Byte R = 0; R < tablePanel.ColumnCount; R++)
             {
@@ -455,10 +450,10 @@ namespace FFEC
                 if (control is not null) tablePanel.Controls.Remove(control);
             }
             tablePanel.ColumnCount -= 1;
-            if (tablePanel.ColumnCount != 0) TablePanelCorrectColumnsCellSize(ref tablePanel);
+            if (tablePanel.ColumnCount != 0) TablePanelCorrectColumnsCellSize(tablePanel);
         }
 
-        public static void TablePanelFillCells(ref TableLayoutPanel tablePanel, Wrapper wrapper)
+        public static void TablePanelFillCells(TableLayoutPanel tablePanel, Wrapper wrapper)
         {
             for (Byte R = 0; R < tablePanel.RowCount; R++)
             {
@@ -470,13 +465,13 @@ namespace FFEC
             }
         }
 
-        public static void TablePanelCorrectCellsSize(ref TableLayoutPanel tablePanel)
+        public static void TablePanelCorrectCellsSize(TableLayoutPanel tablePanel)
         {
-            TablePanelCorrectRowsCellSize(ref tablePanel);
-            TablePanelCorrectColumnsCellSize(ref tablePanel);
+            TablePanelCorrectRowsCellSize(tablePanel);
+            TablePanelCorrectColumnsCellSize(tablePanel);
         }
 
-        private static void TablePanelCorrectRowsCellSize(ref TableLayoutPanel tablePanel)
+        private static void TablePanelCorrectRowsCellSize(TableLayoutPanel tablePanel)
         {
             foreach (RowStyle item in tablePanel.RowStyles)
             {
@@ -485,7 +480,7 @@ namespace FFEC
             }
         }
 
-        private static void TablePanelCorrectColumnsCellSize(ref TableLayoutPanel tablePanel)
+        private static void TablePanelCorrectColumnsCellSize(TableLayoutPanel tablePanel)
         {
             foreach (ColumnStyle item in tablePanel.ColumnStyles)
             {
@@ -536,26 +531,18 @@ namespace FFEC
             if (color is null) return;
             control.BackColor = (Color)color;
         }
-
-        public static void UpdateControlsColor(Char type, params TableLayoutPanel[] tablePanels)
+        public static void UpdateControlFontColor(Control control)
         {
             Color? color = GetColorByDialog();
             if (color is null) return;
-
-            SetColor setter;
-            if (type == 'b') setter = SetBackColor;
-            else if (type == 'f') setter = SetForeColor;
-            else return;
-
-            foreach (TableLayoutPanel tablePanel in tablePanels)
-            {
-                foreach (Panel panel in tablePanel.Controls)
-                {
-                    foreach (Control control in panel.Controls) if (((IRemoveable)control).Locked == false) setter(control, (Color)color); 
-                }
-            }
+            control.ForeColor = (Color)color;
         }
-
+        public static void UpdateControlFont(Control control)
+        {
+            Font? font = GetFontByDialog();
+            if (font is null) return;
+            control.Font= (Font)font;
+        }
         public static void UpdateControlsFont(params TableLayoutPanel[] tablePanels)
         {
             Font? font = GetFontByDialog();
@@ -570,11 +557,37 @@ namespace FFEC
             }
         }
 
+        public static void UpdateControlsColor(Char type, params TableLayoutPanel[] tablePanels)
+        {
+            Color? color = GetColorByDialog();
+            if (color is null) return;
+
+            SetColor? setter = type switch
+            {
+                'b' => SetBackColor,
+                'f' => SetForeColor,
+                'r' => SetFlatBorderColor,
+                's' => SetFlatSelectionColor,
+                'p' => SetFlatPressColor,
+                _ => null
+            };
+            if (setter is null) return;
+
+            foreach (TableLayoutPanel tablePanel in tablePanels)
+            {
+                foreach (Panel panel in tablePanel.Controls)
+                {
+                    foreach (Control control in panel.Controls) if (((IRemoveable)control).Locked == false) setter(control, (Color)color); 
+                }
+            }
+        }
+
         private static void SetBackColor(Control control, System.Drawing.Color color) => control.BackColor = color;
         private static void SetForeColor(Control control, System.Drawing.Color color) => control.ForeColor = color;
+        private static void SetFlatBorderColor(Control control, System.Drawing.Color color) => ((Button)control).FlatAppearance.BorderColor = color;
+        private static void SetFlatSelectionColor(Control control, System.Drawing.Color color) => ((Button)control).FlatAppearance.MouseOverBackColor = color;
+        private static void SetFlatPressColor(Control control, System.Drawing.Color color) => ((Button)control).FlatAppearance.MouseDownBackColor = color;
 
         private delegate void SetColor(Control control, System.Drawing.Color color);
-
-        
     }
 }

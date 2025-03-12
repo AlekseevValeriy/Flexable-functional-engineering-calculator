@@ -1,27 +1,35 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System.IO;
+﻿using System.IO;
 
 namespace FFEC
 {
     internal static class Json
     {
-        public static Dictionary<String, Dictionary<String, String>> ReadControls()
+        private const String controlsFilePath = "..\\..\\JsonData\\Controls.json";
+        private const String configurationFilePath = "..\\..\\JsonData\\Configurations.json";
+        private const String configFilePath = "..\\..\\JsonData\\Config.json";
+
+        public static JObject ReadControls() => ReadFile(controlsFilePath);
+        public static JObject ReadConfigurations() => ReadFile(configurationFilePath);
+        public static void WriteConfigurations(JObject fileData) => WriteFile(configurationFilePath, fileData);
+        public static JObject ReadConfig() => ReadFile(configFilePath);
+        public static void WriteConfig(JObject fileData) => WriteFile(configFilePath, fileData);
+
+        private static JObject ReadFile(String filePath)
         {
-            //MessageBox.Show($"{System.IO.Path.GetDirectoryName(Application.ExecutablePath)}"); // current folder
-            string fileName = "..\\..\\JsonData\\Controls.json";
-            string jsonString = File.ReadAllText(fileName); // panic
-            Dictionary<String, Dictionary<String, String>> tabsData = JsonConvert.DeserializeObject<Dictionary<String, Dictionary<String, String>>>(jsonString);
-            return tabsData;
+            String fileData;
+            try { fileData = File.ReadAllText(filePath); } // with Encoding.UNICODE get exception -\/('_')\/-
+            catch (Exception exception) { fileData = ""; SendMessage(exception.ToString());}
+            return JObject.Parse(fileData);
+        }
+        private static void WriteFile(String filePath, JObject fileData)
+        {
+            try { File.WriteAllText(filePath, fileData.ToString()); }
+            catch (Exception exception) { SendMessage(exception.ToString()); }
         }
 
-        public static JObject ReadConfig()
-        {
-            //MessageBox.Show($"{System.IO.Path.GetDirectoryName(Application.ExecutablePath)}"); // current folder
-            string fileName = "..\\..\\JsonData\\Config.json";
-            string jsonString = File.ReadAllText(fileName); // panic
-            JObject o = JObject.Parse(jsonString);
-            return o;
-        }
+        private static void ViewCurrentPath() => MessageBox.Show($"{System.IO.Path.GetDirectoryName(Application.ExecutablePath)}");
+
+        public static event InteractWithUI SendMessage;
+        public delegate void InteractWithUI(String data);
     }
 }

@@ -2,9 +2,25 @@
 {
     internal static class Storage
     {
-        private static Dictionary<String, Dictionary<String, String>> controlsData = Json.ReadControls();
+        private static JObject controlsData = Json.ReadControls();
+        public static Dictionary<String, Dictionary<String, String>> Controls 
+        { 
+            get => controlsData.ToObject<Dictionary<String, Dictionary<String, String>>>();
+        }
+        public static String GetControlText(String sector, String name) => controlsData.SelectToken($"$.{sector}.{name}").ToString();
 
-        public static String GetButtonText(String sector, String name) => controlsData[sector][name];
-        public static Dictionary<String, Dictionary<String, String>> GetControlsData() => controlsData;
+        private static JObject configurationsData = Json.ReadConfigurations();
+        public static JObject Configurations 
+        { 
+            get => configurationsData;
+            set => Json.WriteConfigurations(value);
+        }
+        
+        private static JObject configData = Json.ReadConfig();
+        public static JObject Config
+        { 
+            get => configData;
+            set => Json.WriteConfig(value);
+        }
     }
 }

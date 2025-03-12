@@ -1,6 +1,4 @@
-﻿using FFEC;
-
-namespace FFEC
+﻿namespace FFEC
 {
     internal partial class CalculatorForm : Form
     {
@@ -8,13 +6,16 @@ namespace FFEC
 
         public CalculatorForm()
         {
+            //Config.InitializeConfiguration(this, menuStrip, splitContainer, displayTableLayoutPanel, controlTableLayoutPanel);
             InitializeComponent();
             InitializePanels();
-            bordersToolStripMenuItem.Checked = Global.borderView;
+            InitializeMenuStrip();
             controlsForm = new ControlsForm();
-            GetToolByStyle(Global.placement).Checked = true;
-
             InputController.Update += () => { Handler.UpdateDisplayPanelsRecord(Global.expression, displayTableLayoutPanel); };
+            Json.SendMessage += (String messageText) => { MessageBox.Show(messageText); };
+            //try { MessageBox.Show($"{String.Join(", ", Storage.Configurations.SelectToken($"$.Base.WindowSize").ToObject<List<UInt16>>())}"); }
+            //catch (Exception ex) { MessageBox.Show(ex.ToString()); }
+
         }
 
         private void InitializePanels()
@@ -23,9 +24,17 @@ namespace FFEC
             FillControlsPanel();
         }
 
-        private void FillDisplayPanel() => Handler.TablePanelFillCells(ref displayTableLayoutPanel, Wrap.DisplayPanel);
+        private void InitializeMenuStrip()
+        {
+            bordersToolStripMenuItem.Checked = Global.borderView;
+            GetToolByStyle(Global.placement).Checked = true;
+            DisplayPanelsFulledCheck();
+            ControlPanelsFulledCheck();
+        }
 
-        private void FillControlsPanel() => Handler.TablePanelFillCells(ref controlTableLayoutPanel, Wrap.ControlPanel);
+        private void FillDisplayPanel() => Handler.TablePanelFillCells(displayTableLayoutPanel, Wrap.DisplayPanel);
+
+        private void FillControlsPanel() => Handler.TablePanelFillCells(controlTableLayoutPanel, Wrap.ControlPanel);
 
         private void ControlToolClick(object sender, EventArgs e)
         {
@@ -83,24 +92,91 @@ namespace FFEC
             Handler.UpdateControlsFont(controlTableLayoutPanel, displayTableLayoutPanel);
         }
 
-        private void FontColorToolClick(object sender, EventArgs e)
-        {
-            Handler.UpdateControlsColor('f', controlTableLayoutPanel, displayTableLayoutPanel);
-        }
-
         private void BackgroundColorToolClick(object sender, EventArgs e)
         {
             Handler.UpdateControlColor(this);
         }
 
-        private void ControlsColorToolClick(object sender, EventArgs e)
+        private void ControlsFontColorToolClick(object sender, EventArgs e)
         {
-            Handler.UpdateControlsColor('b', controlTableLayoutPanel, displayTableLayoutPanel);
+            Handler.UpdateControlsColor('f', controlTableLayoutPanel, displayTableLayoutPanel); // не ставит -\/('_')\/-
+        }
+        private void ControlsBackColorToolClick(object sender, EventArgs e)
+        {
+            Handler.UpdateControlsColor('b', controlTableLayoutPanel, displayTableLayoutPanel); // не ставит -\/('_')\/-
+        }
+        private void ControlsBorderColorToolClick(object sender, EventArgs e)
+        {
+            Handler.UpdateControlsColor('r', controlTableLayoutPanel);
+        }
+        private void ControlsSelectionColorToolClick(object sender, EventArgs e)
+        {
+            Handler.UpdateControlsColor('s', controlTableLayoutPanel);
+        }
+        private void ControlsPressColorToolClick(object sender, EventArgs e)
+        {
+            Handler.UpdateControlsColor('p', controlTableLayoutPanel);
         }
 
         private void MenuStripColorToolClick(object sender, EventArgs e)
         {
             Handler.UpdateControlColor(menuStrip);
         }
+        private void MenuFontToolClick(object sender, EventArgs e)
+        {
+            Handler.UpdateControlFont(menuStrip);
+        }
+        private void MenuFontColorToolClick(object sender, EventArgs e)
+        {
+            Handler.UpdateControlFontColor(menuStrip);
+        }
+
+        private void DisplayAddRowToolClick(object sender, EventArgs e)
+        {
+            Handler.PanelAddRow(displayTableLayoutPanel, sender, e);
+            DisplayPanelsFulledCheck();
+        }
+
+        private void DisplayRemoveRowToolClick(object sender, EventArgs e)
+        {
+            Handler.PanelRemoveRow(displayTableLayoutPanel, sender, e);
+            DisplayPanelsFulledCheck();
+        }
+
+        private void ControlsAddRowToolClick(object sender, EventArgs e)
+        {
+            Handler.PanelAddRow(controlTableLayoutPanel, sender, e);
+            ControlPanelsFulledCheck();
+        }
+
+        private void controlsRemoveRowToolClick(object sender, EventArgs e)
+        {
+            Handler.PanelRemoveRow(controlTableLayoutPanel, sender, e);
+            ControlPanelsFulledCheck();
+        }
+
+        private void ControlsAddColumnToolClick(object sender, EventArgs e)
+        {
+            Handler.PanelAddColumn(controlTableLayoutPanel, sender, e);
+            ControlPanelsFulledCheck();
+        }
+
+        private void ControlsRemoveColumnToolClick(object sender, EventArgs e)
+        {
+            Handler.PanelRemoveColumn(controlTableLayoutPanel, sender, e);
+            ControlPanelsFulledCheck();
+        }
+
+        private void ControlPanelsFulledCheck()
+        {
+            controlsRemoveColumntoolStripMenuItem.Enabled = controlTableLayoutPanel.ColumnCount == 1 ? false : true;
+            controlsRemoveRowtoolStripMenuItem.Enabled = controlTableLayoutPanel.RowCount == 1 ? false : true;
+        }
+        private void DisplayPanelsFulledCheck()
+        {
+            displayRemoveRowToolStripMenuItem.Enabled = displayTableLayoutPanel.RowCount == 1 ? false : true;
+        }
+
+
     }
 }

@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
@@ -21,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // Следующий GUID служит для идентификации библиотеки типов, если этот проект будет видимым для COM
-[assembly: Guid("97e3837b-7758-4d77-94b4-732a7f813153")]
+[assembly: Guid("de382dfb-8a38-4982-867e-9eb3071d5d6f")]
 
 // Сведения о версии сборки состоят из указанных ниже четырех значений:
 //
