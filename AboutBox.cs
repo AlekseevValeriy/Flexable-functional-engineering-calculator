@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Reflection;
 
 namespace FFEC
 {
-    partial class AboutBox : Form
+    internal partial class AboutBox : Form
     {
         public AboutBox()
         {
@@ -18,7 +11,7 @@ namespace FFEC
             this.labelProductName.Text = AssemblyProduct;
             this.labelVersion.Text = String.Format("Версия {0}", AssemblyVersion);
             this.labelCopyright.Text = AssemblyCopyright;
-            this.labelCompanyName.Text = AssemblyCompany;
+            this.labelCompanyName.Text = String.Format("Организация {0}", AssemblyCompany);
             this.textBoxDescription.Text = AssemblyDescription;
         }
 

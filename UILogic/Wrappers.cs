@@ -11,7 +11,7 @@
 
         public static SButton ActionPerform(SButton button)
         {
-            button.Click += Handler.GetActionByButtonData(button.Data);
+            button.Click += Handler.GetActionByButtonData(button.JData);
             return button;
         }
 

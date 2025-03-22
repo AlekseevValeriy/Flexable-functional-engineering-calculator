@@ -19,14 +19,15 @@
         public void ToDouble() { if (!HasDouble) meaning += ','; }
         public Boolean IsZero { get => (meaning.Count(t => t == '0') + meaning.Count(t => t == ',')) == meaning.Length; }
         public void ChangeSign() { meaning = meaning.Contains('-') ? meaning.Remove(0, 1) : meaning = "-" + meaning; }
-        public Double Value 
-        { 
-            get 
-            { 
+        public Double Value
+        {
+            get
+            {
                 if (IsDouble) { Double tDouble; Double.TryParse(meaning, out tDouble); return tDouble; }
                 else { Int64 tInt64; Int64.TryParse(meaning, out tInt64); return tInt64; }
-            } 
-            set => meaning = value.ToString(); }
+            }
+            set => meaning = value.ToString();
+        }
     }
 
     internal class Constanta : Term
@@ -41,9 +42,8 @@
 
     internal class Operator : Composite
     {
-        private OperatorMark mark;
-        public OperatorMark GetMark { get => mark; }
-        public Operator(String meaning, OperatorMark mark) : base(meaning) { this.mark = mark; }
+        public OperatorMark GetMark { get; }
+        public Operator(String meaning, OperatorMark mark) : base(meaning) { this.GetMark = mark; }
     }
 
     public enum OperatorMark
@@ -57,9 +57,8 @@
 
     internal class Function : Composite
     {
-        FunctionMark mark;
-        public FunctionMark GetMark { get => mark; }
-        public Function(String meaning, FunctionMark mark) : base(meaning) { this.mark = mark; }
+        public FunctionMark GetMark { get; }
+        public Function(String meaning, FunctionMark mark) : base(meaning) { this.GetMark = mark; }
     }
 
     public enum FunctionMark
@@ -82,9 +81,9 @@
         NFactorial
     }
 
-    
 
-    internal class BinaryFunction: Function, IExpressionStoreable
+
+    internal class BinaryFunction : Function, IExpressionStoreable
     {
         public BinaryFunctionMark markStorage;
         private Boolean firstWrite = true;
@@ -97,7 +96,7 @@
             Term firstResult = (Term)Calculate.SolutionEquation(firstExpression);
             Term secondResult = (Term)Calculate.SolutionEquation(secondExpression);
             result = new Term("0");
-            result.Set(ArithmeticOperationsAdapter.GetPerformAction(markStorage)(firstResult.Value, secondResult.Value).ToString());
+            result.Set(ArithmeticOperationsAdapter.GetOperation(markStorage)(firstResult.Value, secondResult.Value).ToString());
         }
 
         public List<Composite> GetFirstExpression() => firstExpression;
@@ -154,8 +153,7 @@
     }
     public struct BinaryFunctionMark
     {
-        private FunctionMark mark;
-        public FunctionMark Field { get => mark; set => mark = value; }
+        public FunctionMark Field { get; set; }
     }
 
     internal class SingularFunction : Function, IExpressionStoreable
@@ -167,7 +165,7 @@
         public void Deconstruct(out Term result)
         {
             result = (Term)Calculate.SolutionEquation(expression);
-            result.Set(ArithmeticOperationsAdapter.GetPerformAction(markStorage)(result.Value).ToString());
+            result.Set(ArithmeticOperationsAdapter.GetOperation(markStorage)(result.Value).ToString());
         }
 
         public List<Composite> GetExpression() => expression;
@@ -212,8 +210,7 @@
     }
     public struct SingularFunctionMark
     {
-        private FunctionMark mark;
-        public FunctionMark Field { get => mark; set => mark = value; }
+        public FunctionMark Field { get; set; }
     }
 
     internal class Staples : Composite, IExpressionStoreable
@@ -258,7 +255,7 @@
 
         public IExpressionStoreable GetActualComposite()
         {
-            if (write && this.expression.Count != 0 &&  this.expression.Last() is IExpressionStoreable storeable && storeable.GetCurrentExpression() is not null) return storeable
+            if (write && this.expression.Count != 0 && this.expression.Last() is IExpressionStoreable storeable && storeable.GetCurrentExpression() is not null) return storeable
                     .GetActualComposite();
             return this;
         }
@@ -266,7 +263,7 @@
         public void CloseWrite() { if (write) write = false; }
     }
 
-    internal class VisualStaple: Composite
+    internal class VisualStaple : Composite
     {
         public VisualStaple(String meaning = "") : base(meaning) { }
     }

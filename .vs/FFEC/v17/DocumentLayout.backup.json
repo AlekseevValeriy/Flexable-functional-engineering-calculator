@@ -1,0 +1,152 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\valer\\OneDrive\\Documents\\GitHub\\Engineering-calculator\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{DE382DFB-8A38-4982-867E-9EB3071D5D6F}|FFEC.csproj|c:\\users\\valer\\onedrive\\documents\\github\\engineering-calculator\\propertyform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DE382DFB-8A38-4982-867E-9EB3071D5D6F}|FFEC.csproj|solutionrelative:propertyform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE382DFB-8A38-4982-867E-9EB3071D5D6F}|FFEC.csproj|c:\\users\\valer\\onedrive\\documents\\github\\engineering-calculator\\propertyform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{DE382DFB-8A38-4982-867E-9EB3071D5D6F}|FFEC.csproj|solutionrelative:propertyform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE382DFB-8A38-4982-867E-9EB3071D5D6F}|FFEC.csproj|c:\\users\\valer\\onedrive\\documents\\github\\engineering-calculator\\uilogic\\handlers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DE382DFB-8A38-4982-867E-9EB3071D5D6F}|FFEC.csproj|solutionrelative:uilogic\\handlers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE382DFB-8A38-4982-867E-9EB3071D5D6F}|FFEC.csproj|c:\\users\\valer\\onedrive\\documents\\github\\engineering-calculator\\uilogic\\config.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DE382DFB-8A38-4982-867E-9EB3071D5D6F}|FFEC.csproj|solutionrelative:uilogic\\config.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE382DFB-8A38-4982-867E-9EB3071D5D6F}|FFEC.csproj|c:\\users\\valer\\onedrive\\documents\\github\\engineering-calculator\\uilogic\\interaction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DE382DFB-8A38-4982-867E-9EB3071D5D6F}|FFEC.csproj|solutionrelative:uilogic\\interaction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 1975,
+          "SelectedChildIndex": 6,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{25f7e850-ffa1-11d0-b63f-00a0c922e851}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "PropertyForm.cs",
+              "DocumentMoniker": "C:\\Users\\valer\\OneDrive\\Documents\\GitHub\\Engineering-calculator\\PropertyForm.cs",
+              "RelativeDocumentMoniker": "PropertyForm.cs",
+              "ToolTip": "C:\\Users\\valer\\OneDrive\\Documents\\GitHub\\Engineering-calculator\\PropertyForm.cs",
+              "RelativeToolTip": "PropertyForm.cs",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAAAAcAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-22T18:11:38.584Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "PropertyForm.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "DocumentMoniker": "C:\\Users\\valer\\OneDrive\\Documents\\GitHub\\Engineering-calculator\\PropertyForm.cs",
+              "RelativeDocumentMoniker": "PropertyForm.cs",
+              "ToolTip": "C:\\Users\\valer\\OneDrive\\Documents\\GitHub\\Engineering-calculator\\PropertyForm.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "RelativeToolTip": "PropertyForm.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-22T18:07:38.063Z",
+              "EditorCaption": " [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Config.cs",
+              "DocumentMoniker": "C:\\Users\\valer\\OneDrive\\Documents\\GitHub\\Engineering-calculator\\UILogic\\Config.cs",
+              "RelativeDocumentMoniker": "UILogic\\Config.cs",
+              "ToolTip": "C:\\Users\\valer\\OneDrive\\Documents\\GitHub\\Engineering-calculator\\UILogic\\Config.cs",
+              "RelativeToolTip": "UILogic\\Config.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAjwBwAAABMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-22T18:01:28.516Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Handlers.cs",
+              "DocumentMoniker": "C:\\Users\\valer\\OneDrive\\Documents\\GitHub\\Engineering-calculator\\UILogic\\Handlers.cs",
+              "RelativeDocumentMoniker": "UILogic\\Handlers.cs",
+              "ToolTip": "C:\\Users\\valer\\OneDrive\\Documents\\GitHub\\Engineering-calculator\\UILogic\\Handlers.cs",
+              "RelativeToolTip": "UILogic\\Handlers.cs",
+              "ViewState": "AgIAANkBAAAAAAAAAAAIwPMBAABSAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-22T18:01:22.41Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Interaction.cs",
+              "DocumentMoniker": "C:\\Users\\valer\\OneDrive\\Documents\\GitHub\\Engineering-calculator\\UILogic\\Interaction.cs",
+              "RelativeDocumentMoniker": "UILogic\\Interaction.cs",
+              "ToolTip": "C:\\Users\\valer\\OneDrive\\Documents\\GitHub\\Engineering-calculator\\UILogic\\Interaction.cs",
+              "RelativeToolTip": "UILogic\\Interaction.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-22T18:00:12.189Z",
+              "EditorCaption": ""
+            }
+          ]
+        },
+        {
+          "DockedWidth": 1224,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{e1b7d1f8-9b3c-49b1-8f4f-bfc63a88835d}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{a80febb4-e7e0-4147-b476-21aaf2453969}"
+            }
+          ]
+        },
+        {
+          "DockedWidth": 171,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

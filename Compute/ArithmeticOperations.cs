@@ -4,8 +4,8 @@ namespace FFEC
 {
     internal static class ArithmeticOperationsAdapter
     {
-        public static Operation GetPerformAction(OperatorMark mark) => operatorActions[mark];
-        private static Dictionary<OperatorMark, Operation> operatorActions = new Dictionary<OperatorMark, Operation>()
+        public static Operation GetOperation(OperatorMark mark) => operators[mark];
+        private static Dictionary<OperatorMark, Operation> operators = new Dictionary<OperatorMark, Operation>()
         {
             { OperatorMark.Add, ArithmeticOperations.Add},
             { OperatorMark.Subtract, ArithmeticOperations.Subtract},
@@ -15,8 +15,8 @@ namespace FFEC
         };
         public delegate Double Operation(Double x, Double y);
 
-        public static PerformBinary GetPerformAction(BinaryFunctionMark mark) => binaryFunctionActions[mark.Field];
-        private static Dictionary<FunctionMark, PerformBinary> binaryFunctionActions = new Dictionary<FunctionMark, PerformBinary>()
+        public static PerformBinary GetOperation(BinaryFunctionMark mark) => binaryFunctions[mark.Field];
+        private static Dictionary<FunctionMark, PerformBinary> binaryFunctions = new Dictionary<FunctionMark, PerformBinary>()
         {
             { FunctionMark.XPowerOfY, ArithmeticOperations.XPowerOfY},
             { FunctionMark.LogarithmOfXBasedOnY, ArithmeticOperations.LogarithmOfXBasedOnY},
@@ -24,8 +24,8 @@ namespace FFEC
         };
         public delegate Double PerformBinary(Double x, Double y);
 
-        public static PerformSingular GetPerformAction(SingularFunctionMark mark) => singularFunctionActions[mark.Field];
-        private static Dictionary<FunctionMark, PerformSingular> singularFunctionActions = new Dictionary<FunctionMark, PerformSingular>()
+        public static PerformSingular GetOperation(SingularFunctionMark mark) => singularFunctions[mark.Field];
+        private static Dictionary<FunctionMark, PerformSingular> singularFunctions = new Dictionary<FunctionMark, PerformSingular>()
         {
             { FunctionMark.NaturalLogarithm, ArithmeticOperations.NaturalLogarithm},
             { FunctionMark.DecimalLogarithm, ArithmeticOperations.DecimalLogarithm},
@@ -68,10 +68,10 @@ namespace FFEC
         public static Double Exponential(Double x) => Pow(E, x);
         public static Double NFactorial(Double x)
         {
-            Double F = 1;
+            Double factorial = 1;
             for (UInt64 I = 1; I <= x; I++)
-            { F *= I; }
-            return F;
+            { factorial *= I; }
+            return factorial;
         }
     }
 }

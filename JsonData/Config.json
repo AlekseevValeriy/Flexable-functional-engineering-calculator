@@ -1,3 +1,63 @@
 {
-	"Configuration": ""
+  "Configuration": "Base",
+  "DefaultConfiguration": {
+    "Global": {
+      "Placement": "None",
+      "BorderView": true
+    },
+    "Form": {
+      "Size": [
+        800,
+        500
+      ],
+      "BackColor": "Control"
+    },
+    "SplitContainer": {
+      "SplitterDistance": 86
+    },
+    "TableStructs": {
+      "Display": [
+        1,
+        1
+      ],
+      "Controls": [
+        1,
+        1
+      ]
+    },
+    "MenuStrip": {
+      "Font": {
+        "Name": "Segoe UI",
+        "Size": 9.0,
+        "Unit": "Point",
+        "Bold": false,
+        "GdiCharSet": 1,
+        "GdiVerticalFont": false,
+        "Italic": false,
+        "Strikeout": false,
+        "Underline": false
+      },
+      "ForeColor": "ControlText",
+      "BackColor": "Control"
+    },
+    "DefaultControlStyle": {
+      "Font": {
+        "Name": "Microsoft Sans Serif",
+        "Size": 8.25,
+        "Unit": "Point",
+        "Bold": false,
+        "GdiCharSet": 204,
+        "GdiVerticalFont": false,
+        "Italic": false,
+        "Strikeout": false,
+        "Underline": false
+      },
+      "ForeColor": "ControlText",
+      "BackColor": "Control",
+      "FlatBorderColor": "0",
+      "FlatMouseDownBackColor": "0",
+      "FlatMouseOverBackColor": "0"
+    },
+    "ControlsLayout": []
+  }
 }

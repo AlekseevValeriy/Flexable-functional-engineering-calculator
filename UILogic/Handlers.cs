@@ -4,120 +4,200 @@
     {
         public static void ControlDoDragDrop(Object sender, MouseEventArgs e)
         {
-            ((Control)sender).DoDragDrop(ConvertToDrag(((IRemoveable)sender).Data), DragDropEffects.Copy | DragDropEffects.Move);
+            ((Control)sender).DoDragDrop(((IDataTransmitable)sender).GetImportData(), DragDropEffects.Copy | DragDropEffects.Move);
         }
 
         public static void ControlDoDragDropModifierConside(Object sender, MouseEventArgs e)
         {
             if ((Control.ModifierKeys & Keys.Control) == Keys.Control)
             {
-                ((Control)sender).DoDragDrop(ConvertToDrag(((IRemoveable)sender).Data), DragDropEffects.Copy | DragDropEffects.Move);
-                ((Control)sender).Parent.Controls.Clear();
+                JObject importData = ((IDataTransmitable)sender).GetOriginalImportData();
+                TableLayoutPanelCellPosition controlPosition = ((TableLayoutPanel)((Panel)((Control)sender).Parent).Parent).GetCellPosition((Panel)((Control)sender).Parent);
+
+                importData["PreviousPosition"] = new JArray(controlPosition.Column, controlPosition.Row);
+                ((Control)sender).DoDragDrop(importData.ToString(), DragDropEffects.Copy | DragDropEffects.Move);
+
             }
         }
 
-        public static Boolean DisplayValidate(DragEventArgs e) => DragEventArgsToDrop(e)[0] == "Отображение";
+        public static Boolean DisplayValidate(DragEventArgs e) => DragEventArgsToDrop(e)["Sector"].Value<String>() == "Display";
 
-        public static Boolean ControlValidate(DragEventArgs e) => DragEventArgsToDrop(e)[0] != "Отображение";
+        public static Boolean ControlValidate(DragEventArgs e) => DragEventArgsToDrop(e)["Sector"].Value<String>() != "Display";
 
-        public static ConverterToStringByRule GetRuleByData(String[] data)
+        public static ConverterToStringByRule GetRuleByData(JObject data)
         {
-            return data[1] switch
+            return data["Name"].Value<String>() switch
             {
                 "Base" => Display.ExpressionToRecord,
                 _ => (List<Composite> expression, Boolean debug) => ""
             };
         }
 
-        public static EventHandler GetActionByButtonData(String[] data)
+        public static EventHandler GetActionByButtonData(JObject data)
         {
-            EventHandler handler = data[0] switch
+            String sector = data["Sector"].Value<String>(), name = data["Name"].Value<String>();
+            EventHandler handler = sector switch
             {
-                "Numbers" => data[1] switch
+                "Numbers" => name switch
                 {
-                    "Zero" => (Object sender, EventArgs e) => { InputController.Append(Global.expression, new Term("0")); },
-                    "One" => (Object sender, EventArgs e) => { InputController.Append(Global.expression, new Term("1")); },
-                    "Two" => (Object sender, EventArgs e) => { InputController.Append(Global.expression, new Term("2")); },
-                    "Three" => (Object sender, EventArgs e) => { InputController.Append(Global.expression, new Term("3")); },
-                    "Four" => (Object sender, EventArgs e) => { InputController.Append(Global.expression, new Term("4")); },
-                    "Five" => (Object sender, EventArgs e) => { InputController.Append(Global.expression, new Term("5")); },
-                    "Six" => (Object sender, EventArgs e) => { InputController.Append(Global.expression, new Term("6")); },
-                    "Seven" => (Object sender, EventArgs e) => { InputController.Append(Global.expression, new Term("7")); },
-                    "Eight" => (Object sender, EventArgs e) => { InputController.Append(Global.expression, new Term("8")); },
-                    "Nine" => (Object sender, EventArgs e) => { InputController.Append(Global.expression, new Term("9")); },
-                    "Pi" => (Object sender, EventArgs e) => { InputController.Append(Global.expression, new Constanta(Math.PI.ToString())); },
-                    "E" => (Object sender, EventArgs e) => { InputController.Append(Global.expression, new Constanta(Math.E.ToString())); },
+                    "Zero" => (Object sender, EventArgs e) => { InputController.Append(Global.expression, new Term("0")); }
+                    ,
+                    "One" => (Object sender, EventArgs e) => { InputController.Append(Global.expression, new Term("1")); }
+                    ,
+                    "Two" => (Object sender, EventArgs e) => { InputController.Append(Global.expression, new Term("2")); }
+                    ,
+                    "Three" => (Object sender, EventArgs e) => { InputController.Append(Global.expression, new Term("3")); }
+                    ,
+                    "Four" => (Object sender, EventArgs e) => { InputController.Append(Global.expression, new Term("4")); }
+                    ,
+                    "Five" => (Object sender, EventArgs e) => { InputController.Append(Global.expression, new Term("5")); }
+                    ,
+                    "Six" => (Object sender, EventArgs e) => { InputController.Append(Global.expression, new Term("6")); }
+                    ,
+                    "Seven" => (Object sender, EventArgs e) => { InputController.Append(Global.expression, new Term("7")); }
+                    ,
+                    "Eight" => (Object sender, EventArgs e) => { InputController.Append(Global.expression, new Term("8")); }
+                    ,
+                    "Nine" => (Object sender, EventArgs e) => { InputController.Append(Global.expression, new Term("9")); }
+                    ,
+                    "Pi" => (Object sender, EventArgs e) => { InputController.Append(Global.expression, new Constanta(Math.PI.ToString())); }
+                    ,
+                    "E" => (Object sender, EventArgs e) => { InputController.Append(Global.expression, new Constanta(Math.E.ToString())); }
+                    ,
                     _ => (Object sender, EventArgs e) => { }
                 },
-                "Actions" => data[1] switch
+                "Actions" => name switch
                 {
-                    "ToDouble" => (Object sender, EventArgs e) => { InputController.Append(Global.expression, new Comma()); },
-                    "Backspace" => (Object sender, EventArgs e) => { InputController.DeleteLast(Global.expression); },
-                    "Equally" => (Object sender, EventArgs e) => { InputController.Equally(ref Global.expression); },
-                    "Clear" => (Object sender, EventArgs e) => { InputController.ClearAll(Global.expression); },
-                    "ClearElement" => (Object sender, EventArgs e) => { InputController.ClearOne(Global.expression); },
-                    "ChangeSign" => (Object sender, EventArgs e) => { InputController.ChangeSign(Global.expression); },
-                    "Parenthesis" => (Object sender, EventArgs e) => { InputController.Append(Global.expression, new Staples()); },
-                    "CloseFunctionWrite" => (Object sender, EventArgs e) => { InputController.CloseExpressionWrite(Global.expression); },
+                    "ToDouble" => (Object sender, EventArgs e) => { InputController.Append(Global.expression, new Comma()); }
+                    ,
+                    "Backspace" => (Object sender, EventArgs e) => { InputController.DeleteLast(Global.expression); }
+                    ,
+                    "Equally" => (Object sender, EventArgs e) =>
+                    {
+                        try
+                        {
+                            InputController.Equally(ref Global.expression);
+                        }
+                        catch (DivideByZeroException)
+                        {
+                            Global.expression.Clear();
+                            InputController.Equally(ref Global.expression);
+                            MessageBox.Show(JsonDataStorage.Egg["ZeroDivisionHumiliation"][Global.random.Next(0, JsonDataStorage.Egg["ZeroDivisionHumiliation"].Count())].Value<String>());
+                        }
+                    }
+                    ,
+                    "Clear" => (Object sender, EventArgs e) => { InputController.ClearAll(Global.expression); }
+                    ,
+                    "ClearElement" => (Object sender, EventArgs e) => { InputController.ClearOne(Global.expression); }
+                    ,
+                    "ChangeSign" => (Object sender, EventArgs e) => { InputController.ChangeSign(Global.expression); }
+                    ,
+                    "Parenthesis" => (Object sender, EventArgs e) => { InputController.Append(Global.expression, new Staples()); }
+                    ,
+                    "CloseFunctionWrite" => (Object sender, EventArgs e) => { InputController.CloseExpressionWrite(Global.expression); }
+                    ,
                     _ => (Object sender, EventArgs e) => { }
                 },
-                "Operators" => data[1] switch
+                "Operators" => name switch
                 {
-                    "Append" => (Object sender, EventArgs e) => { InputController.Append(Global.expression, new Operator("+", OperatorMark.Add)); },
-                    "Subtract" => (Object sender, EventArgs e) => { InputController.Append(Global.expression, new Operator("-", OperatorMark.Subtract)); },
-                    "Multiply" => (Object sender, EventArgs e) => { InputController.Append(Global.expression, new Operator("×", OperatorMark.Multiply)); },
-                    "Division" => (Object sender, EventArgs e) => { InputController.Append(Global.expression, new Operator("÷", OperatorMark.Division)); },
-                    "Modular" => (Object sender, EventArgs e) => { InputController.Append(Global.expression, new Operator("mod", OperatorMark.Modular)); },
+                    "Append" => (Object sender, EventArgs e) => { InputController.Append(Global.expression, new Operator("+", OperatorMark.Add)); }
+                    ,
+                    "Subtract" => (Object sender, EventArgs e) => { InputController.Append(Global.expression, new Operator("-", OperatorMark.Subtract)); }
+                    ,
+                    "Multiply" => (Object sender, EventArgs e) => { InputController.Append(Global.expression, new Operator("×", OperatorMark.Multiply)); }
+                    ,
+                    "Division" => (Object sender, EventArgs e) => { InputController.Append(Global.expression, new Operator("÷", OperatorMark.Division)); }
+                    ,
+                    "Modular" => (Object sender, EventArgs e) => { InputController.Append(Global.expression, new Operator("mod", OperatorMark.Modular)); }
+                    ,
                     _ => (Object sender, EventArgs e) => { }
                 },
-                "Function" => data[1] switch
+                "Function" => name switch
                 {
-                    "NaturalLogarithm" => (Object sender, EventArgs e)  => { InputController.Append(Global.expression, new SingularFunction("ln", FunctionMark.NaturalLogarithm)); },
-                    "EPowerOfX" => (Object sender, EventArgs e)  => { InputController.Append(Global.expression, new SingularFunction("ePower", FunctionMark.EPowerOfX)); },
-                    "DecimalLogarithm" => (Object sender, EventArgs e)  => { InputController.Append(Global.expression, new SingularFunction("lg", FunctionMark.DecimalLogarithm)); },
-                    "LogarithmOfXBasedOnY" => (Object sender, EventArgs e)  => { InputController.Append(Global.expression, new BinaryFunction("log", FunctionMark.LogarithmOfXBasedOnY)); },
-                    "TenPowerOfX" => (Object sender, EventArgs e)  => { InputController.Append(Global.expression, new SingularFunction("tenPower", FunctionMark.TenPowerOfX)); },
-                    "TwoPowerOfX" => (Object sender, EventArgs e)  => { InputController.Append(Global.expression, new SingularFunction("twoPower", FunctionMark.TwoPowerOfX)); },
-                    "XPowerOfY" => (Object sender, EventArgs e)  => { InputController.Append(Global.expression, new BinaryFunction("power", FunctionMark.XPowerOfY)); },
-                    "YRootOfX" => (Object sender, EventArgs e)  => { InputController.Append(Global.expression, new BinaryFunction("root", FunctionMark.YRootOfX)); },
-                    "XPowerOfTwo" => (Object sender, EventArgs e)  => { InputController.Append(Global.expression, new SingularFunction("powerOfTwo", FunctionMark.XPowerOfTwo)); },
-                    "XPowerOfThree" => (Object sender, EventArgs e)  => { InputController.Append(Global.expression, new SingularFunction("powerOfThree", FunctionMark.XPowerOfThree)); },
-                    "SquareRootOfX" => (Object sender, EventArgs e)  => { InputController.Append(Global.expression, new SingularFunction("squareRoot", FunctionMark.SquareRootOfX)); },
-                    "CubicRootOfX" => (Object sender, EventArgs e)  => { InputController.Append(Global.expression, new SingularFunction("cubicRoot", FunctionMark.CubicRootOfX)); },
-                    "XReverse" => (Object sender, EventArgs e) => { InputController.Append(Global.expression, new SingularFunction("reverse", FunctionMark.XReverse)); },
-                    "XAbsolute" => (Object sender, EventArgs e)  => { InputController.Append(Global.expression, new SingularFunction("abs", FunctionMark.XAbsolute)); },
-                    "Exponential" => (Object sender, EventArgs e)  => { InputController.Append(Global.expression, new SingularFunction("exp", FunctionMark.Exponential)); },
-                    "NFactorial" => (Object sender, EventArgs e)  => { InputController.Append(Global.expression, new SingularFunction("factorial", FunctionMark.NFactorial)); },
+                    "NaturalLogarithm" => (Object sender, EventArgs e) => { InputController.Append(Global.expression, new SingularFunction("ln", FunctionMark.NaturalLogarithm)); }
+                    ,
+                    "EPowerOfX" => (Object sender, EventArgs e) => { InputController.Append(Global.expression, new SingularFunction("ePower", FunctionMark.EPowerOfX)); }
+                    ,
+                    "DecimalLogarithm" => (Object sender, EventArgs e) => { InputController.Append(Global.expression, new SingularFunction("lg", FunctionMark.DecimalLogarithm)); }
+                    ,
+                    "LogarithmOfXBasedOnY" => (Object sender, EventArgs e) => { InputController.Append(Global.expression, new BinaryFunction("log", FunctionMark.LogarithmOfXBasedOnY)); }
+                    ,
+                    "TenPowerOfX" => (Object sender, EventArgs e) => { InputController.Append(Global.expression, new SingularFunction("tenPower", FunctionMark.TenPowerOfX)); }
+                    ,
+                    "TwoPowerOfX" => (Object sender, EventArgs e) => { InputController.Append(Global.expression, new SingularFunction("twoPower", FunctionMark.TwoPowerOfX)); }
+                    ,
+                    "XPowerOfY" => (Object sender, EventArgs e) => { InputController.Append(Global.expression, new BinaryFunction("power", FunctionMark.XPowerOfY)); }
+                    ,
+                    "YRootOfX" => (Object sender, EventArgs e) => { InputController.Append(Global.expression, new BinaryFunction("root", FunctionMark.YRootOfX)); }
+                    ,
+                    "XPowerOfTwo" => (Object sender, EventArgs e) => { InputController.Append(Global.expression, new SingularFunction("powerOfTwo", FunctionMark.XPowerOfTwo)); }
+                    ,
+                    "XPowerOfThree" => (Object sender, EventArgs e) => { InputController.Append(Global.expression, new SingularFunction("powerOfThree", FunctionMark.XPowerOfThree)); }
+                    ,
+                    "SquareRootOfX" => (Object sender, EventArgs e) => { InputController.Append(Global.expression, new SingularFunction("squareRoot", FunctionMark.SquareRootOfX)); }
+                    ,
+                    "CubicRootOfX" => (Object sender, EventArgs e) => { InputController.Append(Global.expression, new SingularFunction("cubicRoot", FunctionMark.CubicRootOfX)); }
+                    ,
+                    "XReverse" => (Object sender, EventArgs e) => { InputController.Append(Global.expression, new SingularFunction("reverse", FunctionMark.XReverse)); }
+                    ,
+                    "XAbsolute" => (Object sender, EventArgs e) => { InputController.Append(Global.expression, new SingularFunction("abs", FunctionMark.XAbsolute)); }
+                    ,
+                    "Exponential" => (Object sender, EventArgs e) => { InputController.Append(Global.expression, new SingularFunction("exp", FunctionMark.Exponential)); }
+                    ,
+                    "NFactorial" => (Object sender, EventArgs e) => { InputController.Append(Global.expression, new SingularFunction("factorial", FunctionMark.NFactorial)); }
+                    ,
                     _ => (Object sender, EventArgs e) => { }
                 },
-                "Trigonometry" => data[1] switch
+                "Trigonometry" => name switch
                 {
-                    "Sine" => (Object sender, EventArgs e) => { },
-                    "Cosine" => (Object sender, EventArgs e) => { },
-                    "Tangent" => (Object sender, EventArgs e) => { },
-                    "Cosecant" => (Object sender, EventArgs e) => { },
-                    "Secant" => (Object sender, EventArgs e) => { },
-                    "Cotangent" => (Object sender, EventArgs e) => { },
-                    "Arcsine" => (Object sender, EventArgs e) => { },
-                    "Arccosine" => (Object sender, EventArgs e) => { },
-                    "Arctangent" => (Object sender, EventArgs e) => { },
-                    "Arccosecant" => (Object sender, EventArgs e) => { },
-                    "Arcsecant" => (Object sender, EventArgs e) => { },
-                    "Arccotangent" => (Object sender, EventArgs e) => { },
-                    "DegreesTypeChange" => (Object sender, EventArgs e) => { },
-                    "ToDegreesMinutesSeconds" => (Object sender, EventArgs e) => { },
-                    "ToDegrees" => (Object sender, EventArgs e) => { },
+                    "Sine" => (Object sender, EventArgs e) => { }
+                    ,
+                    "Cosine" => (Object sender, EventArgs e) => { }
+                    ,
+                    "Tangent" => (Object sender, EventArgs e) => { }
+                    ,
+                    "Cosecant" => (Object sender, EventArgs e) => { }
+                    ,
+                    "Secant" => (Object sender, EventArgs e) => { }
+                    ,
+                    "Cotangent" => (Object sender, EventArgs e) => { }
+                    ,
+                    "Arcsine" => (Object sender, EventArgs e) => { }
+                    ,
+                    "Arccosine" => (Object sender, EventArgs e) => { }
+                    ,
+                    "Arctangent" => (Object sender, EventArgs e) => { }
+                    ,
+                    "Arccosecant" => (Object sender, EventArgs e) => { }
+                    ,
+                    "Arcsecant" => (Object sender, EventArgs e) => { }
+                    ,
+                    "Arccotangent" => (Object sender, EventArgs e) => { }
+                    ,
+                    "DegreesTypeChange" => (Object sender, EventArgs e) => { }
+                    ,
+                    "ToDegreesMinutesSeconds" => (Object sender, EventArgs e) => { }
+                    ,
+                    "ToDegrees" => (Object sender, EventArgs e) => { }
+                    ,
                     _ => (Object sender, EventArgs e) => { }
                 },
-                "Memory" => data[1] switch
+                "Memory" => name switch
                 {
-                    "MemoryClear" => (Object sender, EventArgs e) => { },
-                    "MemoryRead" => (Object sender, EventArgs e) => { },
-                    "MemorySave" => (Object sender, EventArgs e) => { },
-                    "MemoryView" => (Object sender, EventArgs e) => { },
-                    "ChangeView" => (Object sender, EventArgs e) => { },
-                    "MemoryNumberAddNumber" => (Object sender, EventArgs e) => { },
-                    "MemoryNumberSubtractNumber" => (Object sender, EventArgs e) => { },
+                    "MemoryClear" => (Object sender, EventArgs e) => { }
+                    ,
+                    "MemoryRead" => (Object sender, EventArgs e) => { }
+                    ,
+                    "MemorySave" => (Object sender, EventArgs e) => { }
+                    ,
+                    "MemoryView" => (Object sender, EventArgs e) => { }
+                    ,
+                    "ChangeView" => (Object sender, EventArgs e) => { }
+                    ,
+                    "MemoryNumberAddNumber" => (Object sender, EventArgs e) => { }
+                    ,
+                    "MemoryNumberSubtractNumber" => (Object sender, EventArgs e) => { }
+                    ,
                     _ => (Object sender, EventArgs e) => { }
                 },
                 _ => (Object sender, EventArgs e) => { }
@@ -130,41 +210,97 @@
             Control control = (Control)sender;
             if (e.Button != MouseButtons.Right) return;
 
+            control.ContextMenu = BindSenderToControlPropertyMenu(
+                (control is Button)
+                ? ContextMenuStorage.contextDictionary["buttonPropertyContextMenu"]
+                : ContextMenuStorage.contextDictionary["textBoxPropertyContextMenu"], control);
+        }
+
+        public static ContextMenu NewButtonPropertyMenu()
+        {
+            ContextMenu contextMenu = NewTextBoxPropertyMenu();
+
+            MenuItem flatBorderColor = new MenuItem("Выделение");
+            flatBorderColor.Click += (Object sender, EventArgs e) => { EventStorage.eventDictionary["flatBorderColor"](sender, e); };
+            contextMenu.MenuItems[1].MenuItems[0].MenuItems.Add(flatBorderColor);
+
+            MenuItem flatOverColor = new MenuItem("Фон при наведении");
+            flatOverColor.Click += (Object sender, EventArgs e) => { EventStorage.eventDictionary["flatOverColor"](sender, e); };
+            contextMenu.MenuItems[1].MenuItems[0].MenuItems.Add(flatOverColor);
+
+            MenuItem flatDownColor = new MenuItem("Фон при нажатии");
+            flatDownColor.Click += (Object sender, EventArgs e) => { EventStorage.eventDictionary["flatDownColor"](sender, e); };
+            contextMenu.MenuItems[1].MenuItems[0].MenuItems.Add(flatDownColor);
+
+            return contextMenu;
+        }
+
+        public static ContextMenu NewTextBoxPropertyMenu()
+        {
             ContextMenu contextMenu = new ContextMenu();
 
-            MenuItem removeMenuItem = new MenuItem() { Text = "Удалить" };
-            removeMenuItem.Click += (Object sender, EventArgs e) => ControlRemoveFromPanel(control, sender, e);
-            contextMenu.MenuItems.Add(removeMenuItem);
+            MenuItem remove = new MenuItem("Удалить");
+            remove.Click += (Object sender, EventArgs e) => { EventStorage.eventDictionary["remove"](sender, e); };
+            contextMenu.MenuItems.Add(remove);
 
-            MenuItem changePropertyMenuItem = new MenuItem() { Text = "Изменить" };
+            MenuItem changePropertyMenuItem = new MenuItem("Изменить");
             {
-                MenuItem changeColorMenuItem = new MenuItem() { Text = "Цвет" };
-                changeColorMenuItem.Click += (Object sender, EventArgs e) => RaiseColorDialog(control, sender, e);
+                MenuItem changeColorMenuItem = new MenuItem("Цвет");
+                {
+                    MenuItem background = new MenuItem("Фон");
+                    background.Click += (Object sender, EventArgs e) => { EventStorage.eventDictionary["background"](sender, e); };
+                    changeColorMenuItem.MenuItems.Add(background);
+
+                    MenuItem foreColor = new MenuItem("Шрифт");
+                    foreColor.Click += (Object sender, EventArgs e) => { EventStorage.eventDictionary["foreColor"](sender, e); };
+                    changeColorMenuItem.MenuItems.Add(foreColor);
+                }
                 changePropertyMenuItem.MenuItems.Add(changeColorMenuItem);
 
-                MenuItem changeFontMenuItem = new MenuItem() { Text = "Шрифт" };
-                changeFontMenuItem.Click += (Object sender, EventArgs e) => RaiseFontDialog(control, sender, e);
-                changePropertyMenuItem.MenuItems.Add(changeFontMenuItem);
+                MenuItem fontStyle = new MenuItem("Шрифт");
+                fontStyle.Click += (Object sender, EventArgs e) => { EventStorage.eventDictionary["fontStyle"](sender, e); };
+                changePropertyMenuItem.MenuItems.Add(fontStyle);
 
-                MenuItem changeSizeMenuItem = new MenuItem() { Text = "Размер" };
-                changeSizeMenuItem.Click += (Object sender, EventArgs e) => RaiseChangeSizeForm(control, sender, e);
-                changePropertyMenuItem.MenuItems.Add(changeSizeMenuItem);
+                MenuItem size = new MenuItem("Размер");
+                size.Click += (Object sender, EventArgs e) => { EventStorage.eventDictionary["size"](sender, e); };
+                changePropertyMenuItem.MenuItems.Add(size);
 
-                MenuItem changePlacementMenuItem = new MenuItem() { Text = "Расположение" };
-                changePlacementMenuItem.Click += (Object sender, EventArgs e) => RaiseChangePlacementForm(control, sender, e);
-                changePropertyMenuItem.MenuItems.Add(changePlacementMenuItem);
+                MenuItem placement = new MenuItem("Расположение");
+                placement.Click += (Object sender, EventArgs e) => { EventStorage.eventDictionary["placement"](sender, e); };
+                changePropertyMenuItem.MenuItems.Add(placement);
+
             }
             contextMenu.MenuItems.Add(changePropertyMenuItem);
 
-            MenuItem propertyMenuItem = new MenuItem() { Text = "Свойства" };
-            propertyMenuItem.Click += (Object sender, EventArgs e) => RaisePropertyForm(control, sender, e);
-            contextMenu.MenuItems.Add(propertyMenuItem);
+            MenuItem controlProperty = new MenuItem("Свойства");
+            controlProperty.Click += (Object sender, EventArgs e) => { EventStorage.eventDictionary["controlProperty"](sender, e); };
+            contextMenu.MenuItems.Add(controlProperty);
 
-            MenuItem lockMenuItem = new MenuItem() { Text = "Блок", Checked = ((IRemoveable)control).Locked };
-            lockMenuItem.Click += (Object sender, EventArgs e) => ControlLock(control, sender, e);
-            contextMenu.MenuItems.Add(lockMenuItem);
+            MenuItem controlLock = new MenuItem("Блок");
+            controlLock.Click += (Object sender, EventArgs e) => { EventStorage.eventDictionary["controlLock"](sender, e); };
+            contextMenu.MenuItems.Add(controlLock);
 
-            control.ContextMenu = contextMenu;
+            return contextMenu;
+        }
+
+        public static ContextMenu BindSenderToControlPropertyMenu(ContextMenu menu, Object sender)
+        {
+            Control control = (Control)sender;
+            EventStorage.eventDictionary["remove"] = (Object sender, EventArgs e) => ControlRemoveFromPanel(control, sender, e);
+            EventStorage.eventDictionary["background"] = (Object sender, EventArgs e) => RaiseColorDialogForBackColor(control, sender, e);
+            EventStorage.eventDictionary["foreColor"] = (Object sender, EventArgs e) => RaiseColorDialogForForeColor(control, sender, e);
+            EventStorage.eventDictionary["flatBorderColor"] = (Object sender, EventArgs e) => RaiseColorDialogForFlatBorderColor(control, sender, e);
+            EventStorage.eventDictionary["flatOverColor"] = (Object sender, EventArgs e) => RaiseColorDialogForFlatOverColor(control, sender, e);
+            EventStorage.eventDictionary["flatDownColor"] = (Object sender, EventArgs e) => RaiseColorDialogForFlatDownColor(control, sender, e);
+            EventStorage.eventDictionary["fontStyle"] = (Object sender, EventArgs e) => RaiseFontDialog(control, sender, e);
+            EventStorage.eventDictionary["size"] = (Object sender, EventArgs e) => RaiseChangeSizeForm(control, sender, e);
+            EventStorage.eventDictionary["placement"] = (Object sender, EventArgs e) => RaiseChangePlacementForm(control, sender, e);
+            EventStorage.eventDictionary["controlProperty"] = (Object sender, EventArgs e) => RaisePropertyForm(control, sender, e);
+            EventStorage.eventDictionary["controlLock"] = (Object sender, EventArgs e) => ControlLock(control, sender, e);
+            menu.MenuItems[3].Checked = ((IDataStorable)control).Locked;
+
+
+            return menu;
         }
 
         private static void ControlRemoveFromPanel(Object parent, Object sender, EventArgs e)
@@ -175,10 +311,31 @@
             panel.Controls.Remove(control);
         }
 
-        private static void RaiseColorDialog(Object parent, Object sender, EventArgs e)
+        private static void RaiseColorDialogForBackColor(Object parent, Object sender, EventArgs e)
         {
             Control control = (Control)parent;
             control.BackColor = GetColorByDialog(control.BackColor);
+        }
+
+        private static void RaiseColorDialogForForeColor(Object parent, Object sender, EventArgs e)
+        {
+            Control control = (Control)parent;
+            control.ForeColor = GetColorByDialog(control.ForeColor);
+        }
+        private static void RaiseColorDialogForFlatBorderColor(Object parent, Object sender, EventArgs e)
+        {
+            Button control = (Button)parent;
+            control.FlatAppearance.BorderColor = GetColorByDialog(control.FlatAppearance.BorderColor);
+        }
+        private static void RaiseColorDialogForFlatOverColor(Object parent, Object sender, EventArgs e)
+        {
+            Button control = (Button)parent;
+            control.FlatAppearance.MouseOverBackColor = GetColorByDialog(control.FlatAppearance.MouseOverBackColor);
+        }
+        private static void RaiseColorDialogForFlatDownColor(Object parent, Object sender, EventArgs e)
+        {
+            Button control = (Button)parent;
+            control.FlatAppearance.MouseDownBackColor = GetColorByDialog(control.FlatAppearance.MouseDownBackColor);
         }
 
         private static Color GetColorByDialog(Color defaultColor)
@@ -289,7 +446,7 @@
 
             Label dockLable = new Label() { Text = "Привязка" };
             tablePanel.Controls.Add(dockLable, 0, 0);
-            
+
             ComboBox dockComboBox = new ComboBox() { Dock = DockStyle.Fill, Text = control.Dock.ToString() };
             dockComboBox.Items.AddRange(Enum.GetValues(typeof(DockStyle)).Cast<Object>().ToArray());
             dockComboBox.SelectedValueChanged += (Object sender, EventArgs e) => control.Dock = (DockStyle)dockComboBox.SelectedItem;
@@ -303,57 +460,72 @@
         private static void RaisePropertyForm(Object parent, Object sender, EventArgs e)
         {
             Control control = (Control)parent;
-            Form propertyForm = new Form();
+            PropertyForm propertyForm = new PropertyForm();
 
-            TableLayoutPanel tablePanel = new TableLayoutPanel() { CellBorderStyle = TableLayoutPanelCellBorderStyle.Inset, ColumnCount = 2, Dock = DockStyle.Fill };
+            //TableLayoutPanel tablePanel = new TableLayoutPanel() { CellBorderStyle = TableLayoutPanelCellBorderStyle.Inset, ColumnCount = 2, Dock = DockStyle.Fill };
 
-            String[][] propertyData = new String[][]
+            Dictionary<String, String> propertyData = new Dictionary<String, String>
             {
-                new String[2] {"BackColor", $"{control.BackColor.R}, {control.BackColor.G}, {control.BackColor.B}, {control.BackColor.A}"},
-                new String[2] {"FontName", control.Font.Name},
-                new String[2] {"FontSize", control.Font.Size.ToString()},
-                new String[2] {"FontColor", $"{control.ForeColor.R}, {control.ForeColor.G}, {control.ForeColor.B}, {control.ForeColor.A}"},
-                new String[2] {"Width", control.Width.ToString()},
-                new String[2] {"Height", control.Height.ToString()},
-                new String[2] {"Anchor", control.Anchor.ToString()},
-                new String[2] {"Dock", control.Dock.ToString()},
+                { "Sector", (control as IDataReceivable).JData["Sector"].Value<String>()},
+                { "Name", (control as IDataReceivable).JData["Name"].Value<String>()},
+                { "Locked", (control as IDataStorable).Locked.ToString()},
+                { "Size", $"{control.Width}, {control.Height}" },
+                { "Font Name", control.Font.Name },
+                { "Font Size", $"{control.Font.Size}" },
+                { "Font Unit", $"{control.Font.Unit}" },
+                { "Font GdiCharSet", $"{control.Font.GdiCharSet}" },
+                { "Font GdiVerticalFont", $"{control.Font.GdiVerticalFont}" },
+                { "Font Bold", $"{control.Font.Bold}" },
+                { "Font Italic", $"{control.Font.Italic}" },
+                { "Font Strikeout", $"{control.Font.Strikeout}" },
+                { "Font Underline", $"{control.Font.Underline}" },
+                { "BackColor", ExtractDataJson.ARBGStringByColor(control.BackColor)},
+                { "ForeColor", ExtractDataJson.ARBGStringByColor(control.ForeColor)},
             };
-            tablePanel.RowCount = propertyData.Length;
-            
 
-            foreach (String[] data in propertyData)
+            if (control is Button btn && btn.FlatStyle == FlatStyle.Flat)
             {
-                tablePanel.Controls.Add(new Label() { Text = data[0] });
-                tablePanel.Controls.Add(new Label() { Text = data[1] });
+                propertyData["FlatBorderColor"] = ExtractDataJson.ARBGStringByColor(btn.FlatAppearance.BorderColor);
+                propertyData["FlatMouseDownBackColor"] = ExtractDataJson.ARBGStringByColor(btn.FlatAppearance.MouseDownBackColor);
+                propertyData["FlatMouseOverBackColor"] = ExtractDataJson.ARBGStringByColor(btn.FlatAppearance.MouseOverBackColor);
             }
-            propertyForm.Controls.Add(tablePanel);
+
+            //propertyForm.Height = (Int32)(propertyData.Count * 27.25);
+
+
+            foreach (KeyValuePair<String, String> valuePair in propertyData)
+            {
+                propertyForm.AddLine(valuePair.Key, valuePair.Value);
+                //tablePanel.Controls.Add(new Label() { Text = valuePair.Key });
+                //tablePanel.Controls.Add(new Label() { Text = valuePair.Value });
+            }
+            //propertyForm.Controls.Add(tablePanel);
             propertyForm.ShowDialog();
         }
 
         private static void ControlLock(Object parent, Object sender, EventArgs e)
         {
-            IRemoveable control = (IRemoveable)parent;
+            IDataStorable control = (IDataStorable)parent;
             control.Locked = !control.Locked;
         }
 
         public static void PanelDoDrop(Object sender, DragEventArgs e)
         {
-            String[] data = DragEventArgsToDrop(e);
+            JObject data = DragEventArgsToDrop(e);
             Panel panel = (Panel)sender;
             try
             {
                 if (panel.Controls.Count == 0)
                 {
-                    if (panel.Parent.Name != "displayTableLayoutPanel")
-                    { 
-                        SButton button = new SButton() { Data = new String[] { data[0], data[1] }, Text = Storage.GetControlText(data[0], data[1]), Dock = Global.placement, FlatStyle = FlatStyle.Flat };
-                        panel.Controls.Add(Wrap.DragDrop(Wrap.ChangeProperty(Wrap.ActionPerform(button)), modifierConside: true));
-                    }
-                    else 
+                    if (panel.Parent.Name != "displayTableLayoutPanel") panel.Controls.Add(NewButton(data, JsonDataStorage.GetControlText(data["Sector"].Value<String>(), data["Name"].Value<String>())));
+                    else panel.Controls.Add(NewTextBox(data));
+
+                    if (data.ContainsKey("PreviousPosition"))
                     {
-                        STextBox textBox = new STextBox(GetRuleByData(data)) { Data = new String[] { data[0], data[1] }, Dock = Global.placement, ReadOnly = true };
-                        panel.Controls.Add(Wrap.DragDrop(Wrap.ChangeProperty(textBox), modifierConside: true));
-                    }                   
+                        Byte[] previousPosition = new Byte[2] { data["PreviousPosition"][0].Value<Byte>(), data["PreviousPosition"][1].Value<Byte>() };
+                        ((Panel)((TableLayoutPanel)panel.Parent).GetControlFromPosition(previousPosition[0], previousPosition[1])).Controls.Clear();
+                    }
+
                 }
             }
             catch (Exception exception)
@@ -362,45 +534,80 @@
             }
         }
 
+        public static SButton NewButton(JObject data, String text, DockStyle? dock = null)
+        {
+            //return new SButton() { Data = new String[] { data[0], data[1] }, Text = JsonDataStorage.GetControlText(data[0], data[1]), Dock = Global.placement, FlatStyle = FlatStyle.Flat };
+            SButton button = new SButton(data.ToString()) { Text = text, Dock = dock ?? Global.placement };
+            //SButton button = new SButton(data.ToString()) { Text = text};
+            return (SButton)Wrap.DragDrop(Wrap.ChangeProperty(Wrap.ActionPerform(button)), modifierConside: true);
+        }
+
+        public static STextBox NewTextBox(JObject data, DockStyle? dock = null)
+        {
+            STextBox textBox = new STextBox(data.ToString(), GetRuleByData(data)) { Dock = dock ?? Global.placement, ReadOnly = true };
+            return (STextBox)Wrap.DragDrop(Wrap.ChangeProperty(textBox), modifierConside: true);
+        }
+
         public static void PanelDoDropEnter(Object sender, DragEventArgs e)
         {
             Panel panel = (Panel)sender;
             if (panel.Controls.Count == 0) e.Effect = DragDropEffects.Copy;
         }
 
-        private static String ConvertToDrag(String[] data) => String.Join(";", data.ToList<String>());
-        private static String[] ConvertToDrop(String data) => data.Split(';');
-        private static String[] DragEventArgsToDrop(DragEventArgs e) => ConvertToDrop(e.Data.GetData(DataFormats.StringFormat).ToString());
+        private static JObject DragEventArgsToDrop(DragEventArgs e) => JObject.Parse(e.Data.GetData(DataFormats.StringFormat).ToString());
 
         public static void PanelOpenPropertyMenu(Object sender, MouseEventArgs e)
         {
             Panel panel = (Panel)sender;
             if (e.Button != MouseButtons.Right) return;
 
-            ContextMenu contextMenu = new ContextMenu();
-
-            MenuItem addRowMenuItem = new MenuItem() { Text = "Добавить строку" };
-            addRowMenuItem.Click += (Object sender, EventArgs e) => PanelAddRow(panel, sender, e);
-            contextMenu.MenuItems.Add(addRowMenuItem);
-
-            MenuItem removeRowMenuItem = new MenuItem() { Text = "Удалить строку", Enabled = ((TableLayoutPanel)panel.Parent).RowCount > 1 };
-            removeRowMenuItem.Click += (Object sender, EventArgs e) => PanelRemoveRow(panel, sender, e);
-            contextMenu.MenuItems.Add(removeRowMenuItem);
-
-            if (panel.Parent.Name != "displayTableLayoutPanel")
-            {
-                MenuItem addColumnMenuItem = new MenuItem() { Text = "Добавить столбец" };
-                addColumnMenuItem.Click += (Object sender, EventArgs e) => PanelAddColumn(panel, sender, e);
-                contextMenu.MenuItems.Add(addColumnMenuItem);
-
-                MenuItem removeColumnMenuItem = new MenuItem() { Text = "Удалить столбец", Enabled = ((TableLayoutPanel)panel.Parent).ColumnCount > 1 };
-                removeColumnMenuItem.Click += (Object sender, EventArgs e) => PanelRemoveColumn(panel, sender, e);
-                contextMenu.MenuItems.Add(removeColumnMenuItem);
-            }
-            panel.ContextMenu = contextMenu;
+            panel.ContextMenu = BindSenderToTablePropertyMenu(
+                ContextMenuStorage.contextDictionary[panel.Parent.Name != "displayTableLayoutPanel"
+                ? "propertyContextMenu"
+                : "propertyContextMenuForDisplayPanel"],
+                sender);
+        }
+        public static ContextMenu NewTableSizePropertyMenu()
+        {
+            ContextMenu contextMenu = NewPropertyMenuForDisplayPanel();
+            MenuItem addColumn = new MenuItem("Добавить столбец");
+            addColumn.Click += (Object sender, EventArgs e) => { EventStorage.eventDictionary["addColumn"](sender, e); };
+            contextMenu.MenuItems.Add(addColumn);
+            MenuItem removeColumn = new MenuItem("Удалить столбец");
+            removeColumn.Click += (Object sender, EventArgs e) => { EventStorage.eventDictionary["removeColumn"](sender, e); };
+            contextMenu.MenuItems.Add(removeColumn);
+            return contextMenu;
         }
 
-        public static void PanelAddRow(Object parent, Object sender, EventArgs e)
+        public static ContextMenu NewPropertyMenuForDisplayPanel()
+        {
+            ContextMenu contextMenu = new ContextMenu();
+            MenuItem addRow = new MenuItem("Добавить строку");
+            addRow.Click += (Object sender, EventArgs e) => { EventStorage.eventDictionary["addRow"](sender, e); };
+            contextMenu.MenuItems.Add(addRow);
+            MenuItem removeRow = new MenuItem("Удалить строку");
+            removeRow.Click += (Object sender, EventArgs e) => { EventStorage.eventDictionary["removeRow"](sender, e); };
+            contextMenu.MenuItems.Add(removeRow);
+            return contextMenu;
+        }
+
+        public static ContextMenu BindSenderToTablePropertyMenu(ContextMenu menu, Object sender)
+        {
+            Panel panel = (Panel)sender;
+
+            menu.MenuItems[1].Enabled = ((TableLayoutPanel)panel.Parent).RowCount > 1;
+            EventStorage.eventDictionary["addRow"] = (Object sender, EventArgs e) => PanelAddRow(panel, sender, e);
+            EventStorage.eventDictionary["removeRow"] = (Object sender, EventArgs e) => PanelRemoveRow(panel, sender, e);
+
+            if (menu.MenuItems.Count > 2)
+            {
+                menu.MenuItems[3].Enabled = ((TableLayoutPanel)panel.Parent).ColumnCount > 1;
+                EventStorage.eventDictionary["addColumn"] = (Object sender, EventArgs e) => PanelAddColumn(panel, sender, e);
+                EventStorage.eventDictionary["removeColumn"] = (Object sender, EventArgs e) => PanelRemoveColumn(panel, sender, e);
+            }
+            return menu;
+        }
+        public static void PanelAddRow(Object parent, Object sender = null, EventArgs e = null)
         {
             TableLayoutPanel tablePanel = (((Panel)parent).Parent is TableLayoutPanel) ? (TableLayoutPanel)((Panel)parent).Parent : (TableLayoutPanel)parent;
             tablePanel.RowCount += 1;
@@ -408,7 +615,7 @@
             TablePanelCorrectRowsCellSize(tablePanel);
             TablePanelFillCells(tablePanel, GetWrapperByTablePanel(tablePanel));
         }
-        public static void PanelAddColumn(Object parent, Object sender, EventArgs e)
+        public static void PanelAddColumn(Object parent, Object sender = null, EventArgs e = null)
         {
             TableLayoutPanel tablePanel = (((Panel)parent).Parent is TableLayoutPanel) ? (TableLayoutPanel)((Panel)parent).Parent : (TableLayoutPanel)parent;
             tablePanel.ColumnCount += 1;
@@ -428,28 +635,68 @@
         }
         public static void PanelRemoveRow(Object parent, Object sender, EventArgs e)
         {
-            TableLayoutPanel tablePanel = (((Panel)parent).Parent is TableLayoutPanel) ? (TableLayoutPanel)((Panel)parent).Parent : (TableLayoutPanel)parent;
+            Panel panel = (Panel)parent;
+            TableLayoutPanel tablePanel = (panel.Parent is TableLayoutPanel) ? (TableLayoutPanel)panel.Parent : parent as TableLayoutPanel;
             if (tablePanel.RowCount == 1) return;
-            for (Byte C = 0; C < tablePanel.RowCount; C++)
+            Byte removeIndex = (Byte)tablePanel.GetCellPosition(panel).Row;
+            if (removeIndex == tablePanel.RowCount - 1)
             {
-                Control control = tablePanel.GetControlFromPosition(C, tablePanel.RowCount - 1);
-                if (control is not null) tablePanel.Controls.Remove(control);
+                for (Byte C = 0; C < tablePanel.ColumnCount; C++)
+                {
+                    Control upControl = tablePanel.GetControlFromPosition(C, removeIndex);
+                    if (upControl is not null) tablePanel.Controls.Remove(upControl);
+                }
             }
-            tablePanel.RowStyles.RemoveAt(tablePanel.RowCount - 1);
+            else
+            {
+                for (Byte R = removeIndex; R < tablePanel.RowCount - 1; R++)
+                {
+                    for (Byte C = 0; C < tablePanel.ColumnCount; C++)
+                    {
+                        Control upControl = tablePanel.GetControlFromPosition(C, R);
+                        if (upControl is not null) tablePanel.Controls.Remove(upControl);
+                        Control downControl = tablePanel.GetControlFromPosition(C, R + 1);
+                        if (downControl is not null) tablePanel.SetCellPosition(downControl, new TableLayoutPanelCellPosition(C, R));
+                    }
+                }
+            }
+
             tablePanel.RowCount -= 1;
+            tablePanel.RowStyles.RemoveAt(tablePanel.RowStyles.Count - 1);
+
             if (tablePanel.RowCount != 0) TablePanelCorrectRowsCellSize(tablePanel);
 
         }
         public static void PanelRemoveColumn(Object parent, Object sender, EventArgs e)
         {
-            TableLayoutPanel tablePanel = (((Panel)parent).Parent is TableLayoutPanel) ? (TableLayoutPanel)((Panel)parent).Parent : (TableLayoutPanel)parent;
+            Panel panel = (Panel)parent;
+            TableLayoutPanel tablePanel = (panel.Parent is TableLayoutPanel) ? (TableLayoutPanel)panel.Parent : parent as TableLayoutPanel;
             if (tablePanel.ColumnCount == 1) return;
-            for (Byte R = 0; R < tablePanel.ColumnCount; R++)
+            Byte removeIndex = (Byte)tablePanel.GetCellPosition(panel).Column;
+            if (removeIndex == tablePanel.ColumnCount - 1)
             {
-                Control control = tablePanel.GetControlFromPosition(tablePanel.ColumnCount - 1, R);
-                if (control is not null) tablePanel.Controls.Remove(control);
+                for (Byte R = 0; R < tablePanel.RowCount; R++)
+                {
+                    Control upControl = tablePanel.GetControlFromPosition(removeIndex, R);
+                    if (upControl is not null) tablePanel.Controls.Remove(upControl);
+                }
+            }
+            else
+            {
+                for (Byte R = 0; R < tablePanel.RowCount; R++)
+                {
+                    for (Byte C = removeIndex; C < tablePanel.ColumnCount - 1; C++)
+                    {
+                        Control upControl = tablePanel.GetControlFromPosition(C, R);
+                        if (upControl is not null) tablePanel.Controls.Remove(upControl);
+                        Control downControl = tablePanel.GetControlFromPosition(C + 1, R);
+                        if (downControl is not null) tablePanel.SetCellPosition(downControl, new TableLayoutPanelCellPosition(C, R));
+                    }
+                }
             }
             tablePanel.ColumnCount -= 1;
+            tablePanel.ColumnStyles.RemoveAt(tablePanel.ColumnStyles.Count - 1);
+
             if (tablePanel.ColumnCount != 0) TablePanelCorrectColumnsCellSize(tablePanel);
         }
 
@@ -460,7 +707,6 @@
                 for (Byte C = 0; C < tablePanel.ColumnCount; C++)
                 {
                     if (tablePanel.GetControlFromPosition(C, R) is null) tablePanel.Controls.Add(wrapper(NewDragPanel()), C, R);
-                    //MessageBox.Show($"col {II} row {I} control {tableLayoutPanel1.GetControlFromPosition(II, I)}");
                 }
             }
         }
@@ -505,8 +751,8 @@
             foreach (TableLayoutPanel tablePanel in tablePanels)
             {
                 foreach (Panel panel in tablePanel.Controls)
-                {                    
-                    foreach (Control control in panel.Controls) if (((IRemoveable)control).Locked == false) control.Dock = Global.placement;
+                {
+                    foreach (Control control in panel.Controls) if (((IDataStorable)control).Locked == false) control.Dock = Global.placement;
                 }
             }
         }
@@ -541,18 +787,18 @@
         {
             Font? font = GetFontByDialog();
             if (font is null) return;
-            control.Font= (Font)font;
+            control.Font = (Font)font;
         }
         public static void UpdateControlsFont(params TableLayoutPanel[] tablePanels)
         {
             Font? font = GetFontByDialog();
             if (font is null) return;
-
+            Global.defaultFont = font;
             foreach (TableLayoutPanel tablePanel in tablePanels)
             {
                 foreach (Panel panel in tablePanel.Controls)
                 {
-                    foreach (Control control in panel.Controls) if (((IRemoveable)control).Locked == false) control.Font = (Font)font;
+                    foreach (Control control in panel.Controls) if (((IDataStorable)control).Locked == false) control.Font = (Font)font;
                 }
             }
         }
@@ -567,8 +813,8 @@
                 'b' => SetBackColor,
                 'f' => SetForeColor,
                 'r' => SetFlatBorderColor,
-                's' => SetFlatSelectionColor,
-                'p' => SetFlatPressColor,
+                's' => SetFlatOverColor,
+                'p' => SetFlatDownColor,
                 _ => null
             };
             if (setter is null) return;
@@ -577,17 +823,20 @@
             {
                 foreach (Panel panel in tablePanel.Controls)
                 {
-                    foreach (Control control in panel.Controls) if (((IRemoveable)control).Locked == false) setter(control, (Color)color); 
+                    foreach (Control control in panel.Controls) if (((IDataStorable)control).Locked == false) setter(control, (Color)color);
                 }
             }
         }
 
-        private static void SetBackColor(Control control, System.Drawing.Color color) => control.BackColor = color;
-        private static void SetForeColor(Control control, System.Drawing.Color color) => control.ForeColor = color;
-        private static void SetFlatBorderColor(Control control, System.Drawing.Color color) => ((Button)control).FlatAppearance.BorderColor = color;
-        private static void SetFlatSelectionColor(Control control, System.Drawing.Color color) => ((Button)control).FlatAppearance.MouseOverBackColor = color;
-        private static void SetFlatPressColor(Control control, System.Drawing.Color color) => ((Button)control).FlatAppearance.MouseDownBackColor = color;
+        private static void SetBackColor(Control control, System.Drawing.Color color) => control.BackColor = Global.defaultBackColor = color;
+        private static void SetForeColor(Control control, System.Drawing.Color color) => control.ForeColor = Global.defaultForeColor = color;
+        private static void SetFlatBorderColor(Control control, System.Drawing.Color color) => ((Button)control).FlatAppearance.BorderColor = Global.defaultFlatBorderColor = color;
+        private static void SetFlatOverColor(Control control, System.Drawing.Color color) => ((Button)control).FlatAppearance.MouseOverBackColor = Global.defaultFlatOverColor = color;
+        private static void SetFlatDownColor(Control control, System.Drawing.Color color) => ((Button)control).FlatAppearance.MouseDownBackColor = Global.defaultFlatDownColor = color;
+
 
         private delegate void SetColor(Control control, System.Drawing.Color color);
+        public static void TrackableFormClosed(object sender, FormClosedEventArgs e) => (sender as ICloseTrackable).closed = true;
+        public static void TrackableFormShown(object sender, EventArgs e) => (sender as ICloseTrackable).closed = false;
     }
 }

@@ -3,19 +3,29 @@
     internal partial class CalculatorForm : Form
     {
         private ControlsForm controlsForm;
+        private LayoutMenegerForm layoutForm;
+
+        private String? currentConfiguration;
 
         public CalculatorForm()
         {
-            //Config.InitializeConfiguration(this, menuStrip, splitContainer, displayTableLayoutPanel, controlTableLayoutPanel);
             InitializeComponent();
+            InitializeConfiguration(JsonDataStorage.Config["Configuration"].Value<String>());
+            InitializeTitle();
             InitializePanels();
             InitializeMenuStrip();
             controlsForm = new ControlsForm();
+            layoutForm = new LayoutMenegerForm();
             InputController.Update += () => { Handler.UpdateDisplayPanelsRecord(Global.expression, displayTableLayoutPanel); };
-            Json.SendMessage += (String messageText) => { MessageBox.Show(messageText); };
+            JsonStreamer.SendMessage += (String messageText) => { MessageBox.Show(messageText); };
             //try { MessageBox.Show($"{String.Join(", ", Storage.Configurations.SelectToken($"$.Base.WindowSize").ToObject<List<UInt16>>())}"); }
             //catch (Exception ex) { MessageBox.Show(ex.ToString()); }
 
+        }
+
+        private void InitializeTitle()
+        {
+            if (currentConfiguration is not null) SetConfigName(currentConfiguration);
         }
 
         private void InitializePanels()
@@ -38,13 +48,13 @@
 
         private void ControlToolClick(object sender, EventArgs e)
         {
-            if (!controlsForm.IsClosed) return;
+            if (!controlsForm.closed) return;
             controlsForm = new ControlsForm();
             controlsForm.Show();
         }
 
         private void BordersToolClick(object sender, EventArgs e)
-        { 
+        {
             bordersToolStripMenuItem.Checked = Global.borderView = !Global.borderView;
             Handler.UpdateControlsBorderView(controlTableLayoutPanel, displayTableLayoutPanel);
         }
@@ -149,7 +159,7 @@
             ControlPanelsFulledCheck();
         }
 
-        private void controlsRemoveRowToolClick(object sender, EventArgs e)
+        private void ControlsRemoveRowToolClick(object sender, EventArgs e)
         {
             Handler.PanelRemoveRow(controlTableLayoutPanel, sender, e);
             ControlPanelsFulledCheck();
@@ -177,6 +187,124 @@
             displayRemoveRowToolStripMenuItem.Enabled = displayTableLayoutPanel.RowCount == 1 ? false : true;
         }
 
+        private void LayoutToolClick(object sender, EventArgs e)
+        {
+            if (!layoutForm.closed) return;
+            layoutForm = new LayoutMenegerForm();
+            layoutForm.Owner = this;
+            layoutForm.Show();
+        }
 
+        public void InitializeConfiguration(String configName = "")
+        {
+            Config.InitializeConfiguration
+                (
+                    configName,
+                    this,
+                    menuStrip,
+                    splitContainer,
+                    displayTableLayoutPanel,
+                    controlTableLayoutPanel
+                );
+            currentConfiguration = configName;
+            InitializeMenuStrip();
+        }
+
+        public JObject GetConfigData()
+        {
+            JObject config = new JObject();
+
+            config["Global"] = new JObject();
+            config["Global"]["Placement"] = Global.placement.ToString();
+            config["Global"]["BorderView"] = Global.borderView;
+
+            config["Form"] = new JObject();
+            config["Form"]["Size"] = new JArray(this.Width, this.Height);
+            config["Form"]["BackColor"] = this.BackColor.Name;
+
+            config["SplitContainer"] = new JObject();
+            config["SplitContainer"]["SplitterDistance"] = splitContainer.SplitterDistance;
+
+            config["TableStructs"] = new JObject();
+            config["TableStructs"]["Display"] = new JArray(displayTableLayoutPanel.RowCount, displayTableLayoutPanel.ColumnCount);
+            config["TableStructs"]["Controls"] = new JArray(controlTableLayoutPanel.RowCount, controlTableLayoutPanel.ColumnCount);
+
+            config["MenuStrip"] = new JObject();
+            config["MenuStrip"]["Font"] = new JObject();
+            config["MenuStrip"]["Font"]["Name"] = menuStrip.Font.Name;
+            config["MenuStrip"]["Font"]["Size"] = menuStrip.Font.Size;
+            config["MenuStrip"]["Font"]["Unit"] = menuStrip.Font.Unit.ToString();
+            config["MenuStrip"]["Font"]["Bold"] = menuStrip.Font.Bold;
+            config["MenuStrip"]["Font"]["GdiCharSet"] = menuStrip.Font.GdiCharSet;
+            config["MenuStrip"]["Font"]["GdiVerticalFont"] = menuStrip.Font.GdiVerticalFont;
+            config["MenuStrip"]["Font"]["Italic"] = menuStrip.Font.Italic;
+            config["MenuStrip"]["Font"]["Strikeout"] = menuStrip.Font.Strikeout;
+            config["MenuStrip"]["Font"]["Underline"] = menuStrip.Font.Underline;
+            config["MenuStrip"]["ForeColor"] = menuStrip.ForeColor.Name;
+            config["MenuStrip"]["BackColor"] = menuStrip.BackColor.Name;
+
+            config["DefaultControlStyle"] = new JObject();
+            config["DefaultControlStyle"]["Font"] = Config.JObjectByFont(Global.defaultFont);
+            config["DefaultControlStyle"]["ForeColor"] = Global.defaultForeColor.Name;
+            config["DefaultControlStyle"]["BackColor"] = Global.defaultBackColor.Name;
+            config["DefaultControlStyle"]["FlatBorderColor"] = Global.defaultFlatBorderColor.Name;
+            config["DefaultControlStyle"]["FlatMouseDownBackColor"] = Global.defaultFlatDownColor.Name;
+            config["DefaultControlStyle"]["FlatMouseOverBackColor"] = Global.defaultFlatOverColor.Name;
+
+            JArray controlsArray = new JArray();
+
+            TableLayoutPanel[] tables = new TableLayoutPanel[] { displayTableLayoutPanel, controlTableLayoutPanel };
+
+            foreach (TableLayoutPanel table in tables)
+            {
+                for (Byte R = 0; R < table.RowCount; R++)
+                {
+                    for (Byte C = 0; C < table.ColumnCount; C++)
+                    {
+                        if (table.GetControlFromPosition(C, R).Controls.Count != 0)
+                        {
+                            Control control = table.GetControlFromPosition(C, R).Controls[0];
+                            JObject controlData = new JObject();
+                            controlData["Sector"] = ((IDataReceivable)control).JData["Sector"];
+                            controlData["Name"] = ((IDataReceivable)control).JData["Name"];
+                            controlData["PositionByCell"] = new JArray(C, R);
+                            controlData["Placement"] = control.Dock.ToString();
+                            controlData["Size"] = new JArray(control.Width, control.Height);
+                            controlData["Lock"] = ((IDataStorable)control).Locked;
+
+                            if (((IDataStorable)control).Locked)
+                            {
+                                controlData["Font"] = Config.JObjectByFont(control.Font);
+                                controlData["ForeColor"] = control.ForeColor.Name;
+                                controlData["BackColor"] = control.BackColor.Name;
+                                if (table.Name != "displayTableLayoutPanel")
+                                {
+                                    controlData["FlatBorderColor"] = ((Button)control).FlatAppearance.BorderColor.Name;
+                                    controlData["FlatMouseDownBackColor"] = ((Button)control).FlatAppearance.MouseDownBackColor.Name;
+                                    controlData["FlatMouseOverBackColor"] = ((Button)control).FlatAppearance.MouseOverBackColor.Name;
+                                }
+                            }
+
+                            controlsArray.Add(controlData);
+                        }
+                    }
+                }
+            }
+
+            config["ControlsLayout"] = controlsArray;
+
+            return config;
+        }
+        public void SetConfigName(String configName) => this.Text = $"FFEC - {currentConfiguration = configName}";
+
+        private void CalculatorFormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (currentConfiguration is not null)
+            {
+                JsonDataStorage.Config["Configuration"] = currentConfiguration;
+                JsonStreamer.WriteConfig(JsonDataStorage.Config);
+            }
+        }
     }
+
 }

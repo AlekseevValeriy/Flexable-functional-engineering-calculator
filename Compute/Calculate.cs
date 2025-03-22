@@ -7,18 +7,16 @@
             if (expression.Count == 0) return new Term("0");
 
             if (expression.Count(s => s is IExpressionStoreable) != 0)
-            { 
+            {
                 for (UInt16 I = 0; I < expression.Count; I++)
                 {
                     if (expression[I] is IExpressionStoreable storeable)
                     {
-                        checked 
-                        { 
+                        checked
+                        {
                             storeable.Deconstruct(out Term term);
                             expression[I] = (Composite)term;
                         }
-
-                        
                     }
                 }
             }
@@ -53,7 +51,7 @@
                             {
                                 checked
                                 {
-                                    result.Set(ArithmeticOperationsAdapter.GetPerformAction(operato.GetMark)(
+                                    result.Set(ArithmeticOperationsAdapter.GetOperation(operato.GetMark)(
                                     firstOperand.Value,
                                     secondOperand.Value).ToString());
                                 }
@@ -68,7 +66,7 @@
             }
             return expression.Last();
         }
-        
+
         public static Queue<UInt16> GetExecutionQueue(List<Composite> expression)
         {
             Queue<UInt16> primaryImportance = new Queue<UInt16>();

@@ -10,8 +10,8 @@
             List<Composite> actualExpression = GetActualExpression(expression);
 
             if (actualExpression.Count == 0) actualExpression.Add(number);
-            else 
-            { 
+            else
+            {
                 switch (actualExpression.Last())
                 {
                     case Term lnumber:
@@ -62,7 +62,7 @@
                 switch (actualExpression.Last())
                 {
                     case Operator: { actualExpression[actualExpression.Count - 1] = operation; break; }
-                    case Term or Function or Staples: { actualExpression.Add(operation); break; } 
+                    case Term or Function or Staples: { actualExpression.Add(operation); break; }
                 }
                 Update.Invoke();
             }
@@ -91,7 +91,7 @@
 
         private static List<Composite> GetNotEmptyExpression(List<Composite> expression)
         {
-            if( expression.Last() is IExpressionStoreable expressionStoreable )
+            if (expression.Last() is IExpressionStoreable expressionStoreable)
             {
                 return expressionStoreable.GetActualNotEmptyExpression(expression);
             }
@@ -112,14 +112,14 @@
 
         public static void Equally(ref List<Composite> expression)
         {
-            if ((expression.Count > 1 && expression[expression.Count - 2] is Operator) | (expression.Count == 1 & expression.Last() is IExpressionStoreable))
+            if ((expression.Count > 1 && expression[expression.Count - 2] is Operator) | (expression.Count == 1 && expression.Last() is IExpressionStoreable))
             {
                 expression = new List<Composite>()
                 {
                     Calculate.SolutionEquation(expression)
                 };
-                Update.Invoke();
             }
+            Update.Invoke();
         }
 
         public static void DeleteLast(List<Composite> expression)

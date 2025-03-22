@@ -1,0 +1,16 @@
+C:\Users\valer\OneDrive\Documents\GitHub\Engineering-calculator\bin\Release\FFEC.exe.config
+C:\Users\valer\OneDrive\Documents\GitHub\Engineering-calculator\bin\Release\FFEC.exe
+C:\Users\valer\OneDrive\Documents\GitHub\Engineering-calculator\bin\Release\FFEC.pdb
+C:\Users\valer\OneDrive\Documents\GitHub\Engineering-calculator\bin\Release\Newtonsoft.Json.dll
+C:\Users\valer\OneDrive\Documents\GitHub\Engineering-calculator\bin\Release\Newtonsoft.Json.xml
+C:\Users\valer\OneDrive\Documents\GitHub\Engineering-calculator\obj\Release\FFEC.csproj.AssemblyReference.cache
+C:\Users\valer\OneDrive\Documents\GitHub\Engineering-calculator\obj\Release\FFEC.AboutBox.resources
+C:\Users\valer\OneDrive\Documents\GitHub\Engineering-calculator\obj\Release\FFEC.CalculatorForm.resources
+C:\Users\valer\OneDrive\Documents\GitHub\Engineering-calculator\obj\Release\FFEC.ControlsForm.resources
+C:\Users\valer\OneDrive\Documents\GitHub\Engineering-calculator\obj\Release\FFEC.LayoutMeneger.resources
+C:\Users\valer\OneDrive\Documents\GitHub\Engineering-calculator\obj\Release\FFEC.Properties.Resources.resources
+C:\Users\valer\OneDrive\Documents\GitHub\Engineering-calculator\obj\Release\FFEC.csproj.GenerateResource.cache
+C:\Users\valer\OneDrive\Documents\GitHub\Engineering-calculator\obj\Release\FFEC.csproj.CoreCompileInputs.cache
+C:\Users\valer\OneDrive\Documents\GitHub\Engineering-calculator\obj\Release\FFEC.csproj.Up2Date
+C:\Users\valer\OneDrive\Documents\GitHub\Engineering-calculator\obj\Release\FFEC.exe
+C:\Users\valer\OneDrive\Documents\GitHub\Engineering-calculator\obj\Release\FFEC.pdb

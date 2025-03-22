@@ -49,8 +49,8 @@
             this.Controls.Add(this.tabControl);
             this.Name = "ControlsForm";
             this.Text = "Каталог управления";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ControlsFormClosed);
-            this.Shown += new System.EventHandler(this.ControlsFormShown);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(Handler.TrackableFormClosed);
+            this.Shown += new System.EventHandler(Handler.TrackableFormShown);
             this.ResumeLayout(false);
 
         }

@@ -12,6 +12,7 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -36,6 +37,7 @@
     <LangVersion>13.0</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Build.Framework" />
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -64,28 +66,50 @@
     <Compile Include="CalculatorForm.Designer.cs">
       <DependentUpon>CalculatorForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="compute\ArithmeticOperations.cs" />
-    <Compile Include="compute\Calculate.cs" />
+    <Compile Include="Compute\ArithmeticOperations.cs" />
+    <Compile Include="Compute\Calculate.cs" />
     <Compile Include="ControlsForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ControlsForm.Designer.cs">
       <DependentUpon>ControlsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="expression\Components.cs" />
-    <Compile Include="expression\Display.cs" />
+    <Compile Include="Expression\Components.cs" />
+    <Compile Include="Expression\Display.cs" />
     <Compile Include="Global.cs" />
     <Compile Include="Json.cs" />
+    <EmbeddedResource Include="PropertyForm.resx">
+      <DependentUpon>PropertyForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Jsondata\EasterEgg.json" />
+    <Compile Include="LayoutMenegerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LayoutMenegerForm.Designer.cs">
+      <DependentUpon>LayoutMenegerForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Modified.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="NameEnterForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NameEnterForm.Designer.cs">
+      <DependentUpon>NameEnterForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PropertyForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PropertyForm.Designer.cs">
+      <DependentUpon>PropertyForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Storage.cs" />
-    <Compile Include="uilogic\Config.cs" />
-    <Compile Include="uilogic\Handlers.cs" />
-    <Compile Include="uilogic\Interaction.cs" />
-    <Compile Include="uilogic\Wrappers.cs" />
+    <Compile Include="UILogic\Config.cs" />
+    <Compile Include="UILogic\Handlers.cs" />
+    <Compile Include="UILogic\Interaction.cs" />
+    <Compile Include="UILogic\Wrappers.cs" />
     <EmbeddedResource Include="AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </EmbeddedResource>
@@ -94,6 +118,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ControlsForm.resx">
       <DependentUpon>ControlsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LayoutMenegerForm.resx">
+      <DependentUpon>LayoutMenegerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NameEnterForm.resx">
+      <DependentUpon>NameEnterForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -104,10 +134,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <None Include="jsondata\Config.json" />
-    <None Include="jsondata\Configurations.json" />
-    <None Include="jsondata\Controls.json" />
-    <None Include="jsondata\Controls_rus.json" />
+    <None Include="Jsondata\Config.json" />
+    <None Include="Jsondata\Configurations.json" />
+    <None Include="Jsondata\Controls.json" />
+    <None Include="Jsondata\Translate.json" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
