@@ -54,75 +54,97 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AboutBox.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AboutBox.Designer.cs">
-      <DependentUpon>AboutBox.cs</DependentUpon>
-    </Compile>
-    <Compile Include="CalculatorForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="CalculatorForm.Designer.cs">
-      <DependentUpon>CalculatorForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Compute\ArithmeticOperations.cs" />
-    <Compile Include="Compute\Calculate.cs" />
-    <Compile Include="ControlsForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ControlsForm.Designer.cs">
-      <DependentUpon>ControlsForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Expression\Components.cs" />
-    <Compile Include="Expression\Display.cs" />
-    <Compile Include="Global.cs" />
-    <Compile Include="Json.cs" />
-    <EmbeddedResource Include="PropertyForm.resx">
-      <DependentUpon>PropertyForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <None Include="Jsondata\EasterEgg.json" />
-    <Compile Include="LayoutMenegerForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="LayoutMenegerForm.Designer.cs">
-      <DependentUpon>LayoutMenegerForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Modified.cs">
+    <Compile Include="AugmentedControls.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="NameEnterForm.cs">
+    <Compile Include="Data\DataSerializer.cs" />
+    <Compile Include="UI\Forms\Optional\AboutBox.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="NameEnterForm.Designer.cs">
+    <Compile Include="UI\Forms\Optional\AboutBox.Designer.cs">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Forms\Main\CalculatorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\Main\CalculatorForm.Designer.cs">
+      <DependentUpon>CalculatorForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Forms\Optional\ChangeSizeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\Optional\ChangeSizeForm.Designer.cs">
+      <DependentUpon>ChangeSizeForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ExpressionModule\Compute\ArithmeticOperations.cs" />
+    <Compile Include="ExpressionModule\Compute\Calculate.cs" />
+    <Compile Include="UI\Forms\Main\ControlsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\Main\ControlsForm.Designer.cs">
+      <DependentUpon>ControlsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ExpressionModule\Expression\Components.cs" />
+    <Compile Include="ExpressionModule\Expression\Display.cs" />
+    <Compile Include="Global.cs" />
+    <Compile Include="Data\Json.cs" />
+    <EmbeddedResource Include="UI\Forms\Optional\ChangeSizeForm.resx">
+      <DependentUpon>ChangeSizeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\Optional\LocationChoiceForm.resx">
+      <DependentUpon>LocationChoiceForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\Optional\PropertyForm.resx">
+      <DependentUpon>PropertyForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Data\Json\Configurations.json" />
+    <None Include="Data\Json\ConfigurationsBackup.json" />
+    <None Include="Data\Json\EasterEgg.json" />
+    <Compile Include="UI\Forms\Optional\LayoutMenegerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\Optional\LayoutMenegerForm.Designer.cs">
+      <DependentUpon>LayoutMenegerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Forms\Optional\LocationChoiceForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\Optional\LocationChoiceForm.Designer.cs">
+      <DependentUpon>LocationChoiceForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Forms\Optional\NameEnterForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\Optional\NameEnterForm.Designer.cs">
       <DependentUpon>NameEnterForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PropertyForm.cs">
+    <Compile Include="UI\Forms\Optional\PropertyForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PropertyForm.Designer.cs">
+    <Compile Include="UI\Forms\Optional\PropertyForm.Designer.cs">
       <DependentUpon>PropertyForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Storage.cs" />
-    <Compile Include="UILogic\Config.cs" />
-    <Compile Include="UILogic\Handlers.cs" />
-    <Compile Include="UILogic\Interaction.cs" />
-    <Compile Include="UILogic\Wrappers.cs" />
-    <EmbeddedResource Include="AboutBox.resx">
+    <Compile Include="Data\Storage.cs" />
+    <Compile Include="UI\Messages.cs" />
+    <Compile Include="UI\UILogic\Config.cs" />
+    <Compile Include="UI\UILogic\Handlers.cs" />
+    <Compile Include="UI\UILogic\Interaction.cs" />
+    <Compile Include="UI\UILogic\Wrappers.cs" />
+    <EmbeddedResource Include="UI\Forms\Optional\AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CalculatorForm.resx">
+    <EmbeddedResource Include="UI\Forms\Main\CalculatorForm.resx">
       <DependentUpon>CalculatorForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ControlsForm.resx">
+    <EmbeddedResource Include="UI\Forms\Main\ControlsForm.resx">
       <DependentUpon>ControlsForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LayoutMenegerForm.resx">
+    <EmbeddedResource Include="UI\Forms\Optional\LayoutMenegerForm.resx">
       <DependentUpon>LayoutMenegerForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="NameEnterForm.resx">
+    <EmbeddedResource Include="UI\Forms\Optional\NameEnterForm.resx">
       <DependentUpon>NameEnterForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -134,10 +156,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <None Include="Jsondata\Config.json" />
-    <None Include="Jsondata\Configurations.json" />
-    <None Include="Jsondata\Controls.json" />
-    <None Include="Jsondata\Translate.json" />
+    <None Include="Data\Json\Config.json" />
+    <None Include="Data\Json\Controls.json" />
+    <None Include="Data\Json\Translate.json" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

@@ -20,5 +20,7 @@ namespace FFEC
         public static Color defaultFlatBorderColor = Color.Empty;
         public static Color defaultFlatOverColor = Color.Empty;
         public static Color defaultFlatDownColor = Color.Empty;
+
+        public static Form owner;
     }
 }

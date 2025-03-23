@@ -31,3 +31,5 @@ C:\Users\valer\OneDrive\Documents\GitHub\Engineering-calculator\obj\Debug\FFEC.p
 C:\Users\valer\OneDrive\Documents\GitHub\Engineering-calculator\obj\Debug\FFEC.LayoutMenegerForm.resources
 C:\Users\valer\OneDrive\Documents\GitHub\Engineering-calculator\obj\Debug\FFEC.NameEnterForm.resources
 C:\Users\valer\OneDrive\Documents\GitHub\Engineering-calculator\obj\Debug\FFEC.PropertyForm.resources
+C:\Users\valer\OneDrive\Documents\GitHub\Engineering-calculator\obj\Debug\FFEC.ChangeSizeForm.resources
+C:\Users\valer\OneDrive\Documents\GitHub\Engineering-calculator\obj\Debug\FFEC.LocationChoiceForm.resources
