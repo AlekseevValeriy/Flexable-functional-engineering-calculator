@@ -4,8 +4,12 @@ namespace FFEC
 {
     internal static class ArithmeticOperationsAdapter
     {
-        public static Operation GetOperation(OperatorMark mark) => operators[mark];
-        private static Dictionary<OperatorMark, Operation> operators = new Dictionary<OperatorMark, Operation>()
+        public static Operation GetOperation(OperatorMark mark)
+        {
+            return operators[mark];
+        }
+
+        private static readonly Dictionary<OperatorMark, Operation> operators = new Dictionary<OperatorMark, Operation>()
         {
             { OperatorMark.Add, ArithmeticOperations.Add},
             { OperatorMark.Subtract, ArithmeticOperations.Subtract},
@@ -13,19 +17,27 @@ namespace FFEC
             { OperatorMark.Division, ArithmeticOperations.Division},
             { OperatorMark.Modular, ArithmeticOperations.Modular}
         };
-        public delegate Double Operation(Double x, Double y);
+        public delegate double Operation(double x, double y);
 
-        public static PerformBinary GetOperation(BinaryFunctionMark mark) => binaryFunctions[mark.Field];
-        private static Dictionary<FunctionMark, PerformBinary> binaryFunctions = new Dictionary<FunctionMark, PerformBinary>()
+        public static PerformBinary GetOperation(BinaryFunctionMark mark)
+        {
+            return binaryFunctions[mark.Field];
+        }
+
+        private static readonly Dictionary<FunctionMark, PerformBinary> binaryFunctions = new Dictionary<FunctionMark, PerformBinary>()
         {
             { FunctionMark.XPowerOfY, ArithmeticOperations.XPowerOfY},
             { FunctionMark.LogarithmOfXBasedOnY, ArithmeticOperations.LogarithmOfXBasedOnY},
             { FunctionMark.YRootOfX, ArithmeticOperations.YRootOfX}
         };
-        public delegate Double PerformBinary(Double x, Double y);
+        public delegate double PerformBinary(double x, double y);
 
-        public static PerformSingular GetOperation(SingularFunctionMark mark) => singularFunctions[mark.Field];
-        private static Dictionary<FunctionMark, PerformSingular> singularFunctions = new Dictionary<FunctionMark, PerformSingular>()
+        public static PerformSingular GetOperation(SingularFunctionMark mark)
+        {
+            return singularFunctions[mark.Field];
+        }
+
+        private static readonly Dictionary<FunctionMark, PerformSingular> singularFunctions = new Dictionary<FunctionMark, PerformSingular>()
         {
             { FunctionMark.NaturalLogarithm, ArithmeticOperations.NaturalLogarithm},
             { FunctionMark.DecimalLogarithm, ArithmeticOperations.DecimalLogarithm},
@@ -41,36 +53,119 @@ namespace FFEC
             { FunctionMark.Exponential, ArithmeticOperations.Exponential},
             { FunctionMark.NFactorial, ArithmeticOperations.NFactorial},
         };
-        public delegate Double PerformSingular(Double x);
+        public delegate double PerformSingular(double x);
     }
 
     internal static class ArithmeticOperations
     {
-        public static Double Add(Double x, Double y) => x + y;
-        public static Double Subtract(Double x, Double y) => x - y;
-        public static Double Multiply(Double x, Double y) => x * y;
-        public static Double Division(Double x, Double y) => x / y;
-        public static Double Modular(Double x, Double y) => x % y;
-        public static Double XPowerOfY(Double x, Double y) => Pow(x, y);
-        public static Double LogarithmOfXBasedOnY(Double x, Double y) => Log(x, y);
-        public static Double YRootOfX(Double x, Double y) => Pow(x, (1D / y));
-        public static Double NaturalLogarithm(Double x) => Log(x);
-        public static Double DecimalLogarithm(Double x) => Log10(x);
-        public static Double TenPowerOfX(Double x) => Pow(10D, x);
-        public static Double SquareRootOfX(Double x) => Sqrt(x);
-        public static Double XPowerOfTwo(Double x) => Pow(x, 2D);
-        public static Double EPowerOfX(Double x) => Pow(E, x);
-        public static Double TwoPowerOfX(Double x) => Pow(2D, x);
-        public static Double CubicRootOfX(Double x) => Pow(x, (1D / 3D));
-        public static Double XPowerOfThree(Double x) => Pow(x, 3D);
-        public static Double XReverse(Double x) => 1D / x;
-        public static Double XAbsolute(Double x) => Abs(x);
-        public static Double Exponential(Double x) => Pow(E, x);
-        public static Double NFactorial(Double x)
+        public static double Add(double x, double y)
         {
-            Double factorial = 1;
-            for (UInt64 I = 1; I <= x; I++)
-            { factorial *= I; }
+            return x + y;
+        }
+
+        public static double Subtract(double x, double y)
+        {
+            return x - y;
+        }
+
+        public static double Multiply(double x, double y)
+        {
+            return x * y;
+        }
+
+        public static double Division(double x, double y)
+        {
+            return x / y;
+        }
+
+        public static double Modular(double x, double y)
+        {
+            return x % y;
+        }
+
+        public static double XPowerOfY(double x, double y)
+        {
+            return Pow(x, y);
+        }
+
+        public static double LogarithmOfXBasedOnY(double x, double y)
+        {
+            return Log(x, y);
+        }
+
+        public static double YRootOfX(double x, double y)
+        {
+            return Pow(x, 1D / y);
+        }
+
+        public static double NaturalLogarithm(double x)
+        {
+            return Log(x);
+        }
+
+        public static double DecimalLogarithm(double x)
+        {
+            return Log10(x);
+        }
+
+        public static double TenPowerOfX(double x)
+        {
+            return Pow(10D, x);
+        }
+
+        public static double SquareRootOfX(double x)
+        {
+            return Sqrt(x);
+        }
+
+        public static double XPowerOfTwo(double x)
+        {
+            return Pow(x, 2D);
+        }
+
+        public static double EPowerOfX(double x)
+        {
+            return Pow(E, x);
+        }
+
+        public static double TwoPowerOfX(double x)
+        {
+            return Pow(2D, x);
+        }
+
+        public static double CubicRootOfX(double x)
+        {
+            return Pow(x, 1D / 3D);
+        }
+
+        public static double XPowerOfThree(double x)
+        {
+            return Pow(x, 3D);
+        }
+
+        public static double XReverse(double x)
+        {
+            return 1D / x;
+        }
+
+        public static double XAbsolute(double x)
+        {
+            return Abs(x);
+        }
+
+        public static double Exponential(double x)
+        {
+            return Pow(E, x);
+        }
+
+        public static double NFactorial(double x)
+        {
+            double factorial = 1;
+            for (ulong I = 1; I <= x; I++)
+            {
+                factorial *= I;
+            }
+
             return factorial;
         }
     }

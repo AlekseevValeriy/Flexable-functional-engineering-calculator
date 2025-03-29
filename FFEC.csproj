@@ -57,7 +57,7 @@
     <Compile Include="AugmentedControls.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Data\DataSerializer.cs" />
+    <Compile Include="Data\DataConverter.cs" />
     <Compile Include="UI\Forms\Optional\AboutBox.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -85,11 +85,14 @@
       <DependentUpon>ControlsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="ExpressionModule\Expression\Components.cs" />
-    <Compile Include="ExpressionModule\Expression\Display.cs" />
+    <Compile Include="ExpressionModule\Expression\Output.cs" />
     <Compile Include="Global.cs" />
     <Compile Include="Data\Json.cs" />
     <EmbeddedResource Include="UI\Forms\Optional\ChangeSizeForm.resx">
       <DependentUpon>ChangeSizeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\Optional\FunctionEnter.resx">
+      <DependentUpon>FunctionEnter.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\Optional\LocationChoiceForm.resx">
       <DependentUpon>LocationChoiceForm.cs</DependentUpon>
@@ -97,9 +100,20 @@
     <EmbeddedResource Include="UI\Forms\Optional\PropertyForm.resx">
       <DependentUpon>PropertyForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\Optional\VariableEnterForm.resx">
+      <DependentUpon>VariableEnterForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\Optional\VariablesForm.resx">
+      <DependentUpon>VariablesForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Data\Json\Configurations.json" />
-    <None Include="Data\Json\ConfigurationsBackup.json" />
     <None Include="Data\Json\EasterEgg.json" />
+    <Compile Include="UI\Forms\Optional\FunctionEnter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\Optional\FunctionEnter.Designer.cs">
+      <DependentUpon>FunctionEnter.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Forms\Optional\LayoutMenegerForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -127,11 +141,23 @@
       <DependentUpon>PropertyForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Data\Storage.cs" />
+    <Compile Include="UI\Forms\Optional\VariableEnterForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\Optional\VariableEnterForm.Designer.cs">
+      <DependentUpon>VariableEnterForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Forms\Optional\VariablesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\Optional\VariablesForm.Designer.cs">
+      <DependentUpon>VariablesForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Messages.cs" />
-    <Compile Include="UI\UILogic\Config.cs" />
-    <Compile Include="UI\UILogic\Handlers.cs" />
-    <Compile Include="UI\UILogic\Interaction.cs" />
-    <Compile Include="UI\UILogic\Wrappers.cs" />
+    <Compile Include="UI\Logic\Config.cs" />
+    <Compile Include="UI\Logic\Handlers.cs" />
+    <Compile Include="UI\Logic\Interaction.cs" />
+    <Compile Include="UI\Logic\Wrappers.cs" />
     <EmbeddedResource Include="UI\Forms\Optional\AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </EmbeddedResource>

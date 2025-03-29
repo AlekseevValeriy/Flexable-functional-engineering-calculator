@@ -50,6 +50,8 @@
             this.Name = "ControlsForm";
             this.Text = "Каталог управления";
             this.Shown += new System.EventHandler(this.ControlsFormShown);
+            this.Shown += new System.EventHandler(Handler.TrackableFormShown);
+            this.FormClosed += new FormClosedEventHandler(Handler.TrackableFormClosed);
             this.ResumeLayout(false);
 
         }

@@ -1,68 +1,15 @@
 {
-  "Default": {
-    "Global": {
-      "Placement": "None",
-      "BorderView": true
-    },
-    "Form": {
-      "Size": [
-        800,
-        500
-      ],
-      "BackColor": "Control"
-    },
-    "SplitContainer": {
-      "SplitterDistance": 86
-    },
-    "TableStructs": {
-      "Display": [
-        1,
-        1
-      ],
-      "Controls": [
-        1,
-        1
-      ]
-    },
-    "MenuStrip": {
-      "Font": {
-        "Name": "Segoe UI",
-        "Size": 9.0,
-        "Unit": "Point",
-        "Bold": false,
-        "GdiCharSet": 1,
-        "GdiVerticalFont": false,
-        "Italic": false,
-        "Strikeout": false,
-        "Underline": false
-      },
-      "ForeColor": "ControlText",
-      "BackColor": "Control"
-    },
-    "DefaultControlStyle": {
-      "Font": {
-        "Name": "Microsoft Sans Serif",
-        "Size": 8.25,
-        "Unit": "Point",
-        "Bold": false,
-        "GdiCharSet": 204,
-        "GdiVerticalFont": false,
-        "Italic": false,
-        "Strikeout": false,
-        "Underline": false
-      },
-      "ForeColor": "ControlText",
-      "BackColor": "Control",
-      "FlatBorderColor": "0",
-      "FlatMouseDownBackColor": "0",
-      "FlatMouseOverBackColor": "0"
-    },
-    "ControlsLayout": []
-  },
-  "NЯ": {
+  "Ня.Ц пока": {
     "Global": {
       "Placement": "Fill",
       "BorderView": false
+    },
+    "Variables": {
+      "Name": 0,
+      "Name2": "12"
+    },
+    "CustomFunctions": {
+      "123": "FFEC.Term {1};FFEC.Operator {Subtract};FFEC.Term {5};FFEC.Operator {Add};FFEC.Term {3};FFEC.Operator {Multiply};FFEC.Variable {Name, 0};FFEC.Operator {Division};FFEC.Term {0,5}"
     },
     "Form": {
       "Size": [
@@ -147,7 +94,7 @@
       },
       {
         "Sector": "Numbers",
-        "Name": "Zero",
+        "Name": "One",
         "PositionByCell": [
           0,
           0
@@ -161,7 +108,7 @@
       },
       {
         "Sector": "Numbers",
-        "Name": "One",
+        "Name": "Two",
         "PositionByCell": [
           1,
           0
@@ -175,7 +122,7 @@
       },
       {
         "Sector": "Numbers",
-        "Name": "Two",
+        "Name": "Three",
         "PositionByCell": [
           2,
           0
@@ -203,7 +150,7 @@
       },
       {
         "Sector": "Numbers",
-        "Name": "Three",
+        "Name": "Four",
         "PositionByCell": [
           0,
           1
@@ -217,7 +164,7 @@
       },
       {
         "Sector": "Numbers",
-        "Name": "Four",
+        "Name": "Five",
         "PositionByCell": [
           1,
           1
@@ -231,7 +178,7 @@
       },
       {
         "Sector": "Numbers",
-        "Name": "Five",
+        "Name": "Six",
         "PositionByCell": [
           2,
           1
@@ -259,7 +206,7 @@
       },
       {
         "Sector": "Numbers",
-        "Name": "Six",
+        "Name": "Seven",
         "PositionByCell": [
           0,
           2
@@ -273,7 +220,7 @@
       },
       {
         "Sector": "Numbers",
-        "Name": "Seven",
+        "Name": "Eight",
         "PositionByCell": [
           1,
           2
@@ -287,7 +234,7 @@
       },
       {
         "Sector": "Numbers",
-        "Name": "Eight",
+        "Name": "Nine",
         "PositionByCell": [
           2,
           2
@@ -329,7 +276,393 @@
       },
       {
         "Sector": "Numbers",
+        "Name": "Zero",
+        "PositionByCell": [
+          1,
+          3
+        ],
+        "Placement": "Fill",
+        "Size": [
+          86,
+          60
+        ],
+        "Lock": false
+      },
+      {
+        "Sector": "Actions",
+        "Name": "Equally",
+        "PositionByCell": [
+          2,
+          3
+        ],
+        "Placement": "Fill",
+        "Size": [
+          86,
+          60
+        ],
+        "Lock": false
+      },
+      {
+        "Sector": "Operators",
+        "Name": "Division",
+        "PositionByCell": [
+          3,
+          3
+        ],
+        "Placement": "Fill",
+        "Size": [
+          89,
+          60
+        ],
+        "Lock": false
+      }
+    ]
+  },
+  "Default": {
+    "Global": {
+      "Placement": "None",
+      "BorderView": true
+    },
+    "Variables": {
+      "1": 2,
+      "2": 3
+    },
+    "CustomFunctions": {
+      "Name": "Function"
+    },
+    "Form": {
+      "Size": [
+        800,
+        500
+      ],
+      "BackColor": "Control"
+    },
+    "SplitContainer": {
+      "SplitterDistance": 86
+    },
+    "TableStructs": {
+      "Display": [
+        1,
+        1
+      ],
+      "Controls": [
+        1,
+        1
+      ]
+    },
+    "MenuStrip": {
+      "Font": {
+        "Name": "Segoe UI",
+        "Size": 9.0,
+        "Unit": "Point",
+        "Bold": false,
+        "GdiCharSet": 1,
+        "GdiVerticalFont": false,
+        "Italic": false,
+        "Strikeout": false,
+        "Underline": false
+      },
+      "ForeColor": "ControlText",
+      "BackColor": "Control"
+    },
+    "DefaultControlStyle": {
+      "Font": {
+        "Name": "Microsoft Sans Serif",
+        "Size": 8.25,
+        "Unit": "Point",
+        "Bold": false,
+        "GdiCharSet": 204,
+        "GdiVerticalFont": false,
+        "Italic": false,
+        "Strikeout": false,
+        "Underline": false
+      },
+      "ForeColor": "ControlText",
+      "BackColor": "Control",
+      "FlatBorderColor": "0",
+      "FlatMouseDownBackColor": "0",
+      "FlatMouseOverBackColor": "0"
+    },
+    "ControlsLayout": []
+  },
+  "variables test": {
+    "Global": {
+      "Placement": "Fill",
+      "BorderView": false
+    },
+    "Variables": {
+      "x": "16",
+      "y": "4"
+    },
+    "CustomFunctions": {
+      "Name": "Function"
+    },
+    "Form": {
+      "Size": [
+        387,
+        368
+      ],
+      "BackColor": "Control"
+    },
+    "SplitContainer": {
+      "SplitterDistance": 43
+    },
+    "TableStructs": {
+      "Display": [
+        1,
+        1
+      ],
+      "Controls": [
+        4,
+        4
+      ]
+    },
+    "MenuStrip": {
+      "Font": {
+        "Name": "Segoe UI",
+        "Size": 9.0,
+        "Unit": "Point",
+        "Bold": false,
+        "GdiCharSet": 1,
+        "GdiVerticalFont": false,
+        "Italic": false,
+        "Strikeout": false,
+        "Underline": false
+      },
+      "ForeColor": "ControlText",
+      "BackColor": "Control"
+    },
+    "DefaultControlStyle": {
+      "Font": {
+        "Name": "Microsoft Sans Serif",
+        "Size": 8.25,
+        "Unit": "Point",
+        "Bold": false,
+        "GdiCharSet": 204,
+        "GdiVerticalFont": false,
+        "Italic": false,
+        "Strikeout": false,
+        "Underline": false
+      },
+      "ForeColor": "ControlText",
+      "BackColor": "Control",
+      "FlatBorderColor": "0",
+      "FlatMouseDownBackColor": "0",
+      "FlatMouseOverBackColor": "0"
+    },
+    "ControlsLayout": [
+      {
+        "Sector": "Display",
+        "Name": "Base",
+        "PositionByCell": [
+          0,
+          0
+        ],
+        "Placement": "Fill",
+        "Size": [
+          365,
+          35
+        ],
+        "Lock": true,
+        "Font": {
+          "Name": "Microsoft Sans Serif",
+          "Size": 18.0,
+          "Unit": "Point",
+          "Bold": false,
+          "GdiCharSet": 204,
+          "GdiVerticalFont": false,
+          "Italic": false,
+          "Strikeout": false,
+          "Underline": false
+        },
+        "ForeColor": "ControlText",
+        "BackColor": "Control"
+      },
+      {
+        "Sector": "Numbers",
+        "Name": "One",
+        "PositionByCell": [
+          0,
+          0
+        ],
+        "Placement": "Fill",
+        "Size": [
+          86,
+          58
+        ],
+        "Lock": false
+      },
+      {
+        "Sector": "Numbers",
+        "Name": "Two",
+        "PositionByCell": [
+          1,
+          0
+        ],
+        "Placement": "Fill",
+        "Size": [
+          86,
+          58
+        ],
+        "Lock": false
+      },
+      {
+        "Sector": "Numbers",
+        "Name": "Three",
+        "PositionByCell": [
+          2,
+          0
+        ],
+        "Placement": "Fill",
+        "Size": [
+          86,
+          58
+        ],
+        "Lock": false
+      },
+      {
+        "Sector": "Operators",
+        "Name": "Append",
+        "PositionByCell": [
+          3,
+          0
+        ],
+        "Placement": "Fill",
+        "Size": [
+          89,
+          58
+        ],
+        "Lock": false
+      },
+      {
+        "Sector": "Numbers",
+        "Name": "Four",
+        "PositionByCell": [
+          0,
+          1
+        ],
+        "Placement": "Fill",
+        "Size": [
+          86,
+          58
+        ],
+        "Lock": false
+      },
+      {
+        "Sector": "Numbers",
+        "Name": "Five",
+        "PositionByCell": [
+          1,
+          1
+        ],
+        "Placement": "Fill",
+        "Size": [
+          86,
+          58
+        ],
+        "Lock": false
+      },
+      {
+        "Sector": "Numbers",
+        "Name": "Six",
+        "PositionByCell": [
+          2,
+          1
+        ],
+        "Placement": "Fill",
+        "Size": [
+          86,
+          58
+        ],
+        "Lock": false
+      },
+      {
+        "Sector": "Operators",
+        "Name": "Subtract",
+        "PositionByCell": [
+          3,
+          1
+        ],
+        "Placement": "Fill",
+        "Size": [
+          89,
+          58
+        ],
+        "Lock": false
+      },
+      {
+        "Sector": "Numbers",
+        "Name": "Seven",
+        "PositionByCell": [
+          0,
+          2
+        ],
+        "Placement": "Fill",
+        "Size": [
+          86,
+          58
+        ],
+        "Lock": false
+      },
+      {
+        "Sector": "Numbers",
+        "Name": "Eight",
+        "PositionByCell": [
+          1,
+          2
+        ],
+        "Placement": "Fill",
+        "Size": [
+          86,
+          58
+        ],
+        "Lock": false
+      },
+      {
+        "Sector": "Numbers",
         "Name": "Nine",
+        "PositionByCell": [
+          2,
+          2
+        ],
+        "Placement": "Fill",
+        "Size": [
+          86,
+          58
+        ],
+        "Lock": false
+      },
+      {
+        "Sector": "Operators",
+        "Name": "Multiply",
+        "PositionByCell": [
+          3,
+          2
+        ],
+        "Placement": "Fill",
+        "Size": [
+          89,
+          58
+        ],
+        "Lock": false
+      },
+      {
+        "Sector": "Actions",
+        "Name": "Backspace",
+        "PositionByCell": [
+          0,
+          3
+        ],
+        "Placement": "Fill",
+        "Size": [
+          86,
+          60
+        ],
+        "Lock": false
+      },
+      {
+        "Sector": "Numbers",
+        "Name": "Zero",
         "PositionByCell": [
           1,
           3

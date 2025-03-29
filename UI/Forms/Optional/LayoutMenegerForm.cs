@@ -1,44 +1,52 @@
-﻿namespace FFEC
+﻿using FFEC.UI.Forms.Optional;
+
+namespace FFEC
 {
-    public partial class layoutMenegerForm : Form, ICloseTrackable
+    public partial class LayoutMenegerForm : Form, ICloseTrackable
     {
-        public Boolean closed { get; set; } = true;
-        public layoutMenegerForm()
+        public bool closed { get; set; } = true;
+        public Dictionary<string, Form> SubOwners { get; set; } = [];
+        public LayoutMenegerForm()
         {
             InitializeComponent();
-            this.MaximizeBox = false;
         }
 
-        private void LayoutMenegerLoad(object sender, EventArgs e) => UpdateConfigList();
 
+        private void LayoutMenegerLoad(object sender, EventArgs e)
+        {
+            UpdateConfigList();
+        }
 
         private void SetConfiguration(object sender = null, EventArgs e = null)
         {
             try
             {
                 ValidateSelectedItem();
-                ((CalculatorForm)Owner).InitializeConfiguration(GetSelectedCell());
-                ((CalculatorForm)Owner).UpdateConfigName(GetSelectedCell());
+                (Owner as CalculatorForm).InitializeConfiguration(GetSelectedCell());
+                (Owner as CalculatorForm).UpdateConfigName(GetSelectedCell());
+                UpdateInSubOwners();
             }
-            catch (Exception exception) { MessageBox.Show(exception.Message); }
+            catch (InformationException exception) { Messages.RaiseInformationMessage(exception.Message); }
+            catch (Exception exception) { Messages.RaiseExceptionMessage(exception.Message); }
         }
 
         private void AddConfiguration(object sender = null, EventArgs e = null)
         {
             try
             {
-                String name = null;
+                string name = null;
                 GetNameByDialog(ref name);
-                if (name is null | name == String.Empty) return;
+                if (name is null | name == string.Empty)
+                {
+                    return;
+                }
 
                 Config.Set(name, JObject.Parse(Config.GetDefaultData()));
                 Config.Save();
                 UpdateConfigList();
             }
-            catch (Exception exception)
-            {
-                MessageBox.Show(exception.Message);
-            }
+            catch (InformationException exception) { Messages.RaiseInformationMessage(exception.Message); }
+            catch (Exception exception) { Messages.RaiseExceptionMessage(exception.Message); }
         }
 
         private void SaveConfiguration(object sender = null, EventArgs e = null)
@@ -50,12 +58,17 @@
                 Config.Save();
                 UpdateConfigList();
             }
-            catch (Exception exception) { MessageBox.Show(exception.Message); }
+            catch (InformationException exception) { Messages.RaiseInformationMessage(exception.Message); }
+            catch (Exception exception) { Messages.RaiseExceptionMessage(exception.Message); }
         }
 
         private void DeleteAllConfiguration(object sender = null, EventArgs e = null)
         {
-            if (Messages.RaiseDeleteAllMessage() is not DialogResult.OK) return;
+            if (Messages.RaiseDeleteAllMessage() is not DialogResult.OK)
+            {
+                return;
+            }
+
             try
             {
                 foreach (DataGridViewRow configName in dataGridView.Rows)
@@ -64,7 +77,8 @@
                 }
                 Config.Save();
             }
-            catch (Exception exception) { MessageBox.Show(exception.Message); }
+            catch (InformationException exception) { Messages.RaiseInformationMessage(exception.Message); }
+            catch (Exception exception) { Messages.RaiseExceptionMessage(exception.Message); }
             UpdateConfigList();
         }
 
@@ -73,17 +87,21 @@
             try
             {
                 ValidateSelectedItem();
-                String oldName = GetSelectedCell();
-                String newName = null;
+                string oldName = GetSelectedCell();
+                string newName = null;
                 GetNameByDialog(ref newName);
-                if (newName is null | newName == String.Empty) return;
+                if (newName is null | newName == string.Empty)
+                {
+                    return;
+                }
 
                 Config.Set(newName, JObject.Parse(Config.LoadConfiguration(oldName)));
                 Config.Remove(oldName);
 
                 Config.Save();
             }
-            catch (Exception exception) { MessageBox.Show(exception.Message); }
+            catch (InformationException exception) { Messages.RaiseInformationMessage(exception.Message); }
+            catch (Exception exception) { Messages.RaiseExceptionMessage(exception.Message); }
             UpdateConfigList();
         }
 
@@ -95,35 +113,36 @@
                 Config.Remove(GetSelectedCell());
                 Config.Save();
             }
-            catch (Exception exception) { MessageBox.Show(exception.Message); }
+            catch (InformationException exception) { Messages.RaiseInformationMessage(exception.Message); }
+            catch (Exception exception) { Messages.RaiseExceptionMessage(exception.Message); }
             UpdateConfigList();
         }
-
         private void ValidateSelectedItem()
         {
-            if (GetSelectedCell() is null) throw new Exception("Пожалуйста, выберите макет");
+            if (GetSelectedCell() is null)
+            {
+                throw new InformationException("Пожалуйста, выберите макет");
+            }
         }
-
-        private void GetNameByDialog(ref String name)
+        private void GetNameByDialog(ref string name)
         {
             NameEnterForm form = new NameEnterForm() { Owner = this };
-            if (form.ShowDialog() is DialogResult.OK) name = form.NewName;
+            if (form.ShowDialog() is DialogResult.OK)
+            {
+                name = form.GetName();
+            }
         }
         private void UpdateConfigList()
         {
             dataGridView.Rows.Clear();
-            foreach (String configuration in Config.GetList()) dataGridView.Rows.Add(configuration);
+            foreach (string configuration in Config.GetList())
+            {
+                dataGridView.Rows.Add(configuration);
+            }
         }
-
-        private String? GetSelectedCell()
+        private string GetSelectedCell()
         {
-            Object? value = dataGridView.SelectedCells[0].Value;
-            return value is null ? null : value.ToString();
-        }
-
-        private void LayoutMenegerFormShown(object sender, EventArgs e)
-        {
-            Handler.SetSubFormPosition((Form)Owner, this);
+            return dataGridView.SelectedCells[0].Value?.ToString();
         }
 
         private void KeyDownOfAction(object sender, KeyEventArgs e)
@@ -137,7 +156,7 @@
                     switch (e.KeyCode)
                     {
                         case Keys.Delete: DeleteConfiguration(); break;
-                        case Keys.A & Keys.Delete: DeleteAllConfiguration(); break;
+                        case Keys.A: DeleteAllConfiguration(); break;
                         case Keys.Enter: SetConfiguration(); break;
                         case Keys.S: SaveConfiguration(); break;
                         case Keys.N: AddConfiguration(); break;
@@ -145,7 +164,30 @@
                     }
                 }
             }
-            catch (Exception exception) { MessageBox.Show(exception.Message); }
+            catch (InformationException exception) { Messages.RaiseInformationMessage(exception.Message); }
+            catch (Exception exception) { Messages.RaiseExceptionMessage(exception.Message); }
         }
+        private void FormShown(object sender, EventArgs e)
+        {
+            Handler.SetSubFormPosition(Owner, this);
+        }
+
+        private void UpdateInSubOwners()
+        {
+            if (SubOwners["Controls"] is ControlsForm controls && !controls.closed)
+            {
+                controls.UpdateRequiredTabs();
+            }
+
+            if (SubOwners["Variables"] is VariablesForm variables && !variables.closed)
+            {
+                variables.UpdateVariables();
+            }
+        }
+    }
+
+    internal class InformationException : Exception
+    {
+        public InformationException(string text) : base(text) { }
     }
 }

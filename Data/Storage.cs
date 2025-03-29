@@ -2,35 +2,43 @@
 {
     internal static class JsonStorage
     {
-        public static String GetControlText(String sector, String name) => controlsData[sector][name].Value<String>();
-        public static Dictionary<String, Dictionary<String, String>> Controls => controlsData.ToObject<Dictionary<String, Dictionary<String, String>>>();
-        private static JObject controlsData = JsonStreamer.ReadControls();
+        public static string GetControlText(string sector, string name)
+        {
+            return controlsData[sector][name].Value<string>();
+        }
+
+        public static Dictionary<string, Dictionary<string, string>> Controls => controlsData.ToObject<Dictionary<string, Dictionary<string, string>>>();
+        private static readonly JObject controlsData = JsonStreamer.ReadControls();
 
 
         public static JObject Configurations { get => configurationsData; set => JsonStreamer.WriteConfigurations(value); }
-        private static JObject configurationsData = JsonStreamer.ReadConfigurations();
+        private static readonly JObject configurationsData = JsonStreamer.ReadConfigurations();
 
 
         public static JObject Config { get => configData; set => JsonStreamer.WriteConfigurations(value); }
-        private static JObject configData = JsonStreamer.ReadConfig();
+        private static readonly JObject configData = JsonStreamer.ReadConfig();
 
 
-        public static String GetTranslate(String text) => translateData[text].Value<String>() ?? text;
-        private static JObject translateData = JsonStreamer.ReadTranslate();
+        public static string GetTranslate(string text)
+        {
+            return translateData[text] is not null ? translateData[text].Value<string>() : text;
+        }
+
+        private static readonly JObject translateData = JsonStreamer.ReadTranslate();
 
         public static JObject Egg { get; } = JsonStreamer.ReadEgg();
     }
 
     internal static class ContextMenuStorage
     {
-        public static ContextMenu GetContextMenu(String name)
+        public static ContextMenu GetContextMenu(string name)
         {
             try { return contextMenuDictionary[name]; }
             catch (KeyNotFoundException exception) { Messages.RaiseKeyNotFoundExceptionMessage(exception.Message, typeof(ContextMenu)); }
             return new ContextMenu();
 
         }
-        private static Dictionary<String, ContextMenu> contextMenuDictionary = new Dictionary<String, ContextMenu>();
+        private static readonly Dictionary<string, ContextMenu> contextMenuDictionary = [];
 
         static ContextMenuStorage()
         {
@@ -43,19 +51,19 @@
 
     internal static class EventStorage
     {
-        public static EventHandler GetEvent(String name)
+        public static EventHandler GetEvent(string name)
         {
             try { return eventDictionary[name]; }
             catch (KeyNotFoundException exception) { Messages.RaiseKeyNotFoundExceptionMessage(exception.Message, typeof(EventHandler)); }
             catch (ArgumentNullException exception) { Messages.RaiseArgumentNullExceptionMessage(exception.Message); }
-            return new EventHandler((Object sender, EventArgs e) => { });
+            return new EventHandler((object sender, EventArgs e) => { });
 
         }
-        public static void SetEvent(String name, EventHandler eve)
+        public static void SetEvent(string name, EventHandler eve)
         {
             try { eventDictionary[name] = eve; }
-            catch(ArgumentNullException exception) { Messages.RaiseArgumentNullExceptionMessage(exception.Message); }
+            catch (ArgumentNullException exception) { Messages.RaiseArgumentNullExceptionMessage(exception.Message); }
         }
-        private static Dictionary<String, EventHandler> eventDictionary = new Dictionary<String, EventHandler>();
+        private static readonly Dictionary<string, EventHandler> eventDictionary = [];
     }
 }

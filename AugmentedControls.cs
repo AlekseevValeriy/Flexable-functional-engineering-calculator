@@ -2,23 +2,26 @@
 {
     internal class SButton : Button, IDataStorable, IDataMoveable
     {
-        public JObject JData { get; } = new JObject();
-        public Boolean Locked { get; set; } = false;
+        public JObject JData { get; } = [];
+        public bool Locked { get; set; } = false;
         public SButton() : base() { }
-        public SButton(String data) : this() { FlatStyle = FlatStyle.Flat; ParseData(data); }
-        public void SetJData(Dictionary<String, String> parameters)
+        public SButton(string data) : this() { FlatStyle = FlatStyle.Flat; ParseData(data); }
+        public void SetJData(Dictionary<string, string> parameters)
         {
-            foreach (KeyValuePair<String, String> parameter in parameters) JData[parameter.Key] = parameter.Value;
+            foreach (KeyValuePair<string, string> parameter in parameters)
+            {
+                JData[parameter.Key] = parameter.Value;
+            }
         }
 
-        public String GetImportData()
+        public string GetImportData()
         {
             return GetOriginalImportData().ToString();
         }
 
         public JObject GetOriginalImportData()
         {
-            JObject data = new JObject();
+            JObject data = [];
             CommonSDataImporter.CommonDataImport(ref data, this);
             if (this.FlatStyle == FlatStyle.Flat)
             {
@@ -30,7 +33,7 @@
             return data;
         }
 
-        public void ParseData(String data)
+        public void ParseData(string data)
         {
             JObject parsedData = JObject.Parse(data);
             CommonSDataParser.CommonPathDataParse(parsedData, JData);
@@ -40,12 +43,23 @@
                 CommonSDataParser.CommonDisplayDataParse(parsedData, this);
                 if (parsedData.ContainsKey("FlatBorderColor"))
                 {
-                    String flatBorderColor = parsedData["FlatBorderColor"].Value<String>();
-                    if (flatBorderColor != "0") this.FlatAppearance.BorderColor = Color.FromName(flatBorderColor);
-                    String flatDownColor = parsedData["FlatMouseDownBackColor"].Value<String>();
-                    if (flatDownColor != "0") this.FlatAppearance.MouseDownBackColor = Color.FromName(flatDownColor);
-                    String flatOverColor = parsedData["FlatMouseOverBackColor"].Value<String>();
-                    if (flatOverColor != "0") this.FlatAppearance.MouseOverBackColor = Color.FromName(flatOverColor);
+                    string flatBorderColor = parsedData["FlatBorderColor"].Value<string>();
+                    if (flatBorderColor != "0")
+                    {
+                        this.FlatAppearance.BorderColor = Color.FromName(flatBorderColor);
+                    }
+
+                    string flatDownColor = parsedData["FlatMouseDownBackColor"].Value<string>();
+                    if (flatDownColor != "0")
+                    {
+                        this.FlatAppearance.MouseDownBackColor = Color.FromName(flatDownColor);
+                    }
+
+                    string flatOverColor = parsedData["FlatMouseOverBackColor"].Value<string>();
+                    if (flatOverColor != "0")
+                    {
+                        this.FlatAppearance.MouseOverBackColor = Color.FromName(flatOverColor);
+                    }
                 }
             }
         }
@@ -53,29 +67,36 @@
 
     internal class STextBox : TextBox, IDataStorable, IDataMoveable
     {
-        public JObject JData { get; } = new JObject();
-        public Boolean Locked { get; set; } = false;
-        public void SetJData(Dictionary<String, String> parameters)
+        public JObject JData { get; } = [];
+        public bool Locked { get; set; } = false;
+        public void SetJData(Dictionary<string, string> parameters)
         {
-            foreach (KeyValuePair<String, String> parameter in parameters) JData[parameter.Key] = parameter.Value;
+            foreach (KeyValuePair<string, string> parameter in parameters)
+            {
+                JData[parameter.Key] = parameter.Value;
+            }
         }
         private ConverterToStringByRule Rule { get; }
-        public void SetTextByRule(List<Composite> expression) => Text = Rule(expression);
-        public STextBox(String data) : base() { ParseData(data); }
-        public STextBox(ConverterToStringByRule rule = null) : base() { Rule = rule is not null ? rule : (List<Composite> expression, Boolean debug) => ""; }
-        public STextBox(String data, ConverterToStringByRule rule = null) : this(rule) { ParseData(data); }
-        public String GetImportData()
+        public void SetTextByRule(List<Composite> expression)
+        {
+            Text = Rule(expression);
+        }
+        public STextBox() : base() { }
+        public STextBox(string data) : base() { ParseData(data); }
+        public STextBox(ConverterToStringByRule rule = null) : base() { Rule = rule is not null ? rule : (List<Composite> expression, bool debug) => ""; }
+        public STextBox(string data, ConverterToStringByRule rule = null) : this(rule) { ParseData(data); }
+        public string GetImportData()
         {
             return GetOriginalImportData().ToString();
         }
         public JObject GetOriginalImportData()
         {
-            JObject data = new JObject();
+            JObject data = [];
             CommonSDataImporter.CommonDataImport(ref data, this);
             return data;
         }
 
-        public void ParseData(String data)
+        public void ParseData(string data)
         {
             JObject parsedData = JObject.Parse(data);
             CommonSDataParser.CommonPathDataParse(parsedData, JData);
@@ -87,45 +108,45 @@
         }
     }
 
-    internal delegate String ConverterToStringByRule(List<Composite> expression, Boolean debug = false);
+    internal delegate string ConverterToStringByRule(List<Composite> expression, bool debug = false);
 
     internal interface IDataMoveable : IDataReceivable, IDataTransmitable { }
 
     internal interface IDataReceivable
     {
-        public JObject JData { get; }
-        public void SetJData(Dictionary<String, String> parameters);
-        void ParseData(String data);
+        JObject JData { get; }
+        void SetJData(Dictionary<string, string> parameters);
+        void ParseData(string data);
     }
 
     internal interface IDataTransmitable
     {
-        public JObject GetOriginalImportData();
-        public String GetImportData();
+        JObject GetOriginalImportData();
+        string GetImportData();
     }
 
     internal interface IDataStorable
     {
-        public Boolean Locked { get; set; }
+        bool Locked { get; set; }
     }
 
     internal static class CommonSDataParser
     {
         public static void CommonDisplayDataParse(JObject data, Control control)
         {
-            control.Width = data["Size"][0].Value<UInt16>();
-            control.Height = data["Size"][1].Value<UInt16>();
-            ((IDataStorable)control).Locked = data["Lock"].Value<Boolean>();
-            control.Dock = (DockStyle)Enum.Parse(typeof(DockStyle), data["Placement"].Value<String>());
-            control.Font = DataSerializer.JTokenToFont(data["Font"]);
-            control.BackColor = Color.FromName(data["BackColor"].Value<String>());
-            control.ForeColor = Color.FromName(data["ForeColor"].Value<String>());
+            control.Width = data["Size"][0].Value<ushort>();
+            control.Height = data["Size"][1].Value<ushort>();
+            ((IDataStorable)control).Locked = data["Lock"].Value<bool>();
+            control.Dock = (DockStyle)Enum.Parse(typeof(DockStyle), data["Placement"].Value<string>());
+            control.Font = DataConverter.JTokenToFont(data["Font"]);
+            control.BackColor = Color.FromName(data["BackColor"].Value<string>());
+            control.ForeColor = Color.FromName(data["ForeColor"].Value<string>());
         }
 
         public static void CommonPathDataParse(JObject data, JObject jData)
         {
-            jData["Sector"] = data["Sector"].Value<String>();
-            jData["Name"] = data["Name"].Value<String>();
+            jData["Sector"] = data["Sector"].Value<string>();
+            jData["Name"] = data["Name"].Value<string>();
         }
     }
 
@@ -138,16 +159,18 @@
             data["Size"] = new JArray(control.Width, control.Height);
             data["Lock"] = ((IDataStorable)control).Locked;
             data["Placement"] = control.Dock.ToString();
-            data["Font"] = new JObject();
-            data["Font"]["Name"] = control.Font.Name;
-            data["Font"]["Size"] = control.Font.Size;
-            data["Font"]["Unit"] = control.Font.Unit.ToString();
-            data["Font"]["Bold"] = control.Font.Bold;
-            data["Font"]["GdiCharSet"] = control.Font.GdiCharSet;
-            data["Font"]["GdiVerticalFont"] = control.Font.GdiVerticalFont;
-            data["Font"]["Italic"] = control.Font.Italic;
-            data["Font"]["Strikeout"] = control.Font.Strikeout;
-            data["Font"]["Underline"] = control.Font.Underline;
+            data["Font"] = new JObject
+            {
+                ["Name"] = control.Font.Name,
+                ["Size"] = control.Font.Size,
+                ["Unit"] = control.Font.Unit.ToString(),
+                ["Bold"] = control.Font.Bold,
+                ["GdiCharSet"] = control.Font.GdiCharSet,
+                ["GdiVerticalFont"] = control.Font.GdiVerticalFont,
+                ["Italic"] = control.Font.Italic,
+                ["Strikeout"] = control.Font.Strikeout,
+                ["Underline"] = control.Font.Underline
+            };
             data["BackColor"] = control.BackColor.Name;
             data["ForeColor"] = control.ForeColor.Name;
         }
@@ -155,6 +178,6 @@
 
     internal interface ICloseTrackable
     {
-        Boolean closed { get; set; }
+        bool closed { get; set; }
     }
 }

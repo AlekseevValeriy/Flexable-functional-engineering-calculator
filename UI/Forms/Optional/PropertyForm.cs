@@ -5,30 +5,25 @@
         public PropertyForm()
         {
             InitializeComponent();
-            this.MaximizeBox = false;
         }
-
-        public void AddLines(Dictionary<String, String> data)
+        public void AddLines(Dictionary<string, string> data)
         {
-            foreach (KeyValuePair<String, String> valuePair in data) AddLine(valuePair.Key, valuePair.Value);
+            foreach (KeyValuePair<string, string> valuePair in data)
+            {
+                AddLine(valuePair.Key, valuePair.Value);
+            }
+
             SetSize();
         }
-
-        public void AddLine(String property, String data)
+        private void SetSize() { Size newSize = dataGridView.PreferredSize; this.MinimumSize = newSize; }
+        public void AddLine(string property, string data)
         {
-            dataGridView1.Rows.Add(property, data);
-
+            dataGridView.Rows.Add(property, data);
         }
 
-        private void SetSize()
+        private void FormShown(object sender, EventArgs e)
         {
-            Size newSize = dataGridView1.PreferredSize;
-            this.MinimumSize = newSize;
-        }
-
-        private void PropertyForm_Shown(object sender, EventArgs e)
-        {
-            Handler.SetSubFormPosition((Form)Owner, this);
+            Handler.SetSubFormPosition(Owner, this);
         }
     }
 

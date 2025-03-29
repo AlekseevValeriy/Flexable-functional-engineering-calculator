@@ -1,6 +1,6 @@
 ﻿namespace FFEC
 {
-    partial class layoutMenegerForm
+    partial class LayoutMenegerForm
     {
         /// <summary>
         /// Required designer variable.
@@ -172,7 +172,7 @@
             this.addbutton.Click += new System.EventHandler(this.AddConfiguration);
             this.addbutton.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyDownOfAction);
             // 
-            // layoutMenegerForm
+            // LayoutMenegerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -180,10 +180,13 @@
             this.Controls.Add(this.tableLayoutPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(2);
-            this.Name = "layoutMenegerForm";
+            this.MaximizeBox = false;
+            this.Name = "LayoutMenegerForm";
             this.Text = "Менеджер макетов";
             this.Load += new System.EventHandler(this.LayoutMenegerLoad);
-            this.Shown += new System.EventHandler(this.LayoutMenegerFormShown);
+            this.Shown += new System.EventHandler(this.FormShown);
+            this.Shown += new System.EventHandler(Handler.TrackableFormShown);
+            this.FormClosed += new FormClosedEventHandler(Handler.TrackableFormClosed);
             this.tableLayoutPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.ResumeLayout(false);

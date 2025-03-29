@@ -82,7 +82,7 @@
             this.heightTextBox.Size = new System.Drawing.Size(100, 20);
             this.heightTextBox.TabIndex = 2;
             this.heightTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.PerformKeyShortcut);
-            this.heightTextBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.heightTextBox_MouseDown);
+            this.heightTextBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.heightTextBoxMouseDown);
             // 
             // widthTextBox
             // 
@@ -100,12 +100,13 @@
             this.ClientSize = new System.Drawing.Size(259, 91);
             this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(275, 130);
             this.Name = "ChangeSizeForm";
             this.Text = "Настройка размера";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ChangeSizeFormClosing);
             this.Shown += new System.EventHandler(this.ChangeSizeFormShown);
-            this.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.heightTextBox_MouseDown);
+            this.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.heightTextBoxMouseDown);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);

@@ -9,15 +9,25 @@
         {
             List<Composite> actualExpression = GetActualExpression(expression);
 
-            if (actualExpression.Count == 0) actualExpression.Add(number);
+            if (actualExpression.Count == 0)
+            {
+                actualExpression.Add(number);
+            }
             else
             {
                 switch (actualExpression.Last())
                 {
                     case Term lnumber:
                         {
-                            if (lnumber.Record == "0") actualExpression[actualExpression.Count - 1] = number;
-                            else actualExpression[actualExpression.Count - 1].Set(lnumber.Record + number.Record);
+                            if (lnumber.Record == "0")
+                            {
+                                actualExpression[actualExpression.Count - 1] = number;
+                            }
+                            else
+                            {
+                                actualExpression[actualExpression.Count - 1].Set(lnumber.Record + number.Record);
+                            }
+
                             break;
                         }
                     case Operator: { actualExpression.Add(number); break; }
@@ -41,13 +51,35 @@
         {
             List<Composite> actualExpression = GetActualExpression(expression);
 
-            if (actualExpression.Count == 0) actualExpression.Add(constanta);
+            if (actualExpression.Count == 0)
+            {
+                actualExpression.Add(constanta);
+            }
             else
             {
                 switch (actualExpression.Last())
                 {
                     case Term: { actualExpression[actualExpression.Count - 1] = constanta; break; }
                     case Operator: { actualExpression.Add(constanta); break; }
+                }
+            }
+            Update.Invoke();
+        }
+
+        private static void AppendConstantaLike(List<Composite> expression, Composite composite)
+        {
+            List<Composite> actualExpression = GetActualExpression(expression);
+
+            if (actualExpression.Count == 0)
+            {
+                actualExpression.Add(composite);
+            }
+            else
+            {
+                switch (actualExpression.Last())
+                {
+                    case Term: { actualExpression[actualExpression.Count - 1] = composite; break; }
+                    case Operator: { actualExpression.Add(composite); break; }
                 }
             }
             Update.Invoke();
@@ -62,7 +94,7 @@
                 switch (actualExpression.Last())
                 {
                     case Operator: { actualExpression[actualExpression.Count - 1] = operation; break; }
-                    case Term or Function or Staples: { actualExpression.Add(operation); break; }
+                    case Variable or Term or Function or Staples: { actualExpression.Add(operation); break; }
                 }
                 Update.Invoke();
             }
@@ -73,6 +105,11 @@
             List<Composite> actualExpression = GetActualExpression(expression);
 
             if (actualExpression.Count == 0 || actualExpression.Last() is Operator) { actualExpression.Add((Composite)storable); Update.Invoke(); }
+        }
+
+        public static void Append(List<Composite> expression, Variable variable)
+        {
+            AppendConstantaLike(expression, variable);
         }
 
         public static void ChangeSign(List<Composite> expression)
@@ -91,22 +128,26 @@
 
         private static List<Composite> GetNotEmptyExpression(List<Composite> expression)
         {
-            if (expression.Last() is IExpressionStoreable expressionStoreable)
-            {
-                return expressionStoreable.GetActualNotEmptyExpression(expression);
-            }
-            return expression;
+            return expression.Last() is IExpressionStoreable expressionStoreable
+                ? expressionStoreable.GetActualNotEmptyExpression(expression)
+                : expression;
         }
 
         public static void CloseExpressionWrite(List<Composite> expression)
         {
-            if (expression.Count == 0) return;
+            if (expression.Count == 0)
+            {
+                return;
+            }
 
             if (expression.Last() is IExpressionStoreable compositeStoreable)
             {
                 IExpressionStoreable actualComposite = compositeStoreable.GetActualComposite();
                 List<Composite>? currentExpression = actualComposite.GetCurrentExpression();
-                if (currentExpression is not null && currentExpression.Count != 0 && currentExpression.Last() is not Operator) actualComposite.CloseWrite();
+                if (currentExpression is not null && currentExpression.Count != 0 && currentExpression.Last() is not Operator)
+                {
+                    actualComposite.CloseWrite();
+                }
             }
         }
 
@@ -114,17 +155,20 @@
         {
             if ((expression.Count > 1 && expression[expression.Count - 2] is Operator) | (expression.Count == 1 && expression.Last() is IExpressionStoreable))
             {
-                expression = new List<Composite>()
-                {
+                expression =
+                [
                     Calculate.SolutionEquation(expression)
-                };
+                ];
             }
             Update.Invoke();
         }
 
         public static void DeleteLast(List<Composite> expression)
         {
-            if (expression.Count == 0) return;
+            if (expression.Count == 0)
+            {
+                return;
+            }
 
             List<Composite> actualExpression = GetNotEmptyExpression(expression);
 
@@ -132,8 +176,15 @@
             {
                 case Term number:
                     {
-                        if (actualExpression[actualExpression.Count - 1].Record.Length == 1) actualExpression.RemoveAt(actualExpression.Count - 1);
-                        else actualExpression[actualExpression.Count - 1].Set(number.Record.Remove(number.Record.Length - 1));
+                        if (actualExpression[actualExpression.Count - 1].Record.Length == 1)
+                        {
+                            actualExpression.RemoveAt(actualExpression.Count - 1);
+                        }
+                        else
+                        {
+                            actualExpression[actualExpression.Count - 1].Set(number.Record.Remove(number.Record.Length - 1));
+                        }
+
                         break;
                     }
                 default:
@@ -151,12 +202,40 @@
         }
         public static void ClearOne(List<Composite> expression)
         {
-            if (expression.Count == 0) return;
+            if (expression.Count == 0)
+            {
+                return;
+            }
 
             List<Composite> actualExpression = GetNotEmptyExpression(expression);
 
             actualExpression.RemoveAt(actualExpression.Count - 1);
 
+            Update.Invoke();
+        }
+
+        public static void UpdateVariableInExpression(List<Composite> expression)
+        {
+            if (expression.Count == 0)
+            {
+                return;
+            }
+
+            List<string> variableNames = Config.GetVariableNames();
+
+            foreach (Composite composite in expression)
+            {
+                if (composite is Variable variable && !variableNames.Contains(variable.Record))
+                {
+                    expression.Clear();
+                    Update.Invoke();
+                    break;
+                }
+
+            }
+        }
+        public static void UpdateDisplay()
+        {
             Update.Invoke();
         }
     }

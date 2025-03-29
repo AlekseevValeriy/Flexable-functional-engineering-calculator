@@ -33,3 +33,6 @@ C:\Users\valer\OneDrive\Documents\GitHub\Engineering-calculator\obj\Debug\FFEC.N
 C:\Users\valer\OneDrive\Documents\GitHub\Engineering-calculator\obj\Debug\FFEC.PropertyForm.resources
 C:\Users\valer\OneDrive\Documents\GitHub\Engineering-calculator\obj\Debug\FFEC.ChangeSizeForm.resources
 C:\Users\valer\OneDrive\Documents\GitHub\Engineering-calculator\obj\Debug\FFEC.LocationChoiceForm.resources
+C:\Users\valer\OneDrive\Documents\GitHub\Engineering-calculator\obj\Debug\FFEC.UI.Forms.Optional.VariablesForm.resources
+C:\Users\valer\OneDrive\Documents\GitHub\Engineering-calculator\obj\Debug\FFEC.UI.Forms.Optional.VariableEnterForm.resources
+C:\Users\valer\OneDrive\Documents\GitHub\Engineering-calculator\obj\Debug\FFEC.UI.Forms.Optional.FunctionEnter.resources

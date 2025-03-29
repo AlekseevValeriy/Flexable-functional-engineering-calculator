@@ -8,20 +8,19 @@ namespace FFEC
         public LocationChoiceForm(Control control)
         {
             InitializeComponent();
-            this.MaximizeBox = false;
             this.control = control;
-            comboBox.Items.AddRange(Enum.GetValues(typeof(DockStyle)).Cast<Object>().ToArray());
-            comboBox.Text = control.Dock.ToString();
-        }
-
-        private void LocationChoiceForm_Shown(object sender, EventArgs e)
-        {
-            Handler.SetSubFormPosition((Form)Owner, this);
+            locationComboBox.Items.AddRange(Enum.GetValues(typeof(DockStyle)).Cast<object>().ToArray());
+            locationComboBox.Text = control.Dock.ToString();
         }
 
         private void SelectedValueChanged(object sender, EventArgs e)
         {
-            control.Dock = (DockStyle)comboBox.SelectedItem;
+            control.Dock = (DockStyle)locationComboBox.SelectedItem;
+        }
+
+        private void FormShown(object sender, EventArgs e)
+        {
+            Handler.SetSubFormPosition(Owner, this);
         }
     }
 }

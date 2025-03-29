@@ -11,9 +11,9 @@ namespace FFEC
     internal static class Global
     {
         public static readonly Random random = new Random();
-        public static Boolean borderView = true;
+        public static bool borderView = true;
         public static DockStyle placement = DockStyle.None;
-        public static List<Composite> expression = new List<Composite>();
+        public static List<Composite> expression = [];
         public static Font defaultFont = Form.DefaultFont;
         public static Color defaultBackColor = Form.DefaultBackColor;
         public static Color defaultForeColor = Form.DefaultForeColor;

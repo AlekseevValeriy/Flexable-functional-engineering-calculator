@@ -154,7 +154,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "AboutBox";
-            this.Shown += new System.EventHandler(this.AboutBox_Shown);
+            this.Shown += new System.EventHandler(this.AboutBoxShown);
             this.tableLayoutPanel.ResumeLayout(false);
             this.tableLayoutPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).EndInit();
