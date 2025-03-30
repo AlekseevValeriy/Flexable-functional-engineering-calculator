@@ -112,6 +112,18 @@
             AppendConstantaLike(expression, variable);
         }
 
+        public static void Append(List<Composite> expression, CustomFunction function)
+        {
+            List<Composite> actualExpression = GetActualExpression(expression);
+
+            if (actualExpression.Count == 0 || actualExpression.Last() is Operator)
+            {
+                actualExpression.AddRange(function.GetExpression);
+            }
+            Update.Invoke();
+            ValidateVariableInExpression(expression);
+        }
+
         public static void ChangeSign(List<Composite> expression)
         {
             List<Composite> actualExpression = GetActualExpression(expression);
@@ -222,6 +234,7 @@
             }
 
             List<string> variableNames = Config.GetVariableNames();
+            //List<string> missing
 
             foreach (Composite composite in expression)
             {
@@ -234,6 +247,44 @@
 
             }
         }
+
+        public static void ValidateVariableInExpression(List<Composite> expression)
+        {
+            if (expression.Count == 0)
+            {
+                return;
+            }
+
+            List<string> actualVariableNames = Config.GetVariableNames();
+
+            List<string> expressionVariableNames = new List<string>();
+
+            List<string> missingVariableNames = new List<string>();
+
+            foreach (Composite composite in expression)
+            {
+                if (composite is Variable variable) expressionVariableNames.Add(variable.Record);
+                if (composite is IExpressionStoreable storable) expressionVariableNames.AddRange(storable.ContainsVariable());
+            }
+
+            foreach(string variableName in expressionVariableNames.Distinct())
+            {
+                if (!actualVariableNames.Contains(variableName)) missingVariableNames.Add(variableName);
+            }
+
+            if (missingVariableNames.Count != 0)
+            {
+                Messages.RaiseInformationMessage($"""
+                    Отсутствуют необходимые переменные:
+                    {string.Join(",\n", missingVariableNames)}.
+                    Пожалуйста, добавьте переменные и повторите попытку.
+                    """);
+                expression.Clear();
+                Update.Invoke();
+            }
+        }
+
+
         public static void UpdateDisplay()
         {
             Update.Invoke();

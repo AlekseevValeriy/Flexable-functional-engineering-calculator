@@ -1,4 +1,7 @@
-﻿namespace FFEC
+﻿using System.Linq.Expressions;
+using FFEC.ExpressionModule.Expression;
+
+namespace FFEC
 {
     internal class Composite
     {
@@ -79,6 +82,15 @@
         public Function(string meaning, FunctionMark mark) : base(meaning) { this.GetMark = mark; }
     }
 
+    internal class CustomFunction: Composite
+    {
+        public List<Composite> GetExpression { get; }
+        public CustomFunction(string meaning) : base(meaning) 
+        {
+            GetExpression = Input.ManualToExpression(JsonStorage.Configurations[Config.CurrentConfig]["CustomFunctions"][meaning].Value<string>());
+        }
+    }
+
     public enum FunctionMark
     {
         XPowerOfY, //
@@ -113,6 +125,22 @@
             Term secondResult = Calculate.SolutionEquation(secondExpression) as Term;
             result = new Term("0");
             result.Set(ArithmeticOperationsAdapter.GetOperation(markStorage)(firstResult.Value, secondResult.Value).ToString());
+        }
+
+        public List<string> ContainsVariable()
+        {
+            List<string> result = new List<string>();
+            foreach (Composite composite in firstExpression)
+            {
+                if (composite is Variable variable) result.Add(variable.Record);
+                else if (composite is IExpressionStoreable stoarable) result.AddRange(stoarable.ContainsVariable());
+            }
+            foreach (Composite composite in secondExpression)
+            {
+                if (composite is Variable variable) result.Add(variable.Record);
+                else if (composite is IExpressionStoreable stoarable) result.AddRange(stoarable.ContainsVariable());
+            }
+            return result;
         }
 
         public List<Composite> GetFirstExpression()
@@ -218,6 +246,16 @@
             result = Calculate.SolutionEquation(expression) as Term;
             result.Set(ArithmeticOperationsAdapter.GetOperation(markStorage)(result.Value).ToString());
         }
+        public List<string> ContainsVariable()
+        {
+            List<string> result = new List<string>();
+            foreach (Composite composite in expression)
+            {
+                if (composite is Variable variable) result.Add(variable.Record);
+                else if (composite is IExpressionStoreable stoarable) result.AddRange(stoarable.ContainsVariable());
+            }
+            return result;
+        }
 
         public List<Composite> GetExpression()
         {
@@ -289,6 +327,16 @@
         {
             result = Calculate.SolutionEquation(expression) as Term;
         }
+        public List<string> ContainsVariable()
+        {
+            List<string> result = new List<string>();
+            foreach (Composite composite in expression)
+            {
+                if (composite is Variable variable) result.Add(variable.Record);
+                else if (composite is IExpressionStoreable stoarable) result.AddRange(stoarable.ContainsVariable());
+            }
+            return result;
+        }
 
         public List<Composite> GetExpression()
         {
@@ -353,12 +401,18 @@
     {
         public VisualStaple(string meaning = "") : base(meaning) { }
     }
+    
+    internal class VisualEnd : Composite
+    {
+        public VisualEnd(string meaning = "") : base(meaning) { }
+    }
 
     internal interface IExpressionStoreable
     {
         List<Composite> GetActualExpression(List<Composite> expression);
         List<Composite> GetActualNotEmptyExpression(List<Composite> expression);
         List<Composite>? GetCurrentExpression();
+        List<string> ContainsVariable();
         IExpressionStoreable GetActualComposite();
         void Deconstruct(out Term result);
         void CloseWrite();

@@ -142,19 +142,17 @@
 
                     if (data["Sector"].Value<string>() == "Variables")
                     {
-                        if (!GetVariableNames().Contains(data["Name"].Value<string>()))
-                        {
-                            continue;
-                        }
-
+                        if (!GetVariableNames().Contains(data["Name"].Value<string>())) continue;
                         control = Handler.NewButton(data, data["Name"].Value<string>(), dockStyle);
-
-
+                    }
+                    else if (data["Sector"].Value<string>() == "Custom functions")
+                    {
+                        if(!GetCustomFunctionNames().Contains(data["Name"].Value<string>())) continue;
+                        control = Handler.NewButton(data, data["Name"].Value<string>(), dockStyle);
                     }
                     else
                     {
                         control = Handler.NewButton(data, JsonStorage.GetControlText(data["Sector"].Value<string>(), data["Name"].Value<string>()), dockStyle);
-
                     }
                     table = controlsTable;
                 }
@@ -172,6 +170,10 @@
         public static List<string> GetVariableNames()
         {
             return JsonStorage.Configurations[Config.CurrentConfig]["Variables"].ToObject<Dictionary<string, string>>().Select(x => x.Key).ToList();
+        }
+        public static List<string> GetCustomFunctionNames()
+        {
+            return JsonStorage.Configurations[Config.CurrentConfig]["CustomFunctions"].ToObject<Dictionary<string, string>>().Select(x => x.Key).ToList();
         }
     }
 }

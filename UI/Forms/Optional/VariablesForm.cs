@@ -72,7 +72,8 @@
             {
                 controls.UpdateRequiredTabs();
             } (Owner as CalculatorForm).UpdateVariablesOnPanel();
-            InputController.UpdateVariableInExpression(Global.expression);
+            //InputController.UpdateVariableInExpression(Global.expression);
+            InputController.ValidateVariableInExpression(Global.expression);
         }
 
         private void dataGridViewCellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)

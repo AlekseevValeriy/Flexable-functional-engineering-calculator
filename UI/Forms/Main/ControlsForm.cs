@@ -36,11 +36,12 @@
         private List<TabPage> GetRequiredTabs()
         {
             Dictionary<string, string> variables = JsonStorage.Configurations[Config.CurrentConfig]["Variables"].ToObject<Dictionary<string, string>>().ToDictionary(pair => pair.Key, pair => pair.Key);
+            Dictionary<string, string> functions = JsonStorage.Configurations[Config.CurrentConfig]["CustomFunctions"].ToObject<Dictionary<string, string>>().ToDictionary(pair => pair.Key, pair => pair.Key);
 
             Dictionary<string, Dictionary<string, string>> localControlsData = new Dictionary<string, Dictionary<string, string>>
             {
                 ["Variables"] = variables,
-                ["Custom functions"] = JsonStorage.Configurations[Config.CurrentConfig]["CustomFunctions"].ToObject<Dictionary<string, string>>()
+                ["Custom functions"] = functions
             };
 
             List<TabPage> readyTabPages = [];

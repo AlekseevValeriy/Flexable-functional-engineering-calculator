@@ -1,4 +1,5 @@
-﻿using FFEC.UI.Forms.Optional;
+﻿using FFEC.ExpressionModule.Expression;
+using FFEC.UI.Forms.Optional;
 
 namespace FFEC
 {
@@ -8,8 +9,12 @@ namespace FFEC
         private ControlsForm ControlsForm { get; set; }
         private LayoutMenegerForm LayoutForm { get; set; }
         private VariablesForm VariablesForm { get; set; }
-        private FunctionEnter FunctionEnterForm { get; set; }
 
+#if DEBUG
+        private FunctionEnterDebug FunctionEnterForm { get; set; }
+#else
+        private FunctionEnter FunctionEnterForm { get; set; }
+#endif
         private string currentConfiguration { get; set; }
 
         public CalculatorForm()
@@ -35,7 +40,12 @@ namespace FFEC
 
         private void UpdateFunctionEnterDisplay()
         {
+#if DEBUG
             Handler.UpdateDisplayRecord(Global.expression, FunctionEnterForm.Display);
+            Handler.UpdateDisplayRecord(Global.expression, FunctionEnterForm.Manual);
+#else
+            Handler.UpdateDisplayRecord(Global.expression, FunctionEnterForm.Display);
+#endif
         }
 
         private void InitializeOwnedForms()
@@ -43,7 +53,11 @@ namespace FFEC
             ControlsForm = new ControlsForm() { Owner = Global.owner };
             LayoutForm = new LayoutMenegerForm() { Owner = Global.owner, SubOwners = new Dictionary<string, Form> { { "Controls", ControlsForm }, { "Variables", VariablesForm } } };
             VariablesForm = new VariablesForm() { Owner = Global.owner, SubOwners = new Dictionary<string, Form> { { "Controls", ControlsForm } } };
+#if DEBUG
+            FunctionEnterForm = new FunctionEnterDebug() { Owner = this };
+#else
             FunctionEnterForm = new FunctionEnter() { Owner = this };
+#endif
         }
 
         private void InitializeTitle()
@@ -291,13 +305,7 @@ namespace FFEC
             }
             catch (Exception exception)
             {
-                MessageBox.Show
-                    (
-                    caption: "Уведомление",
-                    icon: MessageBoxIcon.Information,
-                    text: $"Иницилизация конфигурации завершилась неудачно: {exception.Message}",
-                    buttons: MessageBoxButtons.OK
-                    );
+                Messages.RaiseInformationMessage($"Иницилизация конфигурации завершилась неудачно: {exception.Message}");
             }
             InitializeMenuStrip();
         }
@@ -455,8 +463,11 @@ namespace FFEC
             {
                 return;
             }
-
+#if DEBUG
+            FunctionEnterForm = new FunctionEnterDebug() { Owner = this };
+#else
             FunctionEnterForm = new FunctionEnter() { Owner = this };
+#endif
             FunctionEnterForm.Show();
 
             Global.expression.Clear();
@@ -470,11 +481,19 @@ namespace FFEC
 
         public void functionAddEnd(object sender = null, EventArgs e = null)
         {
+#if DEBUG
+            if ((sender as FunctionEnterDebug).DialogResult is DialogResult.OK)
+            {
+                string localManual = string.Empty;
+                JsonStorage.Configurations[Config.CurrentConfig]["CustomFunctions"][(sender as FunctionEnterDebug).FunctionName] = localManual = Output.ExpressionToManual(Global.expression);
+                MessageBox.Show(Output.ExpressionToRecord(Input.ManualToExpression(localManual)));
+            }
+#else        
             if ((sender as FunctionEnter).DialogResult is DialogResult.OK)
             {
                 JsonStorage.Configurations[Config.CurrentConfig]["CustomFunctions"][(sender as FunctionEnter).FunctionName] = Output.ExpressionToManual(Global.expression);
             }
-
+#endif
             InputController.Update -= UpdateFunctionEnterDisplay;
             InputController.Update += UpdateMainDisplay;
             Global.expression.Clear();

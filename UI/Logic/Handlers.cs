@@ -35,6 +35,7 @@
             return data["Name"].Value<string>() switch
             {
                 "Base" => Output.ExpressionToRecord,
+                "Manual" => Output.ExpressionToManual,
                 _ => (List<Composite> expression, bool debug) => ""
             };
         }
@@ -87,12 +88,9 @@
                         catch (DivideByZeroException)
                         {
                             byte jokesCount = (byte)JsonStorage.Egg["ZeroDivisionHumiliation"].Count();
-                            while (Messages.RaiseJokeMessage(JsonStorage.Egg["ZeroDivisionHumiliation"][Global.random.Next(0, jokesCount)].Value<string>()) is not DialogResult.Cancel)
-                            {
-                                Global.expression.Clear();
-                            }
-
-                            InputController.Equally(ref Global.expression);
+                            while (Messages.RaiseJokeMessage(JsonStorage.Egg["ZeroDivisionHumiliation"][Global.random.Next(0, jokesCount)].Value<string>()) is not DialogResult.Cancel) { }
+                            Global.expression.Clear();
+                            InputController.UpdateDisplay();
                         }
                     }
                     ,
@@ -110,51 +108,51 @@
                 },
                 "Operators" => name switch
                 {
-                    "Append" => (object sender, EventArgs e) => { InputController.Append(Global.expression, new Operator("+", OperatorMark.Add)); }
+                    "Append" => (object sender, EventArgs e) => { InputController.Append(Global.expression, new Operator(OutputView.GetViewByMark(OperatorMark.Add), OperatorMark.Add)); }
                     ,
-                    "Subtract" => (object sender, EventArgs e) => { InputController.Append(Global.expression, new Operator("-", OperatorMark.Subtract)); }
+                    "Subtract" => (object sender, EventArgs e) => { InputController.Append(Global.expression, new Operator(OutputView.GetViewByMark(OperatorMark.Subtract), OperatorMark.Subtract)); }
                     ,
-                    "Multiply" => (object sender, EventArgs e) => { InputController.Append(Global.expression, new Operator("×", OperatorMark.Multiply)); }
+                    "Multiply" => (object sender, EventArgs e) => { InputController.Append(Global.expression, new Operator(OutputView.GetViewByMark(OperatorMark.Multiply), OperatorMark.Multiply)); }
                     ,
-                    "Division" => (object sender, EventArgs e) => { InputController.Append(Global.expression, new Operator("÷", OperatorMark.Division)); }
+                    "Division" => (object sender, EventArgs e) => { InputController.Append(Global.expression, new Operator(OutputView.GetViewByMark(OperatorMark.Division), OperatorMark.Division)); }
                     ,
-                    "Modular" => (object sender, EventArgs e) => { InputController.Append(Global.expression, new Operator("mod", OperatorMark.Modular)); }
+                    "Modular" => (object sender, EventArgs e) => { InputController.Append(Global.expression, new Operator(OutputView.GetViewByMark(OperatorMark.Modular), OperatorMark.Modular)); }
                     ,
                     _ => (object sender, EventArgs e) => { }
                 },
                 "Function" => name switch
                 {
-                    "NaturalLogarithm" => (object sender, EventArgs e) => { InputController.Append(Global.expression, new SingularFunction("ln", FunctionMark.NaturalLogarithm)); }
+                    "NaturalLogarithm" => (object sender, EventArgs e) => { InputController.Append(Global.expression, new SingularFunction(OutputView.GetViewByMark(FunctionMark.NaturalLogarithm), FunctionMark.NaturalLogarithm)); }
                     ,
-                    "EPowerOfX" => (object sender, EventArgs e) => { InputController.Append(Global.expression, new SingularFunction("ePower", FunctionMark.EPowerOfX)); }
+                    "EPowerOfX" => (object sender, EventArgs e) => { InputController.Append(Global.expression, new SingularFunction(OutputView.GetViewByMark(FunctionMark.EPowerOfX), FunctionMark.EPowerOfX)); }
                     ,
-                    "DecimalLogarithm" => (object sender, EventArgs e) => { InputController.Append(Global.expression, new SingularFunction("lg", FunctionMark.DecimalLogarithm)); }
+                    "DecimalLogarithm" => (object sender, EventArgs e) => { InputController.Append(Global.expression, new SingularFunction(OutputView.GetViewByMark(FunctionMark.DecimalLogarithm), FunctionMark.DecimalLogarithm)); }
                     ,
-                    "LogarithmOfXBasedOnY" => (object sender, EventArgs e) => { InputController.Append(Global.expression, new BinaryFunction("log", FunctionMark.LogarithmOfXBasedOnY)); }
+                    "LogarithmOfXBasedOnY" => (object sender, EventArgs e) => { InputController.Append(Global.expression, new BinaryFunction(OutputView.GetViewByMark(FunctionMark.LogarithmOfXBasedOnY), FunctionMark.LogarithmOfXBasedOnY)); }
                     ,
-                    "TenPowerOfX" => (object sender, EventArgs e) => { InputController.Append(Global.expression, new SingularFunction("tenPower", FunctionMark.TenPowerOfX)); }
+                    "TenPowerOfX" => (object sender, EventArgs e) => { InputController.Append(Global.expression, new SingularFunction(OutputView.GetViewByMark(FunctionMark.TenPowerOfX), FunctionMark.TenPowerOfX)); }
                     ,
-                    "TwoPowerOfX" => (object sender, EventArgs e) => { InputController.Append(Global.expression, new SingularFunction("twoPower", FunctionMark.TwoPowerOfX)); }
+                    "TwoPowerOfX" => (object sender, EventArgs e) => { InputController.Append(Global.expression, new SingularFunction(OutputView.GetViewByMark(FunctionMark.TwoPowerOfX), FunctionMark.TwoPowerOfX)); }
                     ,
-                    "XPowerOfY" => (object sender, EventArgs e) => { InputController.Append(Global.expression, new BinaryFunction("power", FunctionMark.XPowerOfY)); }
+                    "XPowerOfY" => (object sender, EventArgs e) => { InputController.Append(Global.expression, new BinaryFunction(OutputView.GetViewByMark(FunctionMark.XPowerOfY), FunctionMark.XPowerOfY)); }
                     ,
-                    "YRootOfX" => (object sender, EventArgs e) => { InputController.Append(Global.expression, new BinaryFunction("root", FunctionMark.YRootOfX)); }
+                    "YRootOfX" => (object sender, EventArgs e) => { InputController.Append(Global.expression, new BinaryFunction(OutputView.GetViewByMark(FunctionMark.YRootOfX), FunctionMark.YRootOfX)); }
                     ,
-                    "XPowerOfTwo" => (object sender, EventArgs e) => { InputController.Append(Global.expression, new SingularFunction("powerOfTwo", FunctionMark.XPowerOfTwo)); }
+                    "XPowerOfTwo" => (object sender, EventArgs e) => { InputController.Append(Global.expression, new SingularFunction(OutputView.GetViewByMark(FunctionMark.XPowerOfTwo), FunctionMark.XPowerOfTwo)); }
                     ,
-                    "XPowerOfThree" => (object sender, EventArgs e) => { InputController.Append(Global.expression, new SingularFunction("powerOfThree", FunctionMark.XPowerOfThree)); }
+                    "XPowerOfThree" => (object sender, EventArgs e) => { InputController.Append(Global.expression, new SingularFunction(OutputView.GetViewByMark(FunctionMark.XPowerOfThree), FunctionMark.XPowerOfThree)); }
                     ,
-                    "SquareRootOfX" => (object sender, EventArgs e) => { InputController.Append(Global.expression, new SingularFunction("squareRoot", FunctionMark.SquareRootOfX)); }
+                    "SquareRootOfX" => (object sender, EventArgs e) => { InputController.Append(Global.expression, new SingularFunction(OutputView.GetViewByMark(FunctionMark.SquareRootOfX), FunctionMark.SquareRootOfX)); }
                     ,
-                    "CubicRootOfX" => (object sender, EventArgs e) => { InputController.Append(Global.expression, new SingularFunction("cubicRoot", FunctionMark.CubicRootOfX)); }
+                    "CubicRootOfX" => (object sender, EventArgs e) => { InputController.Append(Global.expression, new SingularFunction(OutputView.GetViewByMark(FunctionMark.CubicRootOfX), FunctionMark.CubicRootOfX)); }
                     ,
-                    "XReverse" => (object sender, EventArgs e) => { InputController.Append(Global.expression, new SingularFunction("reverse", FunctionMark.XReverse)); }
+                    "XReverse" => (object sender, EventArgs e) => { InputController.Append(Global.expression, new SingularFunction(OutputView.GetViewByMark(FunctionMark.XReverse), FunctionMark.XReverse)); }
                     ,
-                    "XAbsolute" => (object sender, EventArgs e) => { InputController.Append(Global.expression, new SingularFunction("abs", FunctionMark.XAbsolute)); }
+                    "XAbsolute" => (object sender, EventArgs e) => { InputController.Append(Global.expression, new SingularFunction(OutputView.GetViewByMark(FunctionMark.XAbsolute), FunctionMark.XAbsolute)); }
                     ,
-                    "Exponential" => (object sender, EventArgs e) => { InputController.Append(Global.expression, new SingularFunction("exp", FunctionMark.Exponential)); }
+                    "Exponential" => (object sender, EventArgs e) => { InputController.Append(Global.expression, new SingularFunction(OutputView.GetViewByMark(FunctionMark.Exponential), FunctionMark.Exponential)); }
                     ,
-                    "NFactorial" => (object sender, EventArgs e) => { InputController.Append(Global.expression, new SingularFunction("factorial", FunctionMark.NFactorial)); }
+                    "NFactorial" => (object sender, EventArgs e) => { InputController.Append(Global.expression, new SingularFunction(OutputView.GetViewByMark(FunctionMark.NFactorial), FunctionMark.NFactorial)); }
                     ,
                     _ => (object sender, EventArgs e) => { }
                 },
@@ -213,6 +211,11 @@
                 "Variables" => name switch
                 {
                     _ => (object sender, EventArgs e) => { InputController.Append(Global.expression, new Variable(name)); }
+                },
+                "Custom functions" => name switch
+                {
+                    _ => (object sender, EventArgs e) => { InputController.Append(Global.expression, new CustomFunction(name)); }
+                    //_ => (object sender, EventArgs e) => { InputController.Append(Global.expression, new Variable(name)); }
                 },
                 _ => (object sender, EventArgs e) => { }
             };
@@ -461,16 +464,10 @@
                             {
                                 switch (data["Sector"].Value<string>())
                                 {
-                                    case "Variables":
-                                        {
-                                            panel.Controls.Add(NewButton(data, data["Name"].Value<string>()));
-                                            break;
-                                        }
+                                    case "Variables" or "Custom functions":
+                                        panel.Controls.Add(NewButton(data, data["Name"].Value<string>())); break;
                                     default:
-                                        {
-                                            panel.Controls.Add(NewButton(data, JsonStorage.GetControlText(data["Sector"].Value<string>(), data["Name"].Value<string>())));
-                                            break;
-                                        }
+                                        panel.Controls.Add(NewButton(data, JsonStorage.GetControlText(data["Sector"].Value<string>(), data["Name"].Value<string>()))); break;
                                 }
                                 break;
                             }
@@ -478,8 +475,7 @@
 
                     if (data.ContainsKey("PreviousPosition"))
                     {
-                        byte[] previousPosition = new byte[2] { data["PreviousPosition"][0].Value<byte>(), data["PreviousPosition"][1].Value<byte>() };
-                        ((Panel)((TableLayoutPanel)panel.Parent).GetControlFromPosition(previousPosition[0], previousPosition[1])).Controls.Clear();
+                        ((Panel)((TableLayoutPanel)panel.Parent).GetControlFromPosition(data["PreviousPosition"][0].Value<byte>(), data["PreviousPosition"][1].Value<byte>())).Controls.Clear();
                     }
 
                 }

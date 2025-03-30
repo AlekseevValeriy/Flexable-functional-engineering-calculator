@@ -5,11 +5,18 @@
       "BorderView": false
     },
     "Variables": {
-      "Name": 0,
-      "Name2": "12"
+      "Name": 12
     },
     "CustomFunctions": {
-      "123": "FFEC.Term {1};FFEC.Operator {Subtract};FFEC.Term {5};FFEC.Operator {Add};FFEC.Term {3};FFEC.Operator {Multiply};FFEC.Variable {Name, 0};FFEC.Operator {Division};FFEC.Term {0,5}"
+      "A": "Term~1;Operator~Subtract;Term~5;Operator~Add;Term~3;Operator~Multiply;Variable~Name;Operator~Division;Term~0,5",
+      "B": "Term~1;Operator~Multiply;Term~9",
+      "C": "Term~1;Operator~Multiply;Term~6;Operator~Subtract;Term~6",
+      "D": "Term~1;Operator~Multiply;Term~8,08",
+      "E": "Term~6;Operator~Division;Term~9;Operator~Subtract;Term~6;Operator~Division;SingularFunction~XAbsolute;VisualEnd",
+      "F": "Term~5;Operator~Division;Term~9;Operator~Multiply;Term~6;Operator~Add;SingularFunction~NaturalLogarithm;Term~9;Operator~Multiply;Term~8;VisualEnd;Operator~Add;SingularFunction~XAbsolute;Term~8;VisualEnd",
+      "G": "Term~9;Operator~Division;Variable~Name;Operator~Add;Variable~Name2",
+      "Y": "Term~9;Operator~Division;BinaryFunction~YRootOfX;Term~9;Operator~Subtract;Term~6;VisualEnd;Variable~Name;Operator~Subtract;Term~6;VisualEnd;Operator~Division;Term~8",
+      "Z": "Term~1;Operator~Add;Staples;VisualEnd"
     },
     "Form": {
       "Size": [
@@ -27,8 +34,8 @@
         1
       ],
       "Controls": [
-        4,
-        4
+        5,
+        5
       ]
     },
     "MenuStrip": {
@@ -101,8 +108,8 @@
         ],
         "Placement": "Fill",
         "Size": [
-          86,
-          58
+          68,
+          45
         ],
         "Lock": false
       },
@@ -115,8 +122,8 @@
         ],
         "Placement": "Fill",
         "Size": [
-          86,
-          58
+          68,
+          45
         ],
         "Lock": false
       },
@@ -129,8 +136,8 @@
         ],
         "Placement": "Fill",
         "Size": [
-          86,
-          58
+          68,
+          45
         ],
         "Lock": false
       },
@@ -143,8 +150,22 @@
         ],
         "Placement": "Fill",
         "Size": [
-          89,
-          58
+          68,
+          45
+        ],
+        "Lock": false
+      },
+      {
+        "Sector": "Custom functions",
+        "Name": "Y",
+        "PositionByCell": [
+          4,
+          0
+        ],
+        "Placement": "Fill",
+        "Size": [
+          69,
+          45
         ],
         "Lock": false
       },
@@ -157,8 +178,8 @@
         ],
         "Placement": "Fill",
         "Size": [
-          86,
-          58
+          68,
+          45
         ],
         "Lock": false
       },
@@ -171,8 +192,8 @@
         ],
         "Placement": "Fill",
         "Size": [
-          86,
-          58
+          68,
+          45
         ],
         "Lock": false
       },
@@ -185,8 +206,8 @@
         ],
         "Placement": "Fill",
         "Size": [
-          86,
-          58
+          68,
+          45
         ],
         "Lock": false
       },
@@ -199,8 +220,8 @@
         ],
         "Placement": "Fill",
         "Size": [
-          89,
-          58
+          68,
+          45
         ],
         "Lock": false
       },
@@ -213,8 +234,8 @@
         ],
         "Placement": "Fill",
         "Size": [
-          86,
-          58
+          68,
+          45
         ],
         "Lock": false
       },
@@ -227,8 +248,8 @@
         ],
         "Placement": "Fill",
         "Size": [
-          86,
-          58
+          68,
+          45
         ],
         "Lock": false
       },
@@ -241,8 +262,8 @@
         ],
         "Placement": "Fill",
         "Size": [
-          86,
-          58
+          68,
+          45
         ],
         "Lock": false
       },
@@ -255,8 +276,8 @@
         ],
         "Placement": "Fill",
         "Size": [
-          89,
-          58
+          68,
+          45
         ],
         "Lock": false
       },
@@ -269,8 +290,8 @@
         ],
         "Placement": "Fill",
         "Size": [
-          86,
-          60
+          68,
+          45
         ],
         "Lock": false
       },
@@ -283,8 +304,8 @@
         ],
         "Placement": "Fill",
         "Size": [
-          86,
-          60
+          68,
+          45
         ],
         "Lock": false
       },
@@ -297,8 +318,8 @@
         ],
         "Placement": "Fill",
         "Size": [
-          86,
-          60
+          68,
+          45
         ],
         "Lock": false
       },
@@ -311,8 +332,92 @@
         ],
         "Placement": "Fill",
         "Size": [
-          89,
-          60
+          68,
+          45
+        ],
+        "Lock": false
+      },
+      {
+        "Sector": "Function",
+        "Name": "YRootOfX",
+        "PositionByCell": [
+          4,
+          3
+        ],
+        "Placement": "Fill",
+        "Size": [
+          69,
+          45
+        ],
+        "Lock": false
+      },
+      {
+        "Sector": "Actions",
+        "Name": "Parenthesis",
+        "PositionByCell": [
+          0,
+          4
+        ],
+        "Placement": "Fill",
+        "Size": [
+          68,
+          48
+        ],
+        "Lock": false
+      },
+      {
+        "Sector": "Actions",
+        "Name": "CloseFunctionWrite",
+        "PositionByCell": [
+          1,
+          4
+        ],
+        "Placement": "Fill",
+        "Size": [
+          68,
+          48
+        ],
+        "Lock": false
+      },
+      {
+        "Sector": "Function",
+        "Name": "XAbsolute",
+        "PositionByCell": [
+          2,
+          4
+        ],
+        "Placement": "Fill",
+        "Size": [
+          68,
+          48
+        ],
+        "Lock": false
+      },
+      {
+        "Sector": "Function",
+        "Name": "NaturalLogarithm",
+        "PositionByCell": [
+          3,
+          4
+        ],
+        "Placement": "Fill",
+        "Size": [
+          68,
+          48
+        ],
+        "Lock": false
+      },
+      {
+        "Sector": "Function",
+        "Name": "LogarithmOfXBasedOnY",
+        "PositionByCell": [
+          4,
+          4
+        ],
+        "Placement": "Fill",
+        "Size": [
+          69,
+          48
         ],
         "Lock": false
       }
@@ -391,7 +496,6 @@
       "BorderView": false
     },
     "Variables": {
-      "x": "16",
       "y": "4"
     },
     "CustomFunctions": {
