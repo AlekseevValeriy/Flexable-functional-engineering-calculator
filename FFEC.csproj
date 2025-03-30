@@ -59,6 +59,11 @@
     </Compile>
     <Compile Include="Data\DataConverter.cs" />
     <Compile Include="ExpressionModule\Expression\Input.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="UI\Forms\Optional\AboutBox.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -98,6 +103,9 @@
     <EmbeddedResource Include="UI\Forms\Optional\FunctionEnter.resx">
       <DependentUpon>FunctionEnter.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\Optional\HelpForm.resx">
+      <DependentUpon>HelpForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\Optional\LocationChoiceForm.resx">
       <DependentUpon>LocationChoiceForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -123,6 +131,12 @@
     </Compile>
     <Compile Include="UI\Forms\Optional\FunctionEnter.Designer.cs">
       <DependentUpon>FunctionEnter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Forms\Optional\HelpForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\Optional\HelpForm.Designer.cs">
+      <DependentUpon>HelpForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Forms\Optional\LayoutMenegerForm.cs">
       <SubType>Form</SubType>
@@ -185,13 +199,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <None Include="Data\Json\Config.json" />
     <None Include="Data\Json\Controls.json" />
     <None Include="Data\Json\Translate.json" />
@@ -208,6 +218,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Data\Resources\BackToArrow.png" />
+    <Content Include="Data\Resources\NextPageArrow.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

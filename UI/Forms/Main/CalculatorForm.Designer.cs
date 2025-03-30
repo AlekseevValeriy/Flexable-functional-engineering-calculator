@@ -68,6 +68,7 @@
             this.functionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.variablesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.помощьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.displayTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.controlTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
@@ -84,7 +85,8 @@
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.макетToolStripMenuItem,
             this.variablesToolStripMenuItem,
-            this.aboutToolStripMenuItem});
+            this.aboutToolStripMenuItem,
+            this.помощьToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
             this.menuStrip.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
@@ -394,7 +396,7 @@
             // 
             this.functionToolStripMenuItem.Name = "functionToolStripMenuItem";
             this.functionToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F)));
-            this.functionToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.functionToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
             this.functionToolStripMenuItem.Text = "Функция";
             this.functionToolStripMenuItem.Click += new System.EventHandler(this.functionAddStart);
             // 
@@ -411,6 +413,13 @@
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(94, 20);
             this.aboutToolStripMenuItem.Text = "О программе";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.AboutToolStripMenuItemClick);
+            // 
+            // помощьToolStripMenuItem
+            // 
+            this.помощьToolStripMenuItem.Name = "помощьToolStripMenuItem";
+            this.помощьToolStripMenuItem.Size = new System.Drawing.Size(68, 20);
+            this.помощьToolStripMenuItem.Text = "Помощь";
+            this.помощьToolStripMenuItem.Click += new System.EventHandler(this.HelpToolClick);
             // 
             // splitContainer
             // 
@@ -527,6 +536,7 @@
         private ToolStripMenuItem addendumMenuItem;
         private ToolStripMenuItem functionToolStripMenuItem;
         private ToolStripMenuItem saveLayoutMenuItem;
+        private ToolStripMenuItem помощьToolStripMenuItem;
     }
 }
 

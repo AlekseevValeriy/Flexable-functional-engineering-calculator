@@ -3,20 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\valer\\OneDrive\\Documents\\GitHub\\Engineering-calculator\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{DE382DFB-8A38-4982-867E-9EB3071D5D6F}|FFEC.csproj|c:\\users\\valer\\onedrive\\documents\\github\\engineering-calculator\\data\\json\\configurations.json||{3B902123-F8A7-4915-9F01-361F908088D0}",
-      "RelativeMoniker": "D:0:0:{DE382DFB-8A38-4982-867E-9EB3071D5D6F}|FFEC.csproj|solutionrelative:data\\json\\configurations.json||{3B902123-F8A7-4915-9F01-361F908088D0}"
+      "AbsoluteMoniker": "D:0:0:{DE382DFB-8A38-4982-867E-9EB3071D5D6F}|FFEC.csproj|c:\\users\\valer\\onedrive\\documents\\github\\engineering-calculator\\ui\\forms\\main\\calculatorform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DE382DFB-8A38-4982-867E-9EB3071D5D6F}|FFEC.csproj|solutionrelative:ui\\forms\\main\\calculatorform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DE382DFB-8A38-4982-867E-9EB3071D5D6F}|FFEC.csproj|c:\\users\\valer\\onedrive\\documents\\github\\engineering-calculator\\ui\\logic\\expressioninteraction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DE382DFB-8A38-4982-867E-9EB3071D5D6F}|FFEC.csproj|solutionrelative:ui\\logic\\expressioninteraction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DE382DFB-8A38-4982-867E-9EB3071D5D6F}|FFEC.csproj|c:\\users\\valer\\onedrive\\documents\\github\\engineering-calculator\\ui\\forms\\main\\controlsform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DE382DFB-8A38-4982-867E-9EB3071D5D6F}|FFEC.csproj|solutionrelative:ui\\forms\\main\\controlsform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DE382DFB-8A38-4982-867E-9EB3071D5D6F}|FFEC.csproj|c:\\users\\valer\\onedrive\\documents\\github\\engineering-calculator\\expressionmodule\\expression\\components.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{DE382DFB-8A38-4982-867E-9EB3071D5D6F}|FFEC.csproj|C:\\Users\\valer\\OneDrive\\Documents\\GitHub\\Engineering-calculator\\ui\\forms\\main\\calculatorform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{DE382DFB-8A38-4982-867E-9EB3071D5D6F}|FFEC.csproj|solutionrelative:ui\\forms\\main\\calculatorform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE382DFB-8A38-4982-867E-9EB3071D5D6F}|FFEC.csproj|C:\\Users\\valer\\OneDrive\\Documents\\GitHub\\Engineering-calculator\\expressionmodule\\expression\\components.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DE382DFB-8A38-4982-867E-9EB3071D5D6F}|FFEC.csproj|solutionrelative:expressionmodule\\expression\\components.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DE382DFB-8A38-4982-867E-9EB3071D5D6F}|FFEC.csproj|c:\\users\\valer\\onedrive\\documents\\github\\engineering-calculator\\expressionmodule\\expression\\input.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DE382DFB-8A38-4982-867E-9EB3071D5D6F}|FFEC.csproj|solutionrelative:expressionmodule\\expression\\input.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -50,7 +50,45 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ControlsForm.cs",
+              "DocumentMoniker": "C:\\Users\\valer\\OneDrive\\Documents\\GitHub\\Engineering-calculator\\UI\\Forms\\Main\\ControlsForm.cs",
+              "RelativeDocumentMoniker": "UI\\Forms\\Main\\ControlsForm.cs",
+              "ToolTip": "C:\\Users\\valer\\OneDrive\\Documents\\GitHub\\Engineering-calculator\\UI\\Forms\\Main\\ControlsForm.cs",
+              "RelativeToolTip": "UI\\Forms\\Main\\ControlsForm.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-30T19:44:00.458Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "CalculatorForm.cs",
+              "DocumentMoniker": "C:\\Users\\valer\\OneDrive\\Documents\\GitHub\\Engineering-calculator\\UI\\Forms\\Main\\CalculatorForm.cs",
+              "RelativeDocumentMoniker": "UI\\Forms\\Main\\CalculatorForm.cs",
+              "ToolTip": "C:\\Users\\valer\\OneDrive\\Documents\\GitHub\\Engineering-calculator\\UI\\Forms\\Main\\CalculatorForm.cs",
+              "RelativeToolTip": "UI\\Forms\\Main\\CalculatorForm.cs",
+              "ViewState": "AgIAAG4AAAAAAAAAAAAAwIUAAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-30T19:41:12.901Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 2,
+              "Title": "CalculatorForm.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "DocumentMoniker": "C:\\Users\\valer\\OneDrive\\Documents\\GitHub\\Engineering-calculator\\UI\\Forms\\Main\\CalculatorForm.cs",
+              "RelativeDocumentMoniker": "UI\\Forms\\Main\\CalculatorForm.cs",
+              "ToolTip": "C:\\Users\\valer\\OneDrive\\Documents\\GitHub\\Engineering-calculator\\UI\\Forms\\Main\\CalculatorForm.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "RelativeToolTip": "UI\\Forms\\Main\\CalculatorForm.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-30T19:12:01.605Z",
+              "EditorCaption": " [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "Components.cs",
               "DocumentMoniker": "C:\\Users\\valer\\OneDrive\\Documents\\GitHub\\Engineering-calculator\\ExpressionModule\\Expression\\Components.cs",
               "RelativeDocumentMoniker": "ExpressionModule\\Expression\\Components.cs",
@@ -59,45 +97,6 @@
               "ViewState": "AgIAAG0AAAAAAAAAAAAkwI0AAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-30T17:14:40.175Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Configurations.json",
-              "DocumentMoniker": "C:\\Users\\valer\\OneDrive\\Documents\\GitHub\\Engineering-calculator\\Data\\Json\\Configurations.json",
-              "RelativeDocumentMoniker": "Data\\Json\\Configurations.json",
-              "ToolTip": "C:\\Users\\valer\\OneDrive\\Documents\\GitHub\\Engineering-calculator\\Data\\Json\\Configurations.json",
-              "RelativeToolTip": "Data\\Json\\Configurations.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAALAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-03-30T17:10:41.446Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Input.cs",
-              "DocumentMoniker": "C:\\Users\\valer\\OneDrive\\Documents\\GitHub\\Engineering-calculator\\ExpressionModule\\Expression\\Input.cs",
-              "RelativeDocumentMoniker": "ExpressionModule\\Expression\\Input.cs",
-              "ToolTip": "C:\\Users\\valer\\OneDrive\\Documents\\GitHub\\Engineering-calculator\\ExpressionModule\\Expression\\Input.cs",
-              "RelativeToolTip": "ExpressionModule\\Expression\\Input.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-30T17:09:24.768Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ExpressionInteraction.cs",
-              "DocumentMoniker": "C:\\Users\\valer\\OneDrive\\Documents\\GitHub\\Engineering-calculator\\UI\\Logic\\ExpressionInteraction.cs",
-              "RelativeDocumentMoniker": "UI\\Logic\\ExpressionInteraction.cs",
-              "ToolTip": "C:\\Users\\valer\\OneDrive\\Documents\\GitHub\\Engineering-calculator\\UI\\Logic\\ExpressionInteraction.cs",
-              "RelativeToolTip": "UI\\Logic\\ExpressionInteraction.cs",
-              "ViewState": "AgIAAPEAAAAAAAAAAAAUwBsBAAANAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-30T14:41:51.733Z",
               "EditorCaption": ""
             }
           ]

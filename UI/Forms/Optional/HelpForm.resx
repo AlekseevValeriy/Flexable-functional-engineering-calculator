@@ -117,4 +117,29 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="backToButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
+        EQAACxEBf2RfkQAAAWhJREFUSEvt1s0uBEEUhuG+CQuDiaUFK5ZcgARxG/6vxVKwsbQf3MkQe8LOzw7h
+        /RKVnFROdVV3YyzmS57MTKerTqqmuqqrcf5j+tjDFa7x+k3fdW0XM/ixTOEI7/jM+MA5ZtEpm3iBV6TO
+        MzbQKgfQCLyOS6jtPhpFI+1SNFAfxSOfRun0PmARy+ZaTNPeQzan8DqIqeg8lCV49wTHqI0emZLVa4vq
+        U7+9+wL1qZlMRovBa2g9YgHKHO7h3RfbQTKX8BoFTUdqDZDMLbxG0nakgXa4ZLQCvUai1as0HWmgvpMZ
+        WeEbeI0knuo7ePelDJHMyBaXjjavkdV25FtIRufpb2wgb6jdQJQTeI1jtnhuy9R5no0O/rrVbam4iq6Y
+        a7EnTKIoqyiZ8hwdi+toFO3bXV8E9I7WKjrES6fd0vSuoVMmcAitTK+IpVGeofg/LYkeBx1tF9AupLcU
+        0XdtDtvIPjLj/HGq6gsIH5tVWr3WNwAAAABJRU5ErkJggg==
+</value>
+  </data>
+  <data name="nextPageButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
+        EQAACxEBf2RfkQAAAV9JREFUSEvt1rtKA0EUxvF9CQujBksLrbQzLyCo+Bren8VS1CalfUzeJIq9op2X
+        TkX/H7iwLOfMZVeNRT74QVh25jCT2ZkppvmP6eIQI1zj9Zt+69kBFvBjmcMp3vEZ8YFLLKJVdvACq0jI
+        M7bRKMfQCKyOU6jtEbKikbYpWlIfySOfR2h617GGh8qzEE17B9FcwOqgtAplGanFzxCMPpnY6lUxFVVS
+        i6tPzaQbLQarYd0jVqAs4Q7We1X7cDOE1ciSO/IB3NzCauTJGbl2ODdagVajkOrItdqtd0R9u5lY4RtY
+        jTz1qb6H9Z6M4WZii0tHm9WoLmekpV240Xn6GxvIG4IbiHIOq3GpyZap8zwaHfyh1d1DziHxhFkkZQMp
+        N44YHYtbyIr27bYXAd3RGkWHeJNNRdO7iVaZwQm0Mq0iVRplH8n/aUr0Oehou4J2Id1SRL+1Oewh+slM
+        88cpii/YtJtUXvFNiQAAAABJRU5ErkJggg==
+</value>
+  </data>
 </root>

@@ -15,6 +15,7 @@ namespace FFEC
 #else
         private FunctionEnter FunctionEnterForm { get; set; }
 #endif
+        private HelpForm HelpForm { get; set; }
         private string currentConfiguration { get; set; }
 
         public CalculatorForm()
@@ -58,6 +59,7 @@ namespace FFEC
 #else
             FunctionEnterForm = new FunctionEnter() { Owner = this };
 #endif
+            HelpForm = new HelpForm() { Owner = this };
         }
 
         private void InitializeTitle()
@@ -125,6 +127,16 @@ namespace FFEC
             VariablesForm.Show();
         }
 
+        private void HelpToolClick(object sender, EventArgs e)
+        {
+            if (!HelpForm.closed)
+            {
+                return;
+            }
+
+            HelpForm = new HelpForm() { Owner = this };
+            HelpForm.Show();
+        }
 
         private void BordersToolClick(object sender, EventArgs e)
         {
@@ -498,6 +510,7 @@ namespace FFEC
             InputController.Update += UpdateMainDisplay;
             Global.expression.Clear();
         }
+
     }
 
 }

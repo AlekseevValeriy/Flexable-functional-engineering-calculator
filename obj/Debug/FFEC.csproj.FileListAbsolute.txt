@@ -37,3 +37,4 @@ C:\Users\valer\OneDrive\Documents\GitHub\Engineering-calculator\obj\Debug\FFEC.U
 C:\Users\valer\OneDrive\Documents\GitHub\Engineering-calculator\obj\Debug\FFEC.UI.Forms.Optional.VariableEnterForm.resources
 C:\Users\valer\OneDrive\Documents\GitHub\Engineering-calculator\obj\Debug\FFEC.UI.Forms.Optional.FunctionEnter.resources
 C:\Users\valer\OneDrive\Documents\GitHub\Engineering-calculator\obj\Debug\FFEC.UI.Forms.Optional.FunctionEnterDebug.resources
+C:\Users\valer\OneDrive\Documents\GitHub\Engineering-calculator\obj\Debug\FFEC.UI.Forms.Optional.HelpForm.resources
